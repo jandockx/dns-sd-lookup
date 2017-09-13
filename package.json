@@ -1,0 +1,70 @@
+{
+  "name": "dns-sd-lookup",
+  "version": "0.0.0-dev.0",
+  "description": "Node library and CLI script that looks up service instance definitions for a service type defined with DNS-SD (RFC 6763)",
+  "main": "index.js",
+  "bin": {
+    "dns_sd_lookup": "./bin/dns_sd_lookup.js"
+  },
+  "keywords": [
+    "registry",
+    "service",
+    "DNS",
+    "DNS-SD",
+    "PTR",
+    "SRV",
+    "TXT",
+    "RFC 6763"
+  ],
+  "homepage": "https://bitbucket.org/toryt/dns-sd-lookup",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/toryt/dns-sd-lookup.git"
+  },
+  "bugs": "https://bitbucket.org/toryt/dns-sd-lookup/issues",
+  "author": {
+    "name": "Jan Dockx",
+    "email": "jandockx@gmail.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=v6.11.3"
+  },
+  "dependencies": {
+    "@toryt/contracts-iii": "^3.1.0",
+    "commander": "^2.11.0",
+    "engine-check": "^1.0.0",
+    "pkginfo": "^0.4.1",
+    "rc": "^1.2.1",
+    "validator": "^8.1.0"
+  },
+  "devDependencies": {
+    "cartesian": "^1.0.1",
+    "child-process-es6-promise": "^1.1.0",
+    "legally": "^2.9.0",
+    "mocha": "^3.5.0",
+    "mocha-reporter": "^0.0.3",
+    "must": "github:jandockx/js-must#fork/0.13.4/1",
+    "npm-check": "^5.4.5",
+    "nyc": "^11.2.1",
+    "proxyquire": "^1.8.0",
+    "sinon": "^3.2.1",
+    "standard": "^10.0.3"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 100,
+    "statements": 100,
+    "functions": 100,
+    "branches": 100,
+    "reporter": [
+      "html",
+      "text"
+    ]
+  },
+  "scripts": {
+    "pretest": "npm-check -i mocha-reporter -i standard -i npm-check -i legally -i child-process-es6-promise",
+    "test": "standard && nyc mocha 'test/**/*Test.js'"
+  }
+}
