@@ -1,0 +1,46 @@
+image: node:boron # latest node@6 LTS; at this commit, using v6.11.3
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - node
+        script:
+          - export NODE_ENV="ci"
+          - echo 'node:' `node --version`
+          - echo 'npm:' `npm --version`
+          - curl -o- -L https://yarnpkg.com/install.sh | bash -s
+           # latest yarn; at this commit, using 1.0.1
+           # add `-- --version 1.0.1` to fix a version (see https://yarnpkg.com/en/docs/install#alternatives-tab)
+          - export PATH=$HOME/.yarn/bin:$PATH
+          - echo 'yarn:' `yarn --version`
+          - yarn
+          - echo 'branch:' `git rev-parse --abbrev-ref HEAD`
+          - echo 'tags:' `git name-rev --tags --name-only $(git rev-parse HEAD)`
+          - echo 'sha:' `git rev-parse --verify HEAD`
+          - echo $NODE_ENV
+          - yarn test
+          - yarn run legally -- -l -r
+  branches:
+    abandoned/*:
+      # no automated tests
+    ci/node_8:
+      # same as default, but with a different image
+      - step:
+          image: node:8 # latest node@8
+          caches:
+            - node
+          script:
+            - export NODE_ENV="ci"
+            - echo 'node:' `node --version`
+            - echo 'npm:' `npm --version`
+            - curl -o- -L https://yarnpkg.com/install.sh | bash -s
+            - export PATH=$HOME/.yarn/bin:$PATH
+            - echo 'yarn:' `yarn --version`
+            - yarn
+            - echo 'branch:' `git rev-parse --abbrev-ref HEAD`
+            - echo 'tags:' `git name-rev --tags --name-only $(git rev-parse HEAD)`
+            - echo 'sha:' `git rev-parse --verify HEAD`
+            - echo $NODE_ENV
+            - yarn test
+            - yarn run legally -- -l -r
