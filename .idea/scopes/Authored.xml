@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Authored" pattern="!file[dns-sd-lookup]:.idea//*&amp;&amp;!file:package-lock.json&amp;&amp;!file:yarn.lock&amp;&amp;!file[dns-sd-lookup]:.nyc_output//*&amp;&amp;!file[dns-sd-lookup]:coverage//*&amp;&amp" />
+</component>
