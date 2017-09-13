@@ -1,6 +1,10 @@
-Node CLI script that looks up service instance definitions for a service type defined with DNS-SD (RFC 6763).
+Node CLI script that looks up service instance definitions for a service type defined with [DNS-SD] ([RFC 6763]).
 
 The functionality can also be used as a library in another component.
+
+**There is no support for Multicast DNS in this library.** This library
+only does lookups in regular DNS. The functionality is comparable to
+`dns-sd -B` and `dns-sd -L` (see [dns-sd]). 
 
 
 
@@ -126,6 +130,9 @@ This code uses [Standard] coding style.
 
 
 
+[DNS-SD]: http://www.dns-sd.org
+[RFC 6763]: https://www.ietf.org/rfc/rfc6763.txt
+[dns-sd]: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dns-sd.1.html
 [Node]: https://nodejs.org/
 [Yarn]: https://yarnpkg.com/
 [rc]: https://www.npmjs.com/package/rc
