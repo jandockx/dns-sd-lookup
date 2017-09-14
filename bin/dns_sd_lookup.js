@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const lookup = require('../lib/lookup')
+const discover = require('../lib/discover')
 
 // noinspection SpellCheckingInspection
 const serviceTypes = [
@@ -9,7 +9,7 @@ const serviceTypes = [
 
 // noinspection JSUnresolvedFunction
 Promise
-  .all(serviceTypes.map(serviceType => lookup(serviceType)))
+  .all(serviceTypes.map(serviceType => discover(serviceType)))
   .catch(err => {
     console.error(err)
   })
