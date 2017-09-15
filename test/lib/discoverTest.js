@@ -5,7 +5,7 @@ const discover = require('../../lib/discover')
 // noinspection SpellCheckingInspection
 const serviceType = '_test._sub._unittest._tcp.dns-sd-lookup.toryt.org'
 
-describe('lookup', function () {
+describe('discover', function () {
   it('works in the nominal case', function () {
     // noinspection JSUnresolvedVariable
     return discover(serviceType).must.fulfill(details => {
