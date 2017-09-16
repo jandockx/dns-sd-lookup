@@ -2,14 +2,16 @@
 
 const extract = require('../../lib/extract')
 const x = require('cartesian')
+const must = require('must')
 
 const domain = 'dns-sd-lookup.toryt.org'
 const protocols = ['tcp', 'udp']
 const serviceType = 'a-service-type'
 const serviceSubTypes = [
   '',
-  '_a-sub-service._sub',
-  '_a.complex.sub.service._sub'
+  '_a-sub-service',
+  '_a.complex.sub.service',
+  'sub service type without an underscore' // this is allowed under RFC 6763
 ]
 // noinspection SpellCheckingInspection
 const instances = [
@@ -21,7 +23,11 @@ function createService (prefix) {
   return prefix ? `${prefix}._${serviceType}` : `_${serviceType}`
 }
 
-const services = serviceSubTypes.concat(instances).map(createService)
+function createSubPrefix (subtype) {
+  return subtype ? `${subtype}._sub` : ''
+}
+
+const services = serviceSubTypes.map(createSubPrefix).concat(instances).map(createService)
 
 function createFqdn (c) {
   return `${c.service}._${c.protocol}.${domain}`
@@ -90,6 +96,30 @@ describe('extract', function () {
         const result = extract.instance(fqdn)
         console.log('%s --> %s', fqdn, result)
         result.must.equal(c.instance)
+      })
+    })
+  })
+
+  describe('#subtype', function () {
+    const cases = x({
+      subtype: serviceSubTypes,
+      protocol: protocols
+    })
+    // noinspection JSUnresolvedFunction
+    cases.forEach(c => {
+      const fqdn = createFqdn({
+        service: createService(createSubPrefix(c.subtype)),
+        protocol: c.protocol
+      })
+      it(`works as expected for ${fqdn}`, function () {
+        const result = extract.subtype(fqdn)
+        console.log('%s --> %s', fqdn, result)
+        if (c.subtype) {
+          const expected = c.subtype.startsWith('_') ? c.subtype.substring(1) : c.subtype
+          result.must.equal(expected)
+        } else {
+          must(result).be.undefined()
+        }
       })
     })
   })
