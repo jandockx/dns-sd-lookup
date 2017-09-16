@@ -12,7 +12,7 @@ const prefix = [
   '_a-sub-service._sub',
   '_a.complex.sub.service._sub',
   'a-service-instance',
-  'A Human Readable Sérvice Type'
+  'A Human Readable Sérvice Instance'
 ]
 const services = prefix.map(p => p ? `${p}._${serviceType}` : `_${serviceType}`)
 
