@@ -6,15 +6,22 @@ const x = require('cartesian')
 const domain = 'dns-sd-lookup.toryt.org'
 const protocols = ['tcp', 'udp']
 const serviceType = 'a-service-type'
-// noinspection SpellCheckingInspection
-const prefix = [
+const serviceSubTypes = [
   '',
   '_a-sub-service._sub',
-  '_a.complex.sub.service._sub',
+  '_a.complex.sub.service._sub'
+]
+// noinspection SpellCheckingInspection
+const instances = [
   'a-service-instance',
   'A Human Readable Sérvice Instance'
 ]
-const services = prefix.map(p => p ? `${p}._${serviceType}` : `_${serviceType}`)
+
+function createService (prefix) {
+  return prefix ? `${prefix}._${serviceType}` : `_${serviceType}`
+}
+
+const services = serviceSubTypes.concat(instances).map(createService)
 
 function createFqdn (c) {
   return `${c.service}._${c.protocol}.${domain}`
@@ -64,6 +71,25 @@ describe('extract', function () {
         const result = extract.type(fqdn)
         console.log('%s --> %s', fqdn, result)
         result.must.equal(serviceType)
+      })
+    })
+  })
+
+  describe('#instance', function () {
+    const cases = x({
+      instance: instances,
+      protocol: protocols
+    })
+    // noinspection JSUnresolvedFunction
+    cases.forEach(c => {
+      const fqdn = createFqdn({
+        service: createService(c.instance),
+        protocol: c.protocol
+      })
+      it(`works as expected for ${fqdn}`, function () {
+        const result = extract.instance(fqdn)
+        console.log('%s --> %s', fqdn, result)
+        result.must.equal(c.instance)
       })
     })
   })
