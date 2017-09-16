@@ -8,7 +8,8 @@ const protocols = ['udp', 'tcp']
 function createKwargs (protocol) {
   return {
     domain: 'dns-sd-lookup.toryt.org',
-    protocol: protocol
+    protocol: protocol,
+    type: 'a-service-type'
   }
 }
 
@@ -66,6 +67,8 @@ describe('ServiceInstance', () => {
         reverse.domain.must.equal(subject.domain)
         // noinspection JSUnresolvedVariable
         reverse.protocol.must.equal(subject.protocol)
+        // noinspection JSUnresolvedVariable
+        reverse.type.must.equal(subject.type)
         console.log(reverse)
         const fullCircle = new ServiceInstance(reverse)
         fullCircle.must.eql(subject)
