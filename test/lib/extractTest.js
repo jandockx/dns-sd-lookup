@@ -115,8 +115,7 @@ describe('extract', function () {
         const result = extract.subtype(fqdn)
         console.log('%s --> %s', fqdn, result)
         if (c.subtype) {
-          const expected = c.subtype.startsWith('_') ? c.subtype.substring(1) : c.subtype
-          result.must.equal(expected)
+          result.must.equal(c.subtype)
         } else {
           must(result).be.undefined()
         }
