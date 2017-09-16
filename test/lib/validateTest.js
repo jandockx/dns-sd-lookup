@@ -75,7 +75,7 @@ describe('validate', function () {
   })
 
   describe('#isValidDomainNamePart', function () {
-    it('works on a good part', function () {
+    it('true on a good part', function () {
       const result = validate.isValidDomainNamePart('a-valid09-€₰૱εέ𒀪©∭∏∇𐡀☯°廓DOMAIN-é--name-part')
       result.must.be.true()
     })
@@ -93,8 +93,73 @@ describe('validate', function () {
       'has-a- -space'
     ]
     wrongParts.forEach(part => {
-      it('fails on wrong part ' + part, function () {
+      it('false on wrong part ' + part, function () {
         const result = validate.isValidDomainNamePart(part)
+        result.must.be.false()
+      })
+    })
+  })
+
+  describe('#isNatural', function () {
+    const rights = [
+      0,
+      1,
+      34e34,
+      Number.MAX_SAFE_INTEGER,
+      Number.MAX_VALUE
+    ]
+    rights.forEach(nr => {
+      it('true on ' + nr, function () {
+        const result = validate.isNatural(nr)
+        result.must.be.true()
+      })
+    })
+    const rights2 = [
+      0,
+      1,
+      4
+    ]
+    rights2.forEach(nr => {
+      it('true on ' + nr + ' with a maximum', function () {
+        const result = validate.isNatural(nr, 4)
+        result.must.be.true()
+      })
+    })
+    const wrongs = [
+      undefined,
+      null,
+      {},
+      '',
+      'string',
+      new Date(),
+      true,
+      false,
+      /abc/,
+      Math.PI,
+      3 / 5,
+      Number.POSITIVE_INFINITY,
+      -1,
+      -Math.PI,
+      Number.MIN_VALUE,
+      Number.MIN_SAFE_INTEGER,
+      Number.NEGATIVE_INFINITY,
+      Number.NaN
+    ]
+    wrongs.forEach(w => {
+      it('false on ' + w, function () {
+        const result = validate.isNatural(w)
+        result.must.be.false()
+      })
+    })
+    const wrongs2 = [
+      5,
+      34e34,
+      Number.MAX_SAFE_INTEGER,
+      Number.MAX_VALUE
+    ]
+    wrongs2.forEach(w => {
+      it('false on ' + w + ' with a maximum', function () {
+        const result = validate.isNatural(w, 4)
         result.must.be.false()
       })
     })
