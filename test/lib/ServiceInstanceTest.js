@@ -6,10 +6,12 @@ const x = require('cartesian')
 const protocols = ['udp', 'tcp']
 
 function createKwargs (protocol) {
+  // noinspection SpellCheckingInspection
   return {
     domain: 'dns-sd-lookup.toryt.org',
     protocol: protocol,
-    type: 'a-service-type'
+    type: 'a-service-type',
+    instance: 'This Is a Servîce Instance ∆ Name'
   }
 }
 
@@ -69,6 +71,8 @@ describe('ServiceInstance', () => {
         reverse.protocol.must.equal(subject.protocol)
         // noinspection JSUnresolvedVariable
         reverse.type.must.equal(subject.type)
+        // noinspection JSUnresolvedVariable
+        reverse.instance.must.equal(subject.instance)
         console.log(reverse)
         const fullCircle = new ServiceInstance(reverse)
         fullCircle.must.eql(subject)
