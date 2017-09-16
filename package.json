@@ -65,7 +65,7 @@
     ]
   },
   "scripts": {
-    "pretest": "npm-check -i mocha-reporter -i standard -i npm-check -i legally -i child-process-es6-promise -i @toryt/contracts-iii -i commander -i engine-check -i pkginfo -i rc -i validator -i cartesian -i proxyquire -i sinon",
+    "pretest": "npm-check -i mocha-reporter -i standard -i npm-check -i legally -i child-process-es6-promise -i commander -i engine-check -i pkginfo -i rc -i proxyquire -i sinon",
     "test": "standard && nyc mocha 'test/**/*Test.js'"
   }
 }
