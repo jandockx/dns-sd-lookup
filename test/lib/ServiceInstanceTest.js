@@ -2,15 +2,18 @@
 
 const ServiceInstance = require('../../lib/ServiceInstance')
 const x = require('cartesian')
+const must = require('must')
 
 const protocols = ['udp', 'tcp']
+const subtypes = [null, 'a-subtype', '_A Subtype']
 
-function createKwargs (protocol) {
+function createKwargs (protocol, subtype) {
   // noinspection SpellCheckingInspection
   return {
     domain: 'dns-sd-lookup.toryt.org',
     protocol: protocol,
     type: 'a-service-type',
+    subtype: subtype,
     instance: 'This Is a Servîce Instance ∆ Name'
   }
 }
@@ -35,12 +38,13 @@ describe('ServiceInstance', () => {
     })
 
     const cases = x({
-      protocol: protocols
+      protocol: protocols,
+      subtype: subtypes
     })
     // noinspection JSUnresolvedFunction
     cases.forEach(c => {
-      it(`works as expected for ${c.protocol}`, function () {
-        const kwargs = createKwargs(c.protocol)
+      it(`works as expected for protocol '${c.protocol}' and subtype '${c.subtype}'`, function () {
+        const kwargs = createKwargs(c.protocol, c.subtype)
         const subject = new ServiceInstance(kwargs)
         subject.must.be.instanceof(ServiceInstance)
         subject.must.be.frozen()
@@ -52,12 +56,13 @@ describe('ServiceInstance', () => {
   })
   describe('stringify', () => {
     const cases = x({
-      protocol: protocols
+      protocol: protocols,
+      subtype: subtypes
     })
     // noinspection JSUnresolvedFunction
     cases.forEach(c => {
-      it(`can be stringified for ${c.protocol}`, function () {
-        const kwargs = createKwargs(c.protocol)
+      it(`can be stringified for protocol '${c.protocol}' and subtype '${c.subtype}'`, function () {
+        const kwargs = createKwargs(c.protocol, c.subtype)
         const subject = new ServiceInstance(kwargs)
         const result = JSON.stringify(subject)
         result.must.be.a.string()
@@ -71,6 +76,8 @@ describe('ServiceInstance', () => {
         reverse.protocol.must.equal(subject.protocol)
         // noinspection JSUnresolvedVariable
         reverse.type.must.equal(subject.type)
+        // noinspection JSUnresolvedVariable
+        must(reverse.subtype).equal(subject.subtype)
         // noinspection JSUnresolvedVariable
         reverse.instance.must.equal(subject.instance)
         console.log(reverse)
