@@ -2,19 +2,33 @@
 
 const ServiceInstance = require('../../lib/ServiceInstance')
 const x = require('cartesian')
-const must = require('must')
 
 const protocols = ['udp', 'tcp']
-const subtypes = [null, 'a-subtype', '_A Subtype']
 
-function createKwargs (protocol, subtype) {
+const domains = [
+  'dns-sd-lookup1.toryt.org',
+  'dns-sd-lookup2.toryt.org'
+]
+const types = [
+  '_a-service-type',
+  'sub type._sub._a-service-type'
+]
+const instanceName = 'This is An Instance Name'
+
+const cases = x({
+  typeDomain: domains,
+  protocol: protocols,
+  type: types,
+  instanceDomain: domains
+})
+
+function createKwargs (c) {
+  const type = `${c.type}._${c.protocol}.${c.typeDomain}`
+  const instance = `${instanceName}.${c.type}._${c.protocol}.${c.instanceDomain}`
   // noinspection SpellCheckingInspection
   return {
-    domain: 'dns-sd-lookup.toryt.org',
-    protocol: protocol,
-    type: 'a-service-type',
-    subtype: subtype,
-    instance: 'This Is a Servîce Instance ∆ Name'
+    type: type,
+    instance: instance
   }
 }
 
@@ -37,14 +51,10 @@ describe('ServiceInstance', () => {
       )
     })
 
-    const cases = x({
-      protocol: protocols,
-      subtype: subtypes
-    })
     // noinspection JSUnresolvedFunction
     cases.forEach(c => {
-      it(`works as expected for protocol '${c.protocol}' and subtype '${c.subtype}'`, function () {
-        const kwargs = createKwargs(c.protocol, c.subtype)
+      const kwargs = createKwargs(c)
+      it(`works as expected for type '${kwargs.type}' and instance '${kwargs.instance}'`, function () {
         const subject = new ServiceInstance(kwargs)
         subject.must.be.instanceof(ServiceInstance)
         subject.must.be.frozen()
@@ -54,15 +64,13 @@ describe('ServiceInstance', () => {
       })
     })
   })
+
   describe('stringify', () => {
-    const cases = x({
-      protocol: protocols,
-      subtype: subtypes
-    })
     // noinspection JSUnresolvedFunction
     cases.forEach(c => {
-      it(`can be stringified for protocol '${c.protocol}' and subtype '${c.subtype}'`, function () {
-        const kwargs = createKwargs(c.protocol, c.subtype)
+      const kwargs = createKwargs(c)
+      it(`can be stringified for type '${kwargs.type}' and instance '${kwargs.instance}'`, function () {
+        const kwargs = createKwargs(c)
         const subject = new ServiceInstance(kwargs)
         const result = JSON.stringify(subject)
         result.must.be.a.string()
@@ -71,13 +79,7 @@ describe('ServiceInstance', () => {
         const reverse = JSON.parse(result)
         reverse.must.be.an.object()
         // noinspection JSUnresolvedVariable
-        reverse.domain.must.equal(subject.domain)
-        // noinspection JSUnresolvedVariable
-        reverse.protocol.must.equal(subject.protocol)
-        // noinspection JSUnresolvedVariable
         reverse.type.must.equal(subject.type)
-        // noinspection JSUnresolvedVariable
-        must(reverse.subtype).equal(subject.subtype)
         // noinspection JSUnresolvedVariable
         reverse.instance.must.equal(subject.instance)
         console.log(reverse)
