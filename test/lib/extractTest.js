@@ -16,13 +16,17 @@ const prefix = [
 ]
 const services = prefix.map(p => p ? p + '.' + serviceType : serviceType)
 
+function createFqdn (c) {
+  return `${c.service}._${c.protocol}.${domain}`
+}
+
 describe('extract', function () {
   describe('#domain', function () {
     // noinspection JSUnresolvedFunction
     const fqdns = x({
       service: services,
       protocol: protocols
-    }).map(c => `${c.service}._${c.protocol}.${domain}`)
+    }).map(createFqdn)
     fqdns.forEach(fqdn => {
       it(`works as expected for ${fqdn}`, function () {
         const result = extract.domain(fqdn)
@@ -39,7 +43,7 @@ describe('extract', function () {
     })
     // noinspection JSUnresolvedFunction
     cases.forEach(c => {
-      const fqdn = `${c.service}._${c.protocol}.${domain}`
+      const fqdn = createFqdn(c)
       it(`works as expected for ${fqdn}`, function () {
         const result = extract.protocol(fqdn)
         console.log('%s --> %s', fqdn, result)
