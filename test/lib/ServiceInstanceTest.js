@@ -28,7 +28,8 @@ function createKwargs (c) {
   // noinspection SpellCheckingInspection
   return {
     type: type,
-    instance: instance
+    instance: instance,
+    host: 'hostname.hostdomain.toryt.org'
   }
 }
 
