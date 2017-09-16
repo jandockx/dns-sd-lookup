@@ -29,7 +29,10 @@ function createKwargs (c) {
   return {
     type: type,
     instance: instance,
-    host: 'hostname.hostdomain.toryt.org'
+    host: 'hostname.hostdomain.toryt.org',
+    port: 34243,
+    priority: 232,
+    weight: 8963
   }
 }
 
