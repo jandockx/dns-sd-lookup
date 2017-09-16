@@ -1,9 +1,15 @@
 /* eslint-env mocha */
 
 const ServiceInstance = require('../../lib/ServiceInstance')
+const x = require('cartesian')
 
-function createKwargs () {
-  return {domain: 'dns-sd-lookup.toryt.org'}
+const protocols = ['udp', 'tcp']
+
+function createKwargs (protocol) {
+  return {
+    domain: 'dns-sd-lookup.toryt.org',
+    protocol: protocol
+  }
 }
 
 describe('ServiceInstance', () => {
@@ -24,30 +30,46 @@ describe('ServiceInstance', () => {
         ServiceInstance.implementation
       )
     })
-    it('works as expected', function () {
-      const kwargs = createKwargs()
-      const subject = new ServiceInstance(kwargs)
-      subject.must.be.instanceof(ServiceInstance)
-      // noinspection JSUnresolvedFunction
-      subject.must.be.valid()
-      console.log(subject)
+
+    const cases = x({
+      protocol: protocols
+    })
+    // noinspection JSUnresolvedFunction
+    cases.forEach(c => {
+      it(`works as expected for ${c.protocol}`, function () {
+        const kwargs = createKwargs(c.protocol)
+        const subject = new ServiceInstance(kwargs)
+        subject.must.be.instanceof(ServiceInstance)
+        subject.must.be.frozen()
+        // noinspection JSUnresolvedFunction
+        subject.must.be.valid()
+        console.log(subject)
+      })
     })
   })
   describe('stringify', () => {
-    it('can be stringified', function () {
-      const kwargs = createKwargs()
-      const subject = new ServiceInstance(kwargs)
-      const result = JSON.stringify(subject)
-      result.must.be.a.string()
-      result.must.match(/^{.*}$/)
-      console.log(result)
-      const reverse = JSON.parse(result)
-      reverse.must.be.an.object()
-      // noinspection JSUnresolvedVariable
-      reverse.domain.must.equal(subject.domain)
-      console.log(reverse)
-      const fullCircle = new ServiceInstance(reverse)
-      fullCircle.must.eql(subject)
+    const cases = x({
+      protocol: protocols
+    })
+    // noinspection JSUnresolvedFunction
+    cases.forEach(c => {
+      it(`can be stringified for ${c.protocol}`, function () {
+        const kwargs = createKwargs(c.protocol)
+        const subject = new ServiceInstance(kwargs)
+        const result = JSON.stringify(subject)
+        result.must.be.a.string()
+        result.must.match(/^{.*}$/)
+        console.log(result)
+        const reverse = JSON.parse(result)
+        reverse.must.be.an.object()
+        // noinspection JSUnresolvedVariable
+        reverse.domain.must.equal(subject.domain)
+        // noinspection JSUnresolvedVariable
+        reverse.protocol.must.equal(subject.protocol)
+        console.log(reverse)
+        const fullCircle = new ServiceInstance(reverse)
+        fullCircle.must.eql(subject)
+      })
     })
   })
 })
