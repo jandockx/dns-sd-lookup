@@ -5,7 +5,7 @@ const x = require('cartesian')
 
 const domain = 'dns-sd-lookup.toryt.org'
 const protocols = ['tcp', 'udp']
-const serviceType = '_a-service-type'
+const serviceType = 'a-service-type'
 // noinspection SpellCheckingInspection
 const prefix = [
   '',
@@ -14,7 +14,7 @@ const prefix = [
   'a-service-instance',
   'A Human Readable Sérvice Type'
 ]
-const services = prefix.map(p => p ? p + '.' + serviceType : serviceType)
+const services = prefix.map(p => p ? `${p}._${serviceType}` : `_${serviceType}`)
 
 function createFqdn (c) {
   return `${c.service}._${c.protocol}.${domain}`
@@ -48,6 +48,22 @@ describe('extract', function () {
         const result = extract.protocol(fqdn)
         console.log('%s --> %s', fqdn, result)
         result.must.equal(c.protocol)
+      })
+    })
+  })
+
+  describe('#type', function () {
+    const cases = x({
+      service: services,
+      protocol: protocols
+    })
+    // noinspection JSUnresolvedFunction
+    cases.forEach(c => {
+      const fqdn = createFqdn(c)
+      it(`works as expected for ${fqdn}`, function () {
+        const result = extract.type(fqdn)
+        console.log('%s --> %s', fqdn, result)
+        result.must.equal(serviceType)
       })
     })
   })
