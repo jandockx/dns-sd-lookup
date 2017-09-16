@@ -15,11 +15,24 @@ const types = [
 ]
 const instanceName = 'This is An Instance Name'
 
+const detailObjects = [
+  {},
+  {
+    txtvers: 1
+  },
+  {
+    at: JSON.stringify(new Date(2017, 9, 17, 0, 33, 14.535)),
+    path: '/a/path',
+    txtvers: 23
+  }
+]
+
 const cases = x({
   typeDomain: domains,
   protocol: protocols,
   type: types,
-  instanceDomain: domains
+  instanceDomain: domains,
+  details: detailObjects
 })
 
 function createKwargs (c) {
@@ -32,7 +45,8 @@ function createKwargs (c) {
     host: 'hostname.hostdomain.toryt.org',
     port: 34243,
     priority: 232,
-    weight: 8963
+    weight: 8963,
+    details: c.details
   }
 }
 
@@ -86,6 +100,14 @@ describe('ServiceInstance', () => {
         reverse.type.must.equal(subject.type)
         // noinspection JSUnresolvedVariable
         reverse.instance.must.equal(subject.instance)
+        // noinspection JSUnresolvedVariable
+        reverse.host.must.equal(subject.host)
+        // noinspection JSUnresolvedVariable
+        reverse.port.must.equal(subject.port)
+        // noinspection JSUnresolvedVariable
+        reverse.priority.must.equal(subject.priority)
+        // noinspection JSUnresolvedVariable
+        reverse.details.must.eql(subject.details)
         console.log(reverse)
         const fullCircle = new ServiceInstance(reverse)
         fullCircle.must.eql(subject)
