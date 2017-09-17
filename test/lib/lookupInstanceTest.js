@@ -27,11 +27,11 @@
 const lookupInstance = require('../../lib/lookupInstance')
 const ServiceInstance = require('../../lib/ServiceInstance')
 
-// noinspection SpellCheckingInspection
-const instanceNameCompletion = '_type-1-instance-no-subtype._tcp.dns-sd-lookup.toryt.org'
+const nameCompletion = '._tcp.dns-sd-lookup.toryt.org'
 
-// noinspection SpellCheckingInspection
-const instanceName = 'instance 1.' + instanceNameCompletion
+const typeName = '_type-1-instance-no-subtype' + nameCompletion
+
+const instanceName = 'instance 1.' + typeName
 
 // see ../terraform/type_with_1_instance.tf
 const expected = {
@@ -41,7 +41,7 @@ const expected = {
   port: 4242,
   priority: 43,
   txtvers: 1,
-  type: '_type-1-instance-no-subtype._tcp.dns-sd-lookup.toryt.org',
+  type: typeName,
   weight: 44
 }
 
@@ -71,7 +71,7 @@ describe('lookupInstance', function () {
 
   it('fails with non-existent instance', function () {
     // noinspection JSUnresolvedVariable
-    return lookupInstance('does-not-exist.' + instanceNameCompletion).must.betray(error => {
+    return lookupInstance('does-not-exist.' + typeName).must.betray(error => {
       error.must.be.an.instanceof(Error)
       error.message.must.match(lookupInstance.notFoundMessage)
       error.cause.must.be.an.instanceof(Error)
@@ -80,8 +80,46 @@ describe('lookupInstance', function () {
     })
   })
 
+  it('fails with an instance with 2 TXTs', function () {
+    // noinspection JSUnresolvedVariable
+    return lookupInstance('instance 2._type-2-double-txt' + nameCompletion).must.betray(error => {
+      error.must.be.an.instanceof(Error)
+/*
+      error.message.must.match(lookupInstance.notFoundMessage)
+      error.cause.must.be.an.instanceof(Error)
+      error.cause.message.must.match(/ENOTFOUND/)
+*/
+      console.log(error)
+    })
+  })
+
+  it('fails with an instance with 2 SRVs', function () {
+    // noinspection JSUnresolvedVariable
+    return lookupInstance('instance 3._type-3-double-srv' + nameCompletion).must.betray(error => {
+      error.must.be.an.instanceof(Error)
+/*
+      error.message.must.match(lookupInstance.notFoundMessage)
+      error.cause.must.be.an.instanceof(Error)
+      error.cause.message.must.match(/ENOTFOUND/)
+*/
+      console.log(error)
+    })
+  })
+
+  it('fails with an instance with 2 TXTs and 2 SRVs', function () {
+    // noinspection JSUnresolvedVariable
+    return lookupInstance('instance 4._type-4-double-txt-srv' + nameCompletion).must.betray(error => {
+      error.must.be.an.instanceof(Error)
+/*
+      error.message.must.match(lookupInstance.notFoundMessage)
+      error.cause.must.be.an.instanceof(Error)
+      error.cause.message.must.match(/ENOTFOUND/)
+*/
+      console.log(error)
+    })
+  })
+
   // MUDO add test when only TXT, or only SRV exists
-  // MUDO add test for more than 1 TXT found, more than 1 SRV found, more then 1 of both found
   // MUDO add test with TXT string without =, with = in value
   // IDEA add support for TXT string with escaped `= in key
 })
