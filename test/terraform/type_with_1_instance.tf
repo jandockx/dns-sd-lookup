@@ -129,7 +129,7 @@ resource "aws_route53_record" "instance-double_srv-srv" {
 }
 
 locals {
-  instance-double_txt_srv-type          = "type-4-double-srv"
+  instance-double_txt_srv-type          = "type-4-double-txt-srv"
   instance-double_txt_srv-full_type     = "_${local.instance-double_txt_srv-type}.${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
   instance-double_txt_srv-instance      = "Instance\\0404"
   instance-double_txt_srv-full_instance = "${local.instance-double_txt_srv-instance}._${local.instance-double_txt_srv-full_type}"
