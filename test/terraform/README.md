@@ -15,3 +15,10 @@ service definition changes, it might take a maximum of the TTL, and half the TTL
 on average (plus a few seconds), before clients know about the change. Also,
 access of the SOA will be more frequent with a shorter TTL, which results in higher
 traffic costs at AWS.
+
+If this fails …
+===============
+
+… you probably forgot to commit and push. The scripts in 
+`@ppwcode/terraform-ppwcode-modules` don't want to apply if the repo
+is unsafe.  
