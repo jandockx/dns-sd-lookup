@@ -48,9 +48,9 @@ module "instance-type_with_1_instance_no_subtype" {
 
 locals {
   instance-double_txt-type          = "type-2-double-txt"
-  instance-double_txt-full_type     = "_${local.instance-double_txt-type}.${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
+  instance-double_txt-full_type     = "_${local.instance-double_txt-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
   instance-double_txt-instance      = "Instance\\0402"
-  instance-double_txt-full_instance = "${local.instance-double_txt-instance}._${local.instance-double_txt-full_type}"
+  instance-double_txt-full_instance = "${local.instance-double_txt-instance}.${local.instance-double_txt-full_type}"
 }
 
 resource "aws_route53_record" "instance-double_txt-ptr" {
@@ -89,9 +89,9 @@ resource "aws_route53_record" "instance-double_txt-srv" {
 
 locals {
   instance-double_srv-type          = "type-3-double-srv"
-  instance-double_srv-full_type     = "_${local.instance-double_srv-type}.${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
+  instance-double_srv-full_type     = "_${local.instance-double_srv-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
   instance-double_srv-instance      = "Instance\\0403"
-  instance-double_srv-full_instance = "${local.instance-double_srv-instance}._${local.instance-double_srv-full_type}"
+  instance-double_srv-full_instance = "${local.instance-double_srv-instance}.${local.instance-double_srv-full_type}"
 }
 
 resource "aws_route53_record" "instance-double_srv-ptr" {
@@ -130,9 +130,9 @@ resource "aws_route53_record" "instance-double_srv-srv" {
 
 locals {
   instance-double_txt_srv-type          = "type-4-double-txt-srv"
-  instance-double_txt_srv-full_type     = "_${local.instance-double_txt_srv-type}.${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
+  instance-double_txt_srv-full_type     = "_${local.instance-double_txt_srv-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
   instance-double_txt_srv-instance      = "Instance\\0404"
-  instance-double_txt_srv-full_instance = "${local.instance-double_txt_srv-instance}._${local.instance-double_txt_srv-full_type}"
+  instance-double_txt_srv-full_instance = "${local.instance-double_txt_srv-instance}.${local.instance-double_txt_srv-full_type}"
 }
 
 resource "aws_route53_record" "instance-double_txt_srv-ptr" {

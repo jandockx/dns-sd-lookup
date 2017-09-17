@@ -35,14 +35,14 @@ const instanceName = 'instance 1.' + typeName
 
 // see ../terraform/type_with_1_instance.tf
 const expected = {
-  aDetail: 'This is a detail',
+  aDetail: 'This is a detail 1',
   host: 'host-of-instance-1.dns-sd-lookup.toryt.org',
   instance: instanceName,
-  port: 4242,
-  priority: 43,
-  txtvers: 1,
+  port: 4141,
+  priority: 42,
+  txtvers: 44,
   type: typeName,
-  weight: 44
+  weight: 43
 }
 
 describe('lookupInstance', function () {
@@ -82,7 +82,7 @@ describe('lookupInstance', function () {
 
   it('fails with an instance with 2 TXTs', function () {
     // noinspection JSUnresolvedVariable
-    return lookupInstance('instance 2._type-2-double-txt' + nameCompletion).must.betray(error => {
+    return lookupInstance('instance2._type-2-double-txt' + nameCompletion).must.betray(error => {
       error.must.be.an.instanceof(Error)
 /*
       error.message.must.match(lookupInstance.notFoundMessage)
