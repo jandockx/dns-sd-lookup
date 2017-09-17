@@ -64,7 +64,7 @@ module "instance-double_txt" {
 
 resource "aws_route53_record" "instance-double_txt-txt2" {
   zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  name    = "${module.instance-double_txt.II-instance.instance}"
+  name    = "${lookup(module.instance-double_txt.II-instance, "instance")}"
   type    = "TXT"
   ttl     = "${var.ttl}"
 
@@ -93,7 +93,7 @@ module "instance-double_srv" {
 
 resource "aws_route53_record" "instance-double_srv-srv2" {
   zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  name    = "${module.instance-double_srv.II-instance.instance}"
+  name    = "${lookup(module.instance-double_srv.II-instance, "instance")}"
   type    = "SRV"
   ttl     = "${var.ttl}"
 
@@ -124,7 +124,7 @@ module "instance-double_txt_srv" {
 
 resource "aws_route53_record" "instance-double_txt_srv-txt2" {
   zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  name    = "${module.instance-double_txt_srv.II-instance.instance}"
+  name    = "${lookup(module.instance-double_txt_srv.II-instance, "instance")}"
   type    = "TXT"
   ttl     = "${var.ttl}"
 
@@ -135,7 +135,7 @@ resource "aws_route53_record" "instance-double_txt_srv-txt2" {
 
 resource "aws_route53_record" "instance-double_txt_srv-srv2" {
   zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  name    = "${module.instance-double_txt_srv.II-instance.instance}"
+  name    = "${lookup(module.instance-double_txt_srv.II-instance, "instance")}"
   type    = "SRV"
   ttl     = "${var.ttl}"
 
