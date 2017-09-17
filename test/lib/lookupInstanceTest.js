@@ -45,6 +45,14 @@ const expected = {
   weight: 43
 }
 
+function mustBeNotFoundError (baseMessage, error) {
+  error.must.be.an.instanceof(Error)
+  error.message.must.match(lookupInstance.notFoundMessage)
+  error.cause.must.be.an.instanceof(Error)
+  error.cause.message.must.match(baseMessage)
+  console.log(error)
+}
+
 describe('lookupInstance', function () {
   it('works in the nominal case', function () {
     const now = new Date()
@@ -71,13 +79,7 @@ describe('lookupInstance', function () {
 
   it('fails with non-existent instance', function () {
     // noinspection JSUnresolvedVariable
-    return lookupInstance('does-not-exist.' + typeName).must.betray(error => {
-      error.must.be.an.instanceof(Error)
-      error.message.must.match(lookupInstance.notFoundMessage)
-      error.cause.must.be.an.instanceof(Error)
-      error.cause.message.must.match(/ENOTFOUND/)
-      console.log(error)
-    })
+    return lookupInstance('does-not-exist.' + typeName).must.betray(mustBeNotFoundError.bind(undefined, 'ENOTFOUND'))
   })
 
   it('fails with an instance with 2 TXTs', function () {
@@ -116,7 +118,7 @@ describe('lookupInstance', function () {
       error.message.must.match(lookupInstance.notFoundMessage)
       error.cause.must.be.an.instanceof(Error)
       error.cause.message.must.match(
-        new RegExp(lookupInstance.moreThen1Message.SRV + '|' + lookupInstance.moreThen1Message.SRV)
+        new RegExp(lookupInstance.moreThen1Message.TXT + '|' + lookupInstance.moreThen1Message.SRV)
       )
       error.cause.instance.must.equal(instanceName)
       error.cause.count.must.equal(2)
@@ -124,7 +126,18 @@ describe('lookupInstance', function () {
     })
   })
 
-  // MUDO add test when only TXT, or only SRV exists
+  it('fails with an instance without a TXT', function () {
+    const instanceName = 'instance 5._type-5-no-txt' + nameCompletion
+    // noinspection JSUnresolvedVariable
+    return lookupInstance(instanceName).must.betray(mustBeNotFoundError.bind(undefined, 'ENODATA'))
+  })
+
+  it('fails with an instance without a SRV', function () {
+    const instanceName = 'instance 6._type-6-no-srv' + nameCompletion
+    // noinspection JSUnresolvedVariable
+    return lookupInstance(instanceName).must.betray(mustBeNotFoundError.bind(undefined, 'ENODATA'))
+  })
+
   // MUDO add test with TXT string without =, with = in value
   // IDEA add support for TXT string with escaped `= in key
 })
