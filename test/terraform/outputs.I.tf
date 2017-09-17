@@ -15,13 +15,13 @@ output "I-type_with_1_instance_no_subtype-instance" {
 }
 
 output "I-double_txt-instance" {
-  value = "${module.instance-double_txt.II-instance}"
+  value = "${aws_route53_record.instance-double_txt-srv.name}"
 }
 
 output "I-double_srv-instance" {
-  value = "${module.instance-double_srv.II-instance}"
+  value = "${aws_route53_record.instance-double_srv-srv.name}"
 }
 
 output "I-double_txt_srv-instance" {
-  value = "${module.instance-double_txt_srv.II-instance}"
+  value = "${aws_route53_record.instance-double_txt_srv-srv.name}"
 }

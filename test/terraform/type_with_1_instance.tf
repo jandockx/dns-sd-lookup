@@ -22,11 +22,15 @@
  * SOFTWARE.
  */
 
+variable "protocol" {
+  default = "tcp"
+}
+
 module "instance-type_with_1_instance_no_subtype" {
   source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  protocol       = "tcp"
+  protocol       = "${var.protocol}"
   type           = "type-1-instance-no-subtype"
   instance       = "Instance\\0401"
   host           = "host-of-instance-1.${aws_route53_zone.dns_sd_lookup.name}"
@@ -42,104 +46,126 @@ module "instance-type_with_1_instance_no_subtype" {
   ttl = "${var.ttl}"
 }
 
-module "instance-double_txt" {
-  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
-  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
-  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  protocol       = "tcp"
-  type           = "type-2-double-txt"
-  instance       = "Instance\\0402"
-  host           = "host-of-instance-2.${aws_route53_zone.dns_sd_lookup.name}"
-  port           = "4545"
-  priority       = "46"
-  weight         = "47"
-
-  details = {
-    aDetail = "This is a detail 2"
-    txtvers = "48"
-  }
-
-  ttl = "${var.ttl}"
+locals {
+  instance-double_txt-type          = "type-2-double-txt"
+  instance-double_txt-full_type     = "_${local.instance-double_txt-type}.${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
+  instance-double_txt-instance      = "Instance\\0402"
+  instance-double_txt-full_instance = "${local.instance-double_txt-instance}._${local.instance-double_txt-full_type}"
 }
 
-resource "aws_route53_record" "instance-double_txt-txt2" {
+resource "aws_route53_record" "instance-double_txt-ptr" {
   zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  name    = "${lookup(module.instance-double_txt.II-instance, "instance")}"
+  name    = "${local.instance-double_txt-full_type}"
+  type    = "PTR"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "${local.instance-double_txt-full_instance}",
+  ]
+}
+
+resource "aws_route53_record" "instance-double_txt-txt" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${local.instance-double_txt-full_instance}"
   type    = "TXT"
   ttl     = "${var.ttl}"
 
-  records = ["This is a detail 2b\"\"txtvers=49"]
+  records = [
+    "This is a detail 2a\"\"txtvers=60",
+    "This is a detail 2b\"\"txtvers=61",
+  ]
 }
 
-module "instance-double_srv" {
-  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
-  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
-  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  protocol       = "tcp"
-  type           = "type-3-double-srv"
-  instance       = "Instance\\0403"
-  host           = "host-of-instance-3.${aws_route53_zone.dns_sd_lookup.name}"
-  port           = "5050"
-  priority       = "51"
-  weight         = "52"
-
-  details = {
-    aDetail = "This is a detail 3"
-    txtvers = "53"
-  }
-
-  ttl = "${var.ttl}"
-}
-
-resource "aws_route53_record" "instance-double_srv-srv2" {
+resource "aws_route53_record" "instance-double_txt-srv" {
   zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  name    = "${lookup(module.instance-double_srv.II-instance, "instance")}"
+  name    = "${local.instance-double_txt-full_instance}"
   type    = "SRV"
   ttl     = "${var.ttl}"
 
   records = [
-    "${format("%d %d %d %s", 54, 55, 56, "host-of-instance-3b.${aws_route53_zone.dns_sd_lookup.name}")}",
+    "${format("%d %d %d %s", 47, 48, 4949, "host-of-instance-2.${aws_route53_zone.dns_sd_lookup.name}")}",
   ]
 }
 
-module "instance-double_txt_srv" {
-  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
-  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
-  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  protocol       = "tcp"
-  type           = "type-4-double-txt-srv"
-  instance       = "Instance\\0404"
-  host           = "host-of-instance-4.${aws_route53_zone.dns_sd_lookup.name}"
-  port           = "5757"
-  priority       = "58"
-  weight         = "59"
-
-  details = {
-    aDetail = "This is a detail 4"
-    txtvers = "60"
-  }
-
-  ttl = "${var.ttl}"
+locals {
+  instance-double_srv-type          = "type-3-double-srv"
+  instance-double_srv-full_type     = "_${local.instance-double_srv-type}.${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
+  instance-double_srv-instance      = "Instance\\0403"
+  instance-double_srv-full_instance = "${local.instance-double_srv-instance}._${local.instance-double_srv-full_type}"
 }
 
-resource "aws_route53_record" "instance-double_txt_srv-txt2" {
+resource "aws_route53_record" "instance-double_srv-ptr" {
   zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  name    = "${lookup(module.instance-double_txt_srv.II-instance, "instance")}"
+  name    = "${local.instance-double_srv-full_type}"
+  type    = "PTR"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "${local.instance-double_srv-full_instance}",
+  ]
+}
+
+resource "aws_route53_record" "instance-double_srv-txt" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${local.instance-double_srv-full_instance}"
   type    = "TXT"
   ttl     = "${var.ttl}"
 
   records = [
+    "This is a detail 3\"\"txtvers=50",
+  ]
+}
+
+resource "aws_route53_record" "instance-double_srv-srv" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${local.instance-double_srv-full_instance}"
+  type    = "SRV"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "${format("%d %d %d %s", 51, 52, 5353, "host-of-instance-3a.${aws_route53_zone.dns_sd_lookup.name}")}",
+    "${format("%d %d %d %s", 54, 55, 5656, "host-of-instance-3b.${aws_route53_zone.dns_sd_lookup.name}")}",
+  ]
+}
+
+locals {
+  instance-double_txt_srv-type          = "type-4-double-srv"
+  instance-double_txt_srv-full_type     = "_${local.instance-double_txt_srv-type}.${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
+  instance-double_txt_srv-instance      = "Instance\\0403"
+  instance-double_txt_srv-full_instance = "${local.instance-double_txt_srv-instance}._${local.instance-double_txt_srv-full_type}"
+}
+
+resource "aws_route53_record" "instance-double_txt_srv-ptr" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${local.instance-double_txt_srv-full_type}"
+  type    = "PTR"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "${local.instance-double_txt_srv-full_instance}",
+  ]
+}
+
+resource "aws_route53_record" "instance-double_txt_srv-txt" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${local.instance-double_txt_srv-full_instance}"
+  type    = "TXT"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "This is a detail 4a\"\"txtvers=60",
     "This is a detail 4b\"\"txtvers=61",
   ]
 }
 
-resource "aws_route53_record" "instance-double_txt_srv-srv2" {
+resource "aws_route53_record" "instance-double_txt_srv-srv" {
   zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  name    = "${lookup(module.instance-double_txt_srv.II-instance, "instance")}"
+  name    = "${local.instance-double_txt_srv-full_instance}"
   type    = "SRV"
   ttl     = "${var.ttl}"
 
   records = [
-    "${format("%d %d %d %s", 62, 63, 64, "host-of-instance-4b.${aws_route53_zone.dns_sd_lookup.name}")}",
+    "${format("%d %d %d %s", 59, 60, 6161, "host-of-instance-4a.${aws_route53_zone.dns_sd_lookup.name}")}",
+    "${format("%d %d %d %s", 62, 63, 6464, "host-of-instance-4b.${aws_route53_zone.dns_sd_lookup.name}")}",
   ]
 }
