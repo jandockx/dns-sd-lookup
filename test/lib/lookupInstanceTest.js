@@ -28,7 +28,10 @@ const lookupInstance = require('../../lib/lookupInstance')
 const ServiceInstance = require('../../lib/ServiceInstance')
 
 // noinspection SpellCheckingInspection
-const instanceName = 'instance 1._type-1-instance-no-subtype._tcp.dns-sd-lookup.toryt.org'
+const instanceNameCompletion = '_type-1-instance-no-subtype._tcp.dns-sd-lookup.toryt.org'
+
+// noinspection SpellCheckingInspection
+const instanceName = 'instance 1.' + instanceNameCompletion
 
 // see ../terraform/type_with_1_instance.tf
 const expected = {
@@ -66,5 +69,19 @@ describe('lookupInstance', function () {
     })
   })
 
-  // MUDO add error tests
+  it('fails with non-existent instance', function () {
+    // noinspection JSUnresolvedVariable
+    return lookupInstance('does-not-exist.' + instanceNameCompletion).must.betray(error => {
+      error.must.be.an.instanceof(Error)
+      error.message.must.match(lookupInstance.notFoundMessage)
+      error.cause.must.be.an.instanceof(Error)
+      error.cause.message.must.match(/ENOTFOUND/)
+      console.log(error)
+    })
+  })
+
+  // MUDO add test when only TXT, or only SRV exists
+  // MUDO add test for more than 1 TXT found, more than 1 SRV found, more then 1 of both found
+  // MUDO add test with TXT string without =, with = in value
+  // IDEA add support for TXT string with escaped `= in key
 })
