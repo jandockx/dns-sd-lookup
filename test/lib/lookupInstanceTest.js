@@ -81,40 +81,45 @@ describe('lookupInstance', function () {
   })
 
   it('fails with an instance with 2 TXTs', function () {
+    const instanceName = 'instance 2._type-2-double-txt' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance('instance2._type-2-double-txt' + nameCompletion).must.betray(error => {
+    return lookupInstance(instanceName).must.betray(error => {
       error.must.be.an.instanceof(Error)
-/*
       error.message.must.match(lookupInstance.notFoundMessage)
       error.cause.must.be.an.instanceof(Error)
-      error.cause.message.must.match(/ENOTFOUND/)
-*/
+      error.cause.message.must.equal(lookupInstance.moreThen1Message.TXT)
+      error.cause.instance.must.equal(instanceName)
+      error.cause.count.must.equal(2)
       console.log(error)
     })
   })
 
   it('fails with an instance with 2 SRVs', function () {
+    const instanceName = 'instance 3._type-3-double-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance('instance 3._type-3-double-srv' + nameCompletion).must.betray(error => {
+    return lookupInstance(instanceName).must.betray(error => {
       error.must.be.an.instanceof(Error)
-/*
       error.message.must.match(lookupInstance.notFoundMessage)
       error.cause.must.be.an.instanceof(Error)
-      error.cause.message.must.match(/ENOTFOUND/)
-*/
+      error.cause.message.must.equal(lookupInstance.moreThen1Message.SRV)
+      error.cause.instance.must.equal(instanceName)
+      error.cause.count.must.equal(2)
       console.log(error)
     })
   })
 
   it('fails with an instance with 2 TXTs and 2 SRVs', function () {
+    const instanceName = 'instance 4._type-4-double-txt-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance('instance 4._type-4-double-txt-srv' + nameCompletion).must.betray(error => {
+    return lookupInstance(instanceName).must.betray(error => {
       error.must.be.an.instanceof(Error)
-/*
       error.message.must.match(lookupInstance.notFoundMessage)
       error.cause.must.be.an.instanceof(Error)
-      error.cause.message.must.match(/ENOTFOUND/)
-*/
+      error.cause.message.must.match(
+        new RegExp(lookupInstance.moreThen1Message.SRV + '|' + lookupInstance.moreThen1Message.SRV)
+      )
+      error.cause.instance.must.equal(instanceName)
+      error.cause.count.must.equal(2)
       console.log(error)
     })
   })
