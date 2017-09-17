@@ -9,3 +9,7 @@ output "I-zone_fqdn" {
 output "I-zone_ns" {
   value = "${aws_route53_zone.dns_sd_lookup.name_servers}"
 }
+
+output "I-type_with_1_instance_no_subtype-instance" {
+  value = "${module.instance-type_with_1_instance_no_subtype.II-instance}"
+}
