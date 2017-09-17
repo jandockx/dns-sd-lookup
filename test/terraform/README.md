@@ -22,3 +22,10 @@ If this fails …
 … you probably forgot to commit and push. The scripts in 
 `@ppwcode/terraform-ppwcode-modules` don't want to apply if the repo
 is unsafe.  
+
+Also, you first need to create the hosted zone without the meta information,
+and then add it, or it won't work.
+
+(This seems impossible to debug. There is no doubt a reason, but Terraform give
+no information on `data "external"` progress, even in case of failure, even in
+DEBUG logs).
