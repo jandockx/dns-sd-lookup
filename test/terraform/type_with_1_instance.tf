@@ -28,7 +28,7 @@ module "instance-type_with_1_instance_no_subtype" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "tcp"
   type           = "type-with-1-instance-no-subtype"
-  instance       = "Instance\\040Of\\040Type\\040With\\0401\\040Instance, No Subtype"
+  instance       = "Instance\\040Of\\040Type\\040With\\0401\\040Instance,\\040No\\040Subtype"
   host           = "host-of-instance-with-type-of-1-instance-no-subtype.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "4242"
   priority       = "43"
