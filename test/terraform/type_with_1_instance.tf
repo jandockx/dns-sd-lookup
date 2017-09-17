@@ -107,7 +107,7 @@ module "instance-double_txt_srv" {
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "tcp"
-  type           = "type-4-double-txt"
+  type           = "type-4-double-txt-srv"
   instance       = "Instance\\0404"
   host           = "host-of-instance-4.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "5757"
