@@ -28,7 +28,7 @@ const discover = require('../../lib/discover')
 const ServiceInstance = require('../../lib/ServiceInstance')
 
 // noinspection SpellCheckingInspection
-const serviceType = '_test._sub._unittest._tcp.dns-sd-lookup.toryt.org'
+const serviceType = '_type-1-instance-no-subtype._tcp.dns-sd-lookup.toryt.org'
 
 describe('discover', function () {
   it('works in the nominal case', function () {
@@ -39,7 +39,7 @@ describe('discover', function () {
       console.log(details)
     })
   })
-  it('works with a death in the nominal case', function () {
+  it('works with a death in the nominal case', function () { // MUDO
     // noinspection JSUnresolvedVariable
     return discover(serviceType, ['test_instance_unit_test1a._tcp.dns-sd-lookup.toryt.org']).must.fulfill(details => {
       details.must.be.an.array()
