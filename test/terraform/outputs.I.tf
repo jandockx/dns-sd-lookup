@@ -25,3 +25,11 @@ output "I-double_srv-instance" {
 output "I-double_txt_srv-instance" {
   value = "${aws_route53_record.instance-double_txt_srv-srv.name}"
 }
+
+output "I-no_txt-instance" {
+  value = "${aws_route53_record.instance-no_txt-srv.name}"
+}
+
+output "I-no_srv-instance" {
+  value = "${aws_route53_record.instance-no_srv-txt.name}"
+}

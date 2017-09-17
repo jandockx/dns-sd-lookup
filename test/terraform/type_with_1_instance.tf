@@ -169,3 +169,61 @@ resource "aws_route53_record" "instance-double_txt_srv-srv" {
     "${format("%d %d %d %s", 62, 63, 6464, "host-of-instance-4b.${aws_route53_zone.dns_sd_lookup.name}")}",
   ]
 }
+
+locals {
+  instance-no_txt-type          = "type-5-no-txt"
+  instance-no_txt-full_type     = "_${local.instance-no_txt-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
+  instance-no_txt-instance      = "Instance\\0405"
+  instance-no_txt-full_instance = "${local.instance-no_txt-instance}.${local.instance-no_txt-full_type}"
+}
+
+resource "aws_route53_record" "instance-no_txt-ptr" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${local.instance-no_txt-full_type}"
+  type    = "PTR"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "${local.instance-no_txt-full_instance}",
+  ]
+}
+
+resource "aws_route53_record" "instance-no_txt-srv" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${local.instance-no_txt-full_instance}"
+  type    = "SRV"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "${format("%d %d %d %s", 65, 66, 6767, "host-of-instance-5.${aws_route53_zone.dns_sd_lookup.name}")}",
+  ]
+}
+
+locals {
+  instance-no_srv-type          = "type-6-no-srv"
+  instance-no_srv-full_type     = "_${local.instance-no_srv-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
+  instance-no_srv-instance      = "Instance\\0406"
+  instance-no_srv-full_instance = "${local.instance-no_srv-instance}.${local.instance-no_srv-full_type}"
+}
+
+resource "aws_route53_record" "instance-no_srv-ptr" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${local.instance-no_srv-full_type}"
+  type    = "PTR"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "${local.instance-no_srv-full_instance}",
+  ]
+}
+
+resource "aws_route53_record" "instance-no_srv-txt" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${local.instance-no_srv-full_instance}"
+  type    = "TXT"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "This is a detail 6\"\"txtvers=68",
+  ]
+}
