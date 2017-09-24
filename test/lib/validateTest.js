@@ -134,6 +134,8 @@ describe('validate', function () {
     })
   })
 
+  // MUDO isServiceInstance test
+
   describe('#isServiceTypeOrInstanceFqdn', function () {
     describe('true', function () {
         // noinspection JSUnresolvedFunction
