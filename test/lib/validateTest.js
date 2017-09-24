@@ -40,7 +40,9 @@ const serviceSubTypes = [
 // noinspection SpellCheckingInspection
 const instances = [
   'a-service-instance',
-  'A Human Readable Sérvice Instance'
+  'A Human Readable Sérvice Instance',
+  'instances.with.different.labels',
+  'instance.withPartThatIsNotLongerThanIsAcceptableWhichIs63CharactersLabel.lastLabel'
 ]
 
 function createService (prefix) {
@@ -134,11 +136,56 @@ describe('validate', function () {
     })
   })
 
-  // MUDO isServiceInstance test
+  describe('#isServiceInstance', function () {
+    describe('true', function () {
+      // noinspection JSUnresolvedFunction
+      const fqdns = x({
+        instance: instances,
+        protocol: protocols
+      }).map(c => `${c.instance}._${serviceType}._${c.protocol}.${domain}`)
+      fqdns.forEach(candidate => {
+        it(`returns true for ${candidate}`, function () {
+          const result = validate.isServiceInstance(candidate)
+          console.log('%s --> %s', candidate, result)
+          result.must.be.true()
+        })
+      })
+      it(`returns true for the max length`, function () { // MUDO
+        const result = validate.isServiceInstance(notTooLong)
+        console.log('%s --> %s', notTooLong, result)
+        result.must.be.true()
+      })
+      const lookupCase = 'instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org'
+      it(`returns true for the lookup case`, function () {
+        const result = validate.isServiceInstance(lookupCase)
+        console.log('%s --> %s', lookupCase, result)
+        result.must.be.true()
+      })
+    })
+    describe('false', function () {
+      // noinspection SpellCheckingInspection
+      const fqdns = [
+        null,
+        undefined,
+        '',
+        'instance.not.a.service',
+        // since we know that we delegate here to isBaseServiceType, we do not need to test the variants (white box)
+        'instance.withAPartThatIsLonger-ThanIsAcceptableWhichIs63ACharactersLabels.lastLabel._service._tcp.' + domain,
+        tooLong // MUDO
+      ]
+      fqdns.forEach(fqdn => {
+        it(`returns false for ${fqdn}`, function () {
+          const result = validate.isServiceInstance(fqdn)
+          console.log('%s --> %s', fqdn, result)
+          result.must.be.false()
+        })
+      })
+    })
+  })
 
   describe('#isServiceTypeOrInstanceFqdn', function () {
     describe('true', function () {
-        // noinspection JSUnresolvedFunction
+      // noinspection JSUnresolvedFunction
       const fqdns = x({
         service: services,
         protocol: protocols
