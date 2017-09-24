@@ -88,6 +88,12 @@ describe('validate', function () {
         console.log('%s --> %s', notTooLong, result)
         result.must.be.true()
       })
+      const lookupCase = '_t1i-no-sub._tcp.dns-sd-lookup.toryt.org'
+      it(`returns true for the lookup case`, function () {
+        const result = validate.isBaseServiceType(lookupCase)
+        console.log('%s --> %s', lookupCase, result)
+        result.must.be.true()
+      })
     })
     describe('false', function () {
       // noinspection SpellCheckingInspection
