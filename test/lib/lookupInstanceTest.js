@@ -55,7 +55,7 @@ function mustBeNotFoundError (baseMessage, error) {
 }
 
 describe('lookupInstance', function () {
-  it.only('works in the nominal case', function () {
+  it('works in the nominal case', function () {
     const now = new Date()
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).must.fulfill(response => {
