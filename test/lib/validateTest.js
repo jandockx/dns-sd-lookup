@@ -29,7 +29,8 @@ const x = require('cartesian')
 
 const domain = 'dns-sd-lookup.toryt.org'
 const protocols = ['tcp', 'udp']
-const serviceType = 'a-service-type'
+// noinspection SpellCheckingInspection
+const serviceType = 'a-Serv1ce-type'
 const serviceSubTypes = [
   '',
   '_a-sub-service',
@@ -57,6 +58,53 @@ function createFqdn (c) {
 }
 
 describe('validate', function () {
+  describe('#isBaseServiceType', function () {
+    describe('true', function () {
+      protocols.forEach(protocol => {
+        const candidate = `_${serviceType}._${protocol}.${domain}`
+        it(`returns true for ${candidate}`, function () {
+          const result = validate.isBaseServiceType(candidate)
+          console.log('%s --> %s', candidate, result)
+          result.must.be.true()
+        })
+      })
+    })
+    describe('false', function () {
+      // noinspection SpellCheckingInspection
+      const fqdns = [
+        null,
+        undefined,
+        '',
+        '# not _ a domain',
+        'notcporupd.' + domain,
+        serviceType + '.notcporupd.' + domain,
+        '_udp.' + domain,
+        '_tcp.' + domain,
+        '_thisIsSxteenLong._udp.' + domain,
+        '_thisIsSxteenLong._tcp.' + domain,
+        '_service spaces._udp.' + domain,
+        '_service spaces._tcp.' + domain,
+        '_service_undersc._udp.' + domain,
+        '_service_undersc._tcp.' + domain,
+        '_service,comma._udp.' + domain,
+        '_double--dash._tcp.' + domain,
+        'notStartWith_._udp.' + domain,
+        'notStartWith_._tcp.' + domain,
+        '_-dash._tcp.' + domain,
+        '_dash-._tcp.' + domain,
+        '_9number._tcp.' + domain,
+        '_number9._tcp.' + domain
+      ]
+      fqdns.forEach(fqdn => {
+        it(`returns false for ${fqdn}`, function () {
+          const result = validate.isBaseServiceType(fqdn)
+          console.log('%s --> %s', fqdn, result)
+          result.must.be.false()
+        })
+      })
+    })
+  })
+
   describe('#isServiceTypeOrInstanceFqdn', function () {
     describe('true', function () {
         // noinspection JSUnresolvedFunction

@@ -92,3 +92,13 @@ is only correct in a very strict, early sense.
 
 is interesting, but only allows a-z0-9. The difference between 'hostname or fqdn" and "fqdn" is unclear
 to me.
+
+# Service names
+
+## https://www.ietf.org/rfc/rfc6763.txt, 7
+> The rules for Service Names [RFC6335] state that they may be no more
+> than fifteen characters long (not counting the mandatory underscore),
+> consisting of only letters, digits, and hyphens, must begin and end
+> with a letter or digit, must not contain consecutive hyphens, and
+> must contain at least one letter.  […]  While both uppercase and lowercase letters may be
+> used for mnemonic clarity, case is ignored for comparison purposes
