@@ -162,7 +162,8 @@ describe('validate', function () {
       'has-a-+-character',
       'has-a-%20-character',
       'has-a-%-character',
-      'has-a- -space'
+      'has-a- -space',
+      'theLengthOfAPartIsLimitedTo63CharactersThisIsTooLongBy1Character'
     ]
     wrongParts.forEach(part => {
       it('false on wrong part ' + part, function () {
