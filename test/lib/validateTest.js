@@ -93,7 +93,9 @@ describe('validate', function () {
         '_-dash._tcp.' + domain,
         '_dash-._tcp.' + domain,
         '_9number._tcp.' + domain,
-        '_number9._tcp.' + domain
+        '_number9._tcp.' + domain,
+        `_${serviceType}._udp.a.thisIs999NotATld`,
+        `_${serviceType}._udp.a.domain_with.an.underscore.com`
       ]
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
