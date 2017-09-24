@@ -57,6 +57,21 @@ function createFqdn (c) {
   return `${c.service}._${c.protocol}.${domain}`
 }
 
+const protocol = '_tcp.'
+let almostTooLong = domain
+const placesLeft = validate.maxLength - almostTooLong.length - protocol.length - serviceType.length - 2
+const times = placesLeft / (validate.maxLabelLength + 1)
+// noinspection SpellCheckingInspection
+const maxLabel = 'abcdefghijklmnopqrstuvwxyz'.repeat(2) + 'abcdefghijk.'
+console.assert(maxLabel.length === validate.maxLabelLength + 1)
+almostTooLong = maxLabel.repeat(times) + almostTooLong
+const rest = (placesLeft % (validate.maxLabelLength + 1)) - 1
+almostTooLong = maxLabel.substring(0, rest) + '.' + almostTooLong
+const notTooLong = `_${serviceType}.${protocol}${almostTooLong}`
+console.assert(notTooLong.length === validate.maxLength)
+const tooLong = `_${serviceType}.${protocol}z${almostTooLong}`
+console.assert(tooLong.length === validate.maxLength + 1)
+
 describe('validate', function () {
   describe('#isBaseServiceType', function () {
     describe('true', function () {
@@ -67,6 +82,11 @@ describe('validate', function () {
           console.log('%s --> %s', candidate, result)
           result.must.be.true()
         })
+      })
+      it(`returns true for the max length`, function () {
+        const result = validate.isBaseServiceType(notTooLong)
+        console.log('%s --> %s', notTooLong, result)
+        result.must.be.true()
       })
     })
     describe('false', function () {
@@ -95,7 +115,8 @@ describe('validate', function () {
         '_9number._tcp.' + domain,
         '_number9._tcp.' + domain,
         `_${serviceType}._udp.a.thisIs999NotATld`,
-        `_${serviceType}._udp.a.domain_with.an.underscore.com`
+        `_${serviceType}._udp.a.domain_with.an.underscore.com`,
+        tooLong
       ]
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
@@ -136,7 +157,8 @@ describe('validate', function () {
         '_service contains spaces._udp.' + domain,
         '_service contains spaces._tcp.' + domain,
         'serviceDoesNotStartWith_._udp.' + domain,
-        'serviceDoesNotStartWith_._tcp.' + domain
+        'serviceDoesNotStartWith_._tcp.' + domain,
+        tooLong
       ]
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
