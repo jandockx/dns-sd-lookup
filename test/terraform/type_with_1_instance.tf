@@ -26,12 +26,14 @@ variable "protocol" {
   default = "tcp"
 }
 
+// NOTE: service type names have a max lenght of 13 chars
+
 module "instance-type_with_1_instance_no_subtype" {
   source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
-  type           = "type-1-instance-no-subtype"
+  type           = "t1i-no-sub"                                                            // type for instance 1 - no subtype
   instance       = "Instance\\0401"
   host           = "host-of-instance-1.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "4141"
@@ -47,7 +49,7 @@ module "instance-type_with_1_instance_no_subtype" {
 }
 
 locals {
-  instance-double_txt-type          = "type-2-double-txt"
+  instance-double_txt-type          = "t2i-2-txt"
   instance-double_txt-full_type     = "_${local.instance-double_txt-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
   instance-double_txt-instance      = "Instance\\0402"
   instance-double_txt-full_instance = "${local.instance-double_txt-instance}.${local.instance-double_txt-full_type}"
@@ -88,7 +90,7 @@ resource "aws_route53_record" "instance-double_txt-srv" {
 }
 
 locals {
-  instance-double_srv-type          = "type-3-double-srv"
+  instance-double_srv-type          = "t3i-2-srv"
   instance-double_srv-full_type     = "_${local.instance-double_srv-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
   instance-double_srv-instance      = "Instance\\0403"
   instance-double_srv-full_instance = "${local.instance-double_srv-instance}.${local.instance-double_srv-full_type}"
@@ -129,7 +131,7 @@ resource "aws_route53_record" "instance-double_srv-srv" {
 }
 
 locals {
-  instance-double_txt_srv-type          = "type-4-double-txt-srv"
+  instance-double_txt_srv-type          = "t4i-2-txt-srv"
   instance-double_txt_srv-full_type     = "_${local.instance-double_txt_srv-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
   instance-double_txt_srv-instance      = "Instance\\0404"
   instance-double_txt_srv-full_instance = "${local.instance-double_txt_srv-instance}.${local.instance-double_txt_srv-full_type}"
@@ -171,7 +173,7 @@ resource "aws_route53_record" "instance-double_txt_srv-srv" {
 }
 
 locals {
-  instance-no_txt-type          = "type-5-no-txt"
+  instance-no_txt-type          = "t5i-no-txt"
   instance-no_txt-full_type     = "_${local.instance-no_txt-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
   instance-no_txt-instance      = "Instance\\0405"
   instance-no_txt-full_instance = "${local.instance-no_txt-instance}.${local.instance-no_txt-full_type}"
@@ -200,7 +202,7 @@ resource "aws_route53_record" "instance-no_txt-srv" {
 }
 
 locals {
-  instance-no_srv-type          = "type-6-no-srv"
+  instance-no_srv-type          = "ti6-no-srv"
   instance-no_srv-full_type     = "_${local.instance-no_srv-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
   instance-no_srv-instance      = "Instance\\0406"
   instance-no_srv-full_instance = "${local.instance-no_srv-instance}.${local.instance-no_srv-full_type}"
