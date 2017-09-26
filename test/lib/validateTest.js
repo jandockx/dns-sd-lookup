@@ -41,8 +41,8 @@ const serviceSubTypes = [
 const instances = [
   'a-service-instance',
   'A Human Readable Sérvice Instance',
-  'instances.with.different.labels',
   'instance.withPartThatIsNotLongerThanIsAcceptableWhichIs63CharactersLabel.lastLabel'
+  'instances\\.with\\.escaped\\\\dots\\\\and\\.slashes',
 ]
 
 function createService (prefix) {
