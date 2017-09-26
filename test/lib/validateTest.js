@@ -88,7 +88,7 @@ const falseBaseServiceTypes = [
   '_9number._tcp.' + domain,
   '_number9._tcp.' + domain,
   `_${serviceType}._udp.a.thisIs999NotATld`,
-  `_${serviceType}._udp.a.domain_with.an.underscore.com`,
+  `_${serviceType}._udp.a.domain_with.an.underscore.com`
 ]
 
 describe('validate', function () {
