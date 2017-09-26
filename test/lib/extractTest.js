@@ -34,7 +34,7 @@ const serviceType = 'a-service-type'
 const serviceSubTypes = [
   '',
   '_a-sub-service',
-  '_a.complex.sub.service',
+  '_a\\.complex\\.sub\\.service',
   'sub service type without an underscore' // this is allowed under RFC 6763
 ]
 // noinspection SpellCheckingInspection
