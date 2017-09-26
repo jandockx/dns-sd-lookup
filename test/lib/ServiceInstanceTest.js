@@ -33,9 +33,10 @@ const domains = [
   'dns-sd-lookup1.toryt.org',
   'dns-sd-lookup2.toryt.org'
 ]
+const baseServiceType = '_a-service-type'
 const types = [
-  '_a-service-type',
-  'sub type._sub._a-service-type'
+  baseServiceType,
+  'sub type._sub.' + baseServiceType
 ]
 const instanceName = 'This is An Instance Name'
 
@@ -61,7 +62,7 @@ const cases = x({
 
 function createKwargs (c) {
   const type = `${c.type}._${c.protocol}.${c.typeDomain}`
-  const instance = `${instanceName}.${c.type}._${c.protocol}.${c.instanceDomain}`
+  const instance = `${instanceName}.${baseServiceType}._${c.protocol}.${c.instanceDomain}`
   // noinspection SpellCheckingInspection
   return {
     type: type,
