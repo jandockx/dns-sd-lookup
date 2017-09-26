@@ -228,7 +228,9 @@ describe('validate', function () {
         'instance.not.a.service',
         // since we know that we delegate here to isBaseServiceType, we do not need to test the variants (white box)
         'anInstanceThatIsLongerThanIsAcceptableWhichIs63ACharactersLabels._service._tcp.' + domain,
-        tooLong.too
+        tooLong.too,
+        'contains.an.unescaped.dot._service._tcp.' + domain,
+        'contains\\unescaped\\backslash._service._tcp.' + domain
       ]
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
