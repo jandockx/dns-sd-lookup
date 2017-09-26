@@ -202,7 +202,7 @@ resource "aws_route53_record" "instance-no_txt-srv" {
 }
 
 locals {
-  instance-no_srv-type          = "ti6-no-srv"
+  instance-no_srv-type          = "t6i-no-srv"
   instance-no_srv-full_type     = "_${local.instance-no_srv-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
   instance-no_srv-instance      = "Instance\\0406"
   instance-no_srv-full_instance = "${local.instance-no_srv-instance}.${local.instance-no_srv-full_type}"
