@@ -145,7 +145,7 @@ describe('lookupInstance', function () {
   it('fails with an instance without a SRV', function () {
     const instanceName = 'instance 6._t6i-no-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(mustBeNotFoundError('ENOTFOUND'))
+    return lookupInstance(instanceName).must.betray(mustBeNotFoundError('ENODATA'))
   })
 
   // MUDO add test with TXT string without =, with = in value
