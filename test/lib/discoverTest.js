@@ -51,6 +51,7 @@ describe('discover', function () {
       console.log(details)
     }))
   })
+  // MUDO this test doesn't work because the terraform definition overwrites the PTR definition 5 times
   it('works in the nominal case, with 5 instances', function () {
     const serviceType = `_t8i-5inst${serviceTypePostfix}`
     // noinspection JSUnresolvedVariable
