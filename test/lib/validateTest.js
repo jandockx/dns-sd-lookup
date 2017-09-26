@@ -31,9 +31,10 @@ const domain = 'dns-sd-lookup.toryt.org'
 const protocols = ['tcp', 'udp']
 // noinspection SpellCheckingInspection
 const serviceType = 'a-Serv1ce-type'
+const simpleSubType = '_a-sub-service'
 const serviceSubTypes = [
   '',
-  '_a-sub-service',
+  simpleSubType,
   '_a\\.complex\\\\sub\\.service',
   'sub service type without an underscore' // this is allowed under RFC 6763
 ]
@@ -64,6 +65,7 @@ function generateMaxLength (beforeProtocol) {
   return {not: notTooLong, too: tooLong}
 }
 
+// noinspection SpellCheckingInspection
 const falseBaseServiceTypes = [
   '',
   '# not _ a domain',
@@ -133,7 +135,7 @@ describe('validate', function () {
 
   describe('#isServiceType', function () {
     const tooLongWithoutSub = generateMaxLength('_' + serviceType)
-    const tooLongWithSub = generateMaxLength(serviceSubTypes[serviceSubTypes.length - 1] + '._sub._' + serviceType)
+    const tooLongWithSub = generateMaxLength(simpleSubType + '._sub._' + serviceType)
 
     describe('true', function () {
       // noinspection JSUnresolvedFunction
@@ -145,39 +147,44 @@ describe('validate', function () {
       )
       fqdns.forEach(fqdn => {
         it(`returns true for ${fqdn}`, function () {
-          const result = validate.isBaseServiceType(fqdn)
+          const result = validate.isServiceType(fqdn)
           console.log('%s --> %s', fqdn, result)
           result.must.be.true()
         })
       })
       it(`returns true for the max length`, function () {
-        const result = validate.isBaseServiceType(tooLongWithoutSub.not)
+        const result = validate.isServiceType(tooLongWithoutSub.not)
         console.log('%s --> %s', tooLongWithoutSub.not, result)
         result.must.be.true()
       })
       it(`returns true for the max length with sub`, function () {
-        const result = validate.isBaseServiceType(tooLongWithoutSub.not)
+        const result = validate.isServiceType(tooLongWithoutSub.not)
         console.log('%s --> %s', tooLongWithSub.not, result)
         result.must.be.true()
       })
       const lookupCase = '_t1i-no-sub._tcp.dns-sd-lookup.toryt.org' // MUDO with sub
       it(`returns true for the lookup case`, function () {
-        const result = validate.isBaseServiceType(lookupCase)
+        const result = validate.isServiceType(lookupCase)
         console.log('%s --> %s', lookupCase, result)
         result.must.be.true()
       })
     })
     describe('false', function () {
-      // noinspection SpellCheckingInspection
       const fqdns = falseBaseServiceTypes.concat([
         null,
         undefined,
         tooLongWithoutSub.too,
         tooLongWithSub.too
       ])
+      .concat(falseBaseServiceTypes.map(t => `${simpleSubType}._sub.${t}`))
+      .concat([
+        'unescaped.dot',
+        'unescaped\\backslash',
+        'ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel'
+      ].map(s => `${s}._sub._${serviceType}._tcp.${domain}`))
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
-          const result = validate.isBaseServiceType(fqdn)
+          const result = validate.isServiceType(fqdn)
           console.log('%s --> %s', fqdn, result)
           result.must.be.false()
         })
@@ -214,7 +221,6 @@ describe('validate', function () {
       })
     })
     describe('false', function () {
-      // noinspection SpellCheckingInspection
       const fqdns = [
         null,
         undefined,
