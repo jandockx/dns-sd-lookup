@@ -34,11 +34,29 @@ const serviceTypePostfix = '._tcp.dns-sd-lookup.toryt.org'
 const serviceType = '_t1i-no-sub' + serviceTypePostfix
 
 describe('discover', function () {
-  it('works in the nominal case', function () {
+  it('works in the nominal case, without a subtype', function () {
     // noinspection JSUnresolvedVariable
     return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
       details.must.be.an.array()
       details.must.have.length(1)
+      console.log(details)
+    }))
+  })
+  it('works in the nominal case, with a subtype', function () {
+    const serviceType = `_subtype._sub._t7i-sub${serviceTypePostfix}`
+    // noinspection JSUnresolvedVariable
+    return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
+      details.must.be.an.array()
+      details.must.have.length(1)
+      console.log(details)
+    }))
+  })
+  it('works in the nominal case, with 5 instances', function () {
+    const serviceType = `_t8i-5inst${serviceTypePostfix}`
+    // noinspection JSUnresolvedVariable
+    return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
+      details.must.be.an.array()
+      details.must.have.length(5)
       console.log(details)
     }))
   })
@@ -51,11 +69,18 @@ describe('discover', function () {
         console.log(details)
       }))
   })
-  it('works with a death in the nominal case', function () { // MUDO
+  it('works with a death in the nominal case', function () {
+    const serviceType = `_t8i-5inst${serviceTypePostfix}`
+    const deaths = [
+      `Instance\\0408c.${serviceType}`,
+      `Instance\\0408e.${serviceType}`
+    ]
     // noinspection JSUnresolvedVariable
-    return discover(serviceType, ['test_instance_unit_test1a._tcp.dns-sd-lookup.toryt.org'])
+    return discover(serviceType, deaths)
       .must.fulfill(discoverContract.resolved(details => {
         details.must.be.an.array()
+        details.must.have.length(3)
+        details.forEach(d => deaths.must.not.contain(d.instance))
         console.log(details)
       }))
   })
