@@ -33,7 +33,7 @@ const typeName = '_t1i-no-sub' + nameCompletion
 
 const instanceName = 'instance 1.' + typeName
 
-// see ../terraform/type_with_1_instance.tf
+// see ../terraform/cases.tf
 const expected = {
   aDetail: 'This is a detail 1',
   host: 'host-of-instance-1.dns-sd-lookup.toryt.org',
