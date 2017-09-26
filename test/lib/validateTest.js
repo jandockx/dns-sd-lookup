@@ -34,7 +34,7 @@ const serviceType = 'a-Serv1ce-type'
 const serviceSubTypes = [
   '',
   '_a-sub-service',
-  '_a.complex.sub.service',
+  '_a\\.complex\\\\sub\\.service',
   'sub service type without an underscore' // this is allowed under RFC 6763
 ]
 // noinspection SpellCheckingInspection
@@ -44,20 +44,6 @@ const instances = [
   'instances\\.with\\.escaped\\\\dots\\\\and\\.slashes',
   'instanceThatIsNotLongerThanIsAcceptableWhichIs63CharactersLabel'
 ]
-
-function createService (prefix) {
-  return prefix ? `${prefix}._${serviceType}` : `_${serviceType}`
-}
-
-function createSubPrefix (subtype) {
-  return subtype ? `${subtype}._sub` : ''
-}
-
-const services = serviceSubTypes.map(createSubPrefix).concat(instances).map(createService)
-
-function createFqdn (c) {
-  return `${c.service}._${c.protocol}.${domain}`
-}
 
 function generateMaxLength (beforeProtocol) {
   const protocol = '_tcp.'
@@ -142,6 +128,81 @@ describe('validate', function () {
     })
   })
 
+  describe('#isServiceType', function () {
+    const tooLongWithoutSub = generateMaxLength('_' + serviceType)
+    const tooLongWithSub = generateMaxLength(serviceSubTypes[serviceSubTypes.length - 1] + '._sub._' + serviceType)
+
+    describe('true', function () {
+      // noinspection JSUnresolvedFunction
+      const fqdns = x({
+        sub: serviceSubTypes,
+        protocol: protocols
+      }).map(c =>
+        c.sub ? `${c.sub}._sub._${serviceType}._${c.protocol}.${domain}` : `_${serviceType}._${c.protocol}.${domain}`
+      )
+      fqdns.forEach(fqdn => {
+        it(`returns true for ${fqdn}`, function () {
+          const result = validate.isBaseServiceType(fqdn)
+          console.log('%s --> %s', fqdn, result)
+          result.must.be.true()
+        })
+      })
+      it(`returns true for the max length`, function () {
+        const result = validate.isBaseServiceType(tooLongWithoutSub.not)
+        console.log('%s --> %s', tooLongWithoutSub.not, result)
+        result.must.be.true()
+      })
+      it(`returns true for the max length with sub`, function () {
+        const result = validate.isBaseServiceType(tooLongWithoutSub.not)
+        console.log('%s --> %s', tooLongWithSub.not, result)
+        result.must.be.true()
+      })
+      const lookupCase = '_t1i-no-sub._tcp.dns-sd-lookup.toryt.org' // MUDO with sub
+      it(`returns true for the lookup case`, function () {
+        const result = validate.isBaseServiceType(lookupCase)
+        console.log('%s --> %s', lookupCase, result)
+        result.must.be.true()
+      })
+    })
+    describe('false', function () {
+      // noinspection SpellCheckingInspection
+      const fqdns = [
+        null,
+        undefined,
+        '',
+        '# not _ a domain',
+        'notcporupd.' + domain,
+        serviceType + '.notcporupd.' + domain,
+        '_udp.' + domain,
+        '_tcp.' + domain,
+        '_thisIsSxteenLong._udp.' + domain,
+        '_thisIsSxteenLong._tcp.' + domain,
+        '_service spaces._udp.' + domain,
+        '_service spaces._tcp.' + domain,
+        '_service_undersc._udp.' + domain,
+        '_service_undersc._tcp.' + domain,
+        '_service,comma._udp.' + domain,
+        '_double--dash._tcp.' + domain,
+        'notStartWith_._udp.' + domain,
+        'notStartWith_._tcp.' + domain,
+        '_-dash._tcp.' + domain,
+        '_dash-._tcp.' + domain,
+        '_9number._tcp.' + domain,
+        '_number9._tcp.' + domain,
+        `_${serviceType}._udp.a.thisIs999NotATld`,
+        `_${serviceType}._udp.a.domain_with.an.underscore.com`,
+        tooLongWithoutSub.too
+      ]
+      fqdns.forEach(fqdn => {
+        it(`returns false for ${fqdn}`, function () {
+          const result = validate.isBaseServiceType(fqdn)
+          console.log('%s --> %s', fqdn, result)
+          result.must.be.false()
+        })
+      })
+    })
+  })
+
   describe('#isServiceInstance', function () {
     const tooLong = generateMaxLength(`${instances[0]}._${serviceType}`)
 
@@ -184,50 +245,6 @@ describe('validate', function () {
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
           const result = validate.isServiceInstance(fqdn)
-          console.log('%s --> %s', fqdn, result)
-          result.must.be.false()
-        })
-      })
-    })
-  })
-
-  describe('#isServiceTypeOrInstanceFqdn', function () {
-    const tooLong = generateMaxLength('_' + serviceType)
-
-    describe('true', function () {
-      // noinspection JSUnresolvedFunction
-      const fqdns = x({
-        service: services,
-        protocol: protocols
-      }).map(createFqdn)
-      fqdns.forEach(fqdn => {
-        it(`returns true for ${fqdn}`, function () {
-          const result = validate.isServiceTypeOrInstanceFqdn(fqdn)
-          console.log('%s --> %s', fqdn, result)
-          result.must.be.true()
-        })
-      })
-    })
-    describe('false', function () {
-      // noinspection SpellCheckingInspection
-      const fqdns = [
-        null,
-        undefined,
-        '',
-        '# not _ a domain',
-        'notcporupd.' + domain,
-        serviceType + '.notcporupd.' + domain,
-        '_udp.' + domain,
-        '_tcp.' + domain,
-        '_service contains spaces._udp.' + domain,
-        '_service contains spaces._tcp.' + domain,
-        'serviceDoesNotStartWith_._udp.' + domain,
-        'serviceDoesNotStartWith_._tcp.' + domain,
-        tooLong.too
-      ]
-      fqdns.forEach(fqdn => {
-        it(`returns false for ${fqdn}`, function () {
-          const result = validate.isServiceTypeOrInstanceFqdn(fqdn)
           console.log('%s --> %s', fqdn, result)
           result.must.be.false()
         })
