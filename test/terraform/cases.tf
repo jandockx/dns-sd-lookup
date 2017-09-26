@@ -236,24 +236,24 @@ module "instance-type_with_1_instance_subtype" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "t7i-sub"
-  subtype = "subtype"
+  subtype        = "subtype"
   instance       = "Instance\\0407"
   host           = "host-of-instance-7.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "6868"
   priority       = "69"
   weight         = "70"
 
-  details        = {
+  details = {
     aDetail = "This is a detail 71"
     txtvers = "72"
   }
 
-  ttl            = "${var.ttl}"
+  ttl = "${var.ttl}"
 }
 
 module "instance-type_with_5_instances" {
   source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
-  count = "5"
+  count          = "5"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
@@ -264,12 +264,12 @@ module "instance-type_with_5_instances" {
   priority       = "${74 + count.index}"
   weight         = "80"
 
-  details        = {
+  details = {
     aDetail = "This is a detail 81 ${count.index}"
     txtvers = "${82 + count.index}"
   }
 
-  ttl            = "${var.ttl}"
+  ttl = "${var.ttl}"
 }
 
 locals {
@@ -289,12 +289,12 @@ module "instance-type_with_weight_1" {
   priority       = "${93 + (2 *count.index)}"
   weight         = "95"
 
-  details        = {
+  details = {
     aDetail = "This is a detail 96 ${count.index}"
     txtvers = "${98 + count.index}"
   }
 
-  ttl            = "${var.ttl}"
+  ttl = "${var.ttl}"
 }
 
 module "instance-type_with_weight_2" {
@@ -310,10 +310,10 @@ module "instance-type_with_weight_2" {
   priority       = "110"
   weight         = "${count.index + 3}"
 
-  details        = {
+  details = {
     aDetail = "This is a detail 112 ${count.index}"
     txtvers = "113 + ${count.index}"
   }
 
-  ttl            = "${var.ttl}"
+  ttl = "${var.ttl}"
 }
