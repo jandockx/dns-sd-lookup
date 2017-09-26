@@ -25,21 +25,31 @@
 /* eslint-env mocha */
 
 const discover = require('../../lib/discover')
-const ServiceInstance = require('../../lib/ServiceInstance')
 // noinspection JSUnresolvedVariable
 const discoverContract = discover.contract
 
 // noinspection SpellCheckingInspection
-const serviceType = '_t1i-no-sub._tcp.dns-sd-lookup.toryt.org'
+const serviceTypePostfix = '._tcp.dns-sd-lookup.toryt.org'
+// noinspection SpellCheckingInspection
+const serviceType = '_t1i-no-sub' + serviceTypePostfix
 
 describe('discover', function () {
   it('works in the nominal case', function () {
     // noinspection JSUnresolvedVariable
     return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
       details.must.be.an.array()
-      details.forEach(d => d.must.be.an.instanceof(ServiceInstance))
+      details.must.have.length(1)
       console.log(details)
     }))
+  })
+  it('resolves to the empty array with a non-existent service type', function () {
+    // noinspection JSUnresolvedVariable
+    return discover('_not-exist' + serviceTypePostfix)
+      .must.fulfill(discoverContract.resolved.implementation(details => {
+        details.must.be.an.array()
+        details.must.be.empty()
+        console.log(details)
+      }))
   })
   it('works with a death in the nominal case', function () { // MUDO
     // noinspection JSUnresolvedVariable
@@ -48,5 +58,22 @@ describe('discover', function () {
         details.must.be.an.array()
         console.log(details)
       }))
+  })
+
+  let failures = [
+    't2i-2-txt',
+    't3i-2-srv',
+    't4i-2-txt-srv',
+    't5i-no-txt',
+    't6i-no-srv'
+  ]
+  failures = failures.map(f => `_${f}${serviceTypePostfix}`)
+  failures.forEach(serviceType => {
+    it(`fails for instance type ${serviceType}`, function () {
+      // noinspection JSUnresolvedVariable
+      return discover(serviceType).must.betray(discoverContract.rejected.implementation(err => {
+        console.log(err)
+      }))
+    })
   })
 })
