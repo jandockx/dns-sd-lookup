@@ -64,6 +64,31 @@ function generateMaxLength (beforeProtocol) {
   return {not: notTooLong, too: tooLong}
 }
 
+const falseBaseServiceTypes = [
+  '',
+  '# not _ a domain',
+  'notcporupd.' + domain,
+  serviceType + '.notcporupd.' + domain,
+  '_udp.' + domain,
+  '_tcp.' + domain,
+  '_thisIsSxteenLong._udp.' + domain,
+  '_thisIsSxteenLong._tcp.' + domain,
+  '_service spaces._udp.' + domain,
+  '_service spaces._tcp.' + domain,
+  '_service_undersc._udp.' + domain,
+  '_service_undersc._tcp.' + domain,
+  '_service,comma._udp.' + domain,
+  '_double--dash._tcp.' + domain,
+  'notStartWith_._udp.' + domain,
+  'notStartWith_._tcp.' + domain,
+  '_-dash._tcp.' + domain,
+  '_dash-._tcp.' + domain,
+  '_9number._tcp.' + domain,
+  '_number9._tcp.' + domain,
+  `_${serviceType}._udp.a.thisIs999NotATld`,
+  `_${serviceType}._udp.a.domain_with.an.underscore.com`,
+]
+
 describe('validate', function () {
   describe('#isBaseServiceType', function () {
     const tooLong = generateMaxLength('_' + serviceType)
@@ -91,33 +116,11 @@ describe('validate', function () {
     })
     describe('false', function () {
       // noinspection SpellCheckingInspection
-      const fqdns = [
+      const fqdns = falseBaseServiceTypes.concat([
         null,
         undefined,
-        '',
-        '# not _ a domain',
-        'notcporupd.' + domain,
-        serviceType + '.notcporupd.' + domain,
-        '_udp.' + domain,
-        '_tcp.' + domain,
-        '_thisIsSxteenLong._udp.' + domain,
-        '_thisIsSxteenLong._tcp.' + domain,
-        '_service spaces._udp.' + domain,
-        '_service spaces._tcp.' + domain,
-        '_service_undersc._udp.' + domain,
-        '_service_undersc._tcp.' + domain,
-        '_service,comma._udp.' + domain,
-        '_double--dash._tcp.' + domain,
-        'notStartWith_._udp.' + domain,
-        'notStartWith_._tcp.' + domain,
-        '_-dash._tcp.' + domain,
-        '_dash-._tcp.' + domain,
-        '_9number._tcp.' + domain,
-        '_number9._tcp.' + domain,
-        `_${serviceType}._udp.a.thisIs999NotATld`,
-        `_${serviceType}._udp.a.domain_with.an.underscore.com`,
         tooLong.too
-      ]
+      ])
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
           const result = validate.isBaseServiceType(fqdn)
@@ -166,33 +169,12 @@ describe('validate', function () {
     })
     describe('false', function () {
       // noinspection SpellCheckingInspection
-      const fqdns = [
+      const fqdns = falseBaseServiceTypes.concat([
         null,
         undefined,
-        '',
-        '# not _ a domain',
-        'notcporupd.' + domain,
-        serviceType + '.notcporupd.' + domain,
-        '_udp.' + domain,
-        '_tcp.' + domain,
-        '_thisIsSxteenLong._udp.' + domain,
-        '_thisIsSxteenLong._tcp.' + domain,
-        '_service spaces._udp.' + domain,
-        '_service spaces._tcp.' + domain,
-        '_service_undersc._udp.' + domain,
-        '_service_undersc._tcp.' + domain,
-        '_service,comma._udp.' + domain,
-        '_double--dash._tcp.' + domain,
-        'notStartWith_._udp.' + domain,
-        'notStartWith_._tcp.' + domain,
-        '_-dash._tcp.' + domain,
-        '_dash-._tcp.' + domain,
-        '_9number._tcp.' + domain,
-        '_number9._tcp.' + domain,
-        `_${serviceType}._udp.a.thisIs999NotATld`,
-        `_${serviceType}._udp.a.domain_with.an.underscore.com`,
-        tooLongWithoutSub.too
-      ]
+        tooLongWithoutSub.too,
+        tooLongWithSub.too
+      ])
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
           const result = validate.isBaseServiceType(fqdn)
