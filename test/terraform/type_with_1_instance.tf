@@ -26,7 +26,7 @@ variable "protocol" {
   default = "tcp"
 }
 
-// NOTE: service type names have a max lenght of 13 chars
+// NOTE: service type names have a max lenght of 15 chars
 
 module "instance-type_with_1_instance_no_subtype" {
   source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
@@ -228,4 +228,92 @@ resource "aws_route53_record" "instance-no_srv-txt" {
   records = [
     "This is a detail 6\"\"txtvers=68",
   ]
+}
+
+module "instance-type_with_1_instance_subtype" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "t7i-sub"
+  subtype = "subtype"
+  instance       = "Instance\\0407"
+  host           = "host-of-instance-7.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "6868"
+  priority       = "69"
+  weight         = "70"
+
+  details        = {
+    aDetail = "This is a detail 71"
+    txtvers = "72"
+  }
+
+  ttl            = "${var.ttl}"
+}
+
+module "instance-type_with_5_instances" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
+  count = "5"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "t8i-5inst"
+  instance       = "Instance\\0408-${count.index}"
+  host           = "host-of-instance-8-${count.index}.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "730${count.index}"
+  priority       = "${74 + count.index}"
+  weight         = "80"
+
+  details        = {
+    aDetail = "This is a detail 81 ${count.index}"
+    txtvers = "${82 + count.index}"
+  }
+
+  ttl            = "${var.ttl}"
+}
+
+locals {
+  type_with_weight = "t9i-weight"
+}
+
+module "instance-type_with_weight_1" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
+  count          = "2"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_weight}"
+  instance       = "Instance\\0409-${count.index}"
+  host           = "host-of-instance-9-${count.index}.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "900${count.index}"
+  priority       = "${93 + (2 *count.index)}"
+  weight         = "95"
+
+  details        = {
+    aDetail = "This is a detail 96 ${count.index}"
+    txtvers = "${98 + count.index}"
+  }
+
+  ttl            = "${var.ttl}"
+}
+
+module "instance-type_with_weight_2" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
+  count          = "2"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_weight}"
+  instance       = "Instance\\04010-${count.index}"
+  host           = "host-of-instance-10-${count.index}.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "901${count.index}"
+  priority       = "110"
+  weight         = "${count.index + 3}"
+
+  details        = {
+    aDetail = "This is a detail 112 ${count.index}"
+    txtvers = "113 + ${count.index}"
+  }
+
+  ttl            = "${var.ttl}"
 }
