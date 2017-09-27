@@ -33,3 +33,17 @@ output "I-no_txt-instance" {
 output "I-no_srv-instance" {
   value = "${aws_route53_record.instance-no_srv-txt.name}"
 }
+
+output "I-type_with_1_instance_subtype" {
+  value = "${module.instance-type_with_1_instance_subtype.II-instance}"
+}
+
+output "I-5_instances" {
+  value = [
+    "${module.instance-type_with_5_instances_a.I-instance}",
+    "${module.instance-type_with_5_instances_b.I-instance}",
+    "${module.instance-type_with_5_instances_c.I-instance}",
+    "${module.instance-type_with_5_instances_d.I-instance}",
+    "${module.instance-type_with_5_instances_e.I-instance}",
+  ]
+}
