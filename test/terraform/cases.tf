@@ -366,6 +366,6 @@ resource "aws_route53_record" "type_with_5_instances-PTR" {
     "${lookup(module.instance-type_with_5_instances_b.I-instance, "instance")}",
     "${lookup(module.instance-type_with_5_instances_c.I-instance, "instance")}",
     "${lookup(module.instance-type_with_5_instances_d.I-instance, "instance")}",
-    "${lookup(module.instance-type_with_5_instances_e.I-instance, "instance")}"
+    "${lookup(module.instance-type_with_5_instances_e.I-instance, "instance")}",
   ]
 }
