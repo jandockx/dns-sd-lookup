@@ -72,12 +72,12 @@ describe('discover', function () {
   it('works with a death in the nominal case', function () {
     const serviceType = `_t8i-5inst${serviceTypePostfix}`
     const deaths = [
-      `Instance\\0408c.${serviceType}`,
-      `Instance\\0408e.${serviceType}`
+      `Instance 8c.${serviceType}`,
+      `Instance 8e.${serviceType}`
     ]
     // noinspection JSUnresolvedVariable
     return discover(serviceType, deaths)
-      .must.fulfill(discoverContract.resolved(details => {
+      .must.fulfill(discoverContract.resolved.implementation(details => {
         details.must.be.an.array()
         details.must.have.length(3)
         details.forEach(d => deaths.must.not.contain(d.instance))
