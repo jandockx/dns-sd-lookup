@@ -27,30 +27,50 @@
 const selectInstance = require('../../lib/selectInstance')
 
 // noinspection SpellCheckingInspection
-const serviceType = '_test._sub._unittest._tcp.dns-sd-lookup.toryt.org'
+const serviceType = '_t8i-5inst._tcp.dns-sd-lookup.toryt.org'
 
 describe('selectInstance', function () {
   it('selects according to weight', function () {
+    const deaths = [
+      `Instance 8a.${serviceType}`,
+      `Instance 8d.${serviceType}`
+    ]
     // noinspection JSUnresolvedVariable
-    return selectInstance(serviceType, ['test_instance_unit_test0._tcp.dns-sd-lookup.toryt.org']).must.fulfill(details => {
+    return selectInstance(serviceType, deaths).must.fulfill(details => {
       details.must.be.an.object()
+      details.instance.must.match(`instance 8b.${serviceType}`)
       console.log(details)
     })
   })
   it('selects according to weight evenly', function () {
-    const batch = 5
+    const batch = 16
     this.timeout(30000)
     const timerLabel = 'selects according to weight evenly'
 
-    function report (selections) {
-      const total = Object.keys(selections).reduce(
+    const deaths = [
+      `Instance 8a.${serviceType}`,
+      `Instance 8b.${serviceType}`
+    ]
+
+    const matchExpr = new RegExp(`(instance 8c|instance 8d)\\.${serviceType.replace(/\./g, '\\.')}`)
+
+    const expected = {}
+    expected[`instance 8c.${serviceType}`] = 0.3
+    expected[`instance 8d.${serviceType}`] = 0.7
+
+    function totalCount (selections) {
+      return Object.keys(selections).reduce(
         (acc, key) => {
           acc += selections[key]
           return acc
         },
         0
       )
-      console.log(total)
+    }
+
+    function report (selections) {
+      const total = totalCount(selections)
+      console.log(`${total} - expected c = 30%, d = 70%`)
       Object.keys(selections).forEach(k => {
         console.log('  %s: %d/%d (%f%%)', k, selections[k], total, Math.round(selections[k] * 1000 / total) / 10)
       })
@@ -68,9 +88,12 @@ describe('selectInstance', function () {
           .then(selections => {
             const next = []
             for (let i = 0; i < batch; i++) {
+              // noinspection JSUnresolvedFunction
               next.push(
-                selectInstance(serviceType, ['test_instance_unit_test0._tcp.dns-sd-lookup.toryt.org'])
+                selectInstance(serviceType, deaths)
                   .then(selection => {
+                    selection.must.be.an.object()
+                    selection.instance.must.match(matchExpr)
                     selections[selection.instance]
                       ? selections[selection.instance]++
                       : selections[selection.instance] = 1
@@ -85,9 +108,13 @@ describe('selectInstance', function () {
       )
     }
 
-    return chain(100, Promise.resolve({}))
+    return chain(512, Promise.resolve({}))
       .then(selections => {
         console.timeEnd(timerLabel)
+        const total = totalCount(selections)
+        Object.keys(expected).forEach(e => {
+          Math.abs(expected[e] - (selections[e] / total)).must.be.below(0.025)
+        })
       })
   })
 })
