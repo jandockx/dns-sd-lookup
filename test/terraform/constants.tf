@@ -24,5 +24,5 @@
 
 variable "ttl" {
   description = "TTL of all DNS resource records defined here. See README for rationale."
-  default     = "30"
+  default     = "3600"
 }
