@@ -13,9 +13,9 @@
     pkginfo "^0.4.0"
     q "^1.5.0"
 
-"@ppwcode/terraform-ppwcode-modules@^3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@ppwcode/terraform-ppwcode-modules/-/terraform-ppwcode-modules-3.3.1.tgz#c19f1acbdd751f845f57d3e7d9e5242b371b1140"
+"@ppwcode/terraform-ppwcode-modules@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@ppwcode/terraform-ppwcode-modules/-/terraform-ppwcode-modules-3.4.0.tgz#adb625a18c8f735a22dcb0075926c64efe7eb616"
   dependencies:
     "@ppwcode/node-gitinfo" "^1.2.0"
     "@toryt/contracts-ii" "^1.2.0"

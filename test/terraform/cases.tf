@@ -256,7 +256,7 @@ locals {
 }
 
 module "instance-type_with_5_instances_a" {
-  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
@@ -276,7 +276,7 @@ module "instance-type_with_5_instances_a" {
 }
 
 module "instance-type_with_5_instances_b" {
-  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
@@ -296,7 +296,7 @@ module "instance-type_with_5_instances_b" {
 }
 
 module "instance-type_with_5_instances_c" {
-  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
@@ -316,7 +316,7 @@ module "instance-type_with_5_instances_c" {
 }
 
 module "instance-type_with_5_instances_d" {
-  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
@@ -336,7 +336,7 @@ module "instance-type_with_5_instances_d" {
 }
 
 module "instance-type_with_5_instances_e" {
-  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/serviceInstance"
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
@@ -353,4 +353,19 @@ module "instance-type_with_5_instances_e" {
   }
 
   ttl = "${var.ttl}"
+}
+
+resource "aws_route53_record" "type_with_5_instances-PTR" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${lookup(module.instance-type_with_5_instances_a.I-instance, "type")}"
+  type    = "PTR"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "${lookup(module.instance-type_with_5_instances_a.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_5_instances_b.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_5_instances_c.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_5_instances_d.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_5_instances_e.I-instance, "instance")}"
+  ]
 }
