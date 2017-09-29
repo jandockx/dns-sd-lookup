@@ -1856,7 +1856,7 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-legally@^2.9.0:
+legally@^2.8.1, legally@^2.9.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/legally/-/legally-2.9.0.tgz#ec830c52549a385931a5ee691879c37a5eb10298"
   dependencies:
@@ -3155,6 +3155,14 @@ through@^2.3.6, through@~2.3.4, through@~2.3.8:
 timed-out@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"
+
+tldrlegal@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/tldrlegal/-/tldrlegal-1.0.5.tgz#e0778bf04d586e5bde2decc213c9c4c13b067c9b"
+  dependencies:
+    commander "^2.9.0"
+    legally "^2.8.1"
+    npmlog "^4.0.2"
 
 to-fast-properties@^1.0.3:
   version "1.0.3"

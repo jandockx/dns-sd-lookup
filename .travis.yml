@@ -24,3 +24,5 @@ script:
   - echo $NODE_ENV
   - yarn test
   - yarn run legally -- -l -r
+  - yarn run tldrlegal
+
