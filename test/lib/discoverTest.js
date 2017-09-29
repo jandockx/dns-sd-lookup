@@ -106,14 +106,14 @@ describe('discover', function () {
           console.log(details)
         }))
     })
-    it('works with a death in the nominal case', function () {
+    it('works with a filter in the nominal case', function () {
       const serviceType = `_t8i-5inst${serviceTypePostfix}`
       const deaths = [
         `Instance 8c.${serviceType}`,
         `Instance 8e.${serviceType}`
       ]
       // noinspection JSUnresolvedVariable
-      return discover(serviceType, deaths)
+      return discover(serviceType, discover.notOneOf(deaths))
         .must.fulfill(discoverContract.resolved.implementation(details => {
           details.must.be.an.array()
           details.must.have.length(3)
