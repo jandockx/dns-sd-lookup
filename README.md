@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=master)](https://travis-ci.org/Toryt/dns-sd-lookup)
+
 Node CLI script that looks up service instance definitions for a service type defined with [DNS-SD] ([RFC 6763]).
 
 The functionality can also be used as a library in another component.
