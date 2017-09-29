@@ -45,7 +45,7 @@ describe('selectInstance', function () {
   })
   it('selects according to weight evenly', function () {
     const batch = 16
-    this.timeout(30000)
+    this.timeout(60000)
     const timerLabel = 'selects according to weight evenly'
 
     const deaths = [
@@ -109,7 +109,7 @@ describe('selectInstance', function () {
       )
     }
 
-    return chain(512, Promise.resolve({}))
+    return chain(1024, Promise.resolve({}))
       .then(selections => {
         console.timeEnd(timerLabel)
         const total = totalCount(selections)
