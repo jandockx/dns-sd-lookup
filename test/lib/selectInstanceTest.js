@@ -25,7 +25,8 @@
 /* eslint-env mocha */
 
 const selectInstance = require('../../lib/selectInstance')
-const notOneOf = require('../../lib/discover').notOneOf
+const selectionInstanceContract = selectInstance.contract
+const notOneOf = selectInstance.notOneOf
 
 // noinspection SpellCheckingInspection
 const serviceType = '_t8i-5inst._tcp.dns-sd-lookup.toryt.org'
@@ -37,11 +38,12 @@ describe('selectInstance', function () {
       `Instance 8d.${serviceType}`
     ]
     // noinspection JSUnresolvedVariable
-    return selectInstance(serviceType, notOneOf(deaths)).must.fulfill(details => {
-      details.must.be.an.object()
-      details.instance.must.match(`instance 8b.${serviceType}`)
-      console.log(details)
-    })
+    return selectInstance(serviceType, notOneOf(deaths))
+      .must.fulfill(selectionInstanceContract.resolved.implementation(details => {
+        details.must.be.an.object()
+        details.instance.must.match(`instance 8b.${serviceType}`)
+        console.log(details)
+      }))
   })
   it('selects according to weight evenly', function () {
     const batch = 16
@@ -92,13 +94,13 @@ describe('selectInstance', function () {
               // noinspection JSUnresolvedFunction
               next.push(
                 selectInstance(serviceType, notOneOf(deaths))
-                  .then(selection => {
+                  .then(selectionInstanceContract.resolved.implementation(selection => {
                     selection.must.be.an.object()
                     selection.instance.must.match(matchExpr)
                     selections[selection.instance]
                       ? selections[selection.instance]++
                       : selections[selection.instance] = 1
-                  })
+                  }))
               )
             }
             return Promise.all(next).then(() => {
