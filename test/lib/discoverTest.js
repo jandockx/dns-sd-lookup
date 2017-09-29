@@ -34,71 +34,109 @@ const serviceTypePostfix = '._tcp.dns-sd-lookup.toryt.org'
 const serviceType = '_t1i-no-sub' + serviceTypePostfix
 
 describe('discover', function () {
-  it('works in the nominal case, without a subtype', function () {
-    // noinspection JSUnresolvedVariable
-    return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
-      details.must.be.an.array()
-      details.must.have.length(1)
-      console.log(details)
-    }))
-  })
-  it('works in the nominal case, with a subtype', function () {
-    const serviceType = `_subtype._sub._t7i-sub${serviceTypePostfix}`
-    // noinspection JSUnresolvedVariable
-    return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
-      details.must.be.an.array()
-      details.must.have.length(1)
-      console.log(details)
-    }))
-  })
-  it('works in the nominal case, with 5 instances', function () {
-    const serviceType = `_t8i-5inst${serviceTypePostfix}`
-    // noinspection JSUnresolvedVariable
-    return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
-      details.must.be.an.array()
-      details.must.have.length(5)
-      console.log(details)
-    }))
-  })
-  it('resolves to the empty array with a non-existent service type', function () {
-    // noinspection JSUnresolvedVariable
-    return discover('_not-exist' + serviceTypePostfix)
-      .must.fulfill(discoverContract.resolved.implementation(details => {
-        details.must.be.an.array()
-        details.must.be.empty()
-        console.log(details)
-      }))
-  })
-  it('works with a death in the nominal case', function () {
-    const serviceType = `_t8i-5inst${serviceTypePostfix}`
-    const deaths = [
-      `Instance 8c.${serviceType}`,
-      `Instance 8e.${serviceType}`
-    ]
-    // noinspection JSUnresolvedVariable
-    return discover(serviceType, deaths)
-      .must.fulfill(discoverContract.resolved.implementation(details => {
-        details.must.be.an.array()
-        details.must.have.length(3)
-        details.forEach(d => deaths.must.not.contain(d.instance))
-        console.log(details)
-      }))
-  })
+  describe('#notOneOf', function () {
+    const instanceName = 'candidate instance._type._tcp.dns-sd-lookup.toryt.org'
 
-  let failures = [
-    't2i-2-txt',
-    't3i-2-srv',
-    't4i-2-txt-srv',
-    't5i-no-txt',
-    't6i-no-srv'
-  ]
-  failures = failures.map(f => `_${f}${serviceTypePostfix}`)
-  failures.forEach(serviceType => {
-    it(`fails for instance type ${serviceType}`, function () {
+    it('works with the empty array', function () {
+      const deathInstances = []
+      const result = discover.notOneOf(deathInstances)
+      result.must.be.a.function()
+      const secondaryResult = result(instanceName)
+      secondaryResult.must.be.boolean()
+      secondaryResult.must.be.true()
+    })
+    it('works with a non-empty array, without a match', function () {
+      const deathInstances = [
+        'death instance 1._type._tcp.dns-sd-lookup.toryt.org',
+        'death instance 2._type._tcp.dns-sd-lookup.toryt.org',
+        'death instance 3._type._tcp.dns-sd-lookup.toryt.org'
+      ]
+      const result = discover.notOneOf(deathInstances)
+      result.must.be.a.function()
+      const secondaryResult = result(instanceName)
+      secondaryResult.must.be.boolean()
+      secondaryResult.must.be.true()
+    })
+    it('works with a non-empty array, with a match', function () {
+      const deathInstances = [
+        'death instance 1._type._tcp.dns-sd-lookup.toryt.org',
+        instanceName,
+        'death instance 3._type._tcp.dns-sd-lookup.toryt.org'
+      ]
+      const result = discover.notOneOf(deathInstances)
+      result.must.be.a.function()
+      const secondaryResult = result(instanceName)
+      secondaryResult.must.be.boolean()
+      secondaryResult.must.be.false()
+    })
+  })
+  describe('main method', function () {
+    it('works in the nominal case, without a subtype', function () {
       // noinspection JSUnresolvedVariable
-      return discover(serviceType).must.betray(discoverContract.rejected.implementation(err => {
-        console.log(err)
+      return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
+        details.must.be.an.array()
+        details.must.have.length(1)
+        console.log(details)
       }))
+    })
+    it('works in the nominal case, with a subtype', function () {
+      const serviceType = `_subtype._sub._t7i-sub${serviceTypePostfix}`
+      // noinspection JSUnresolvedVariable
+      return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
+        details.must.be.an.array()
+        details.must.have.length(1)
+        console.log(details)
+      }))
+    })
+    it('works in the nominal case, with 5 instances', function () {
+      const serviceType = `_t8i-5inst${serviceTypePostfix}`
+      // noinspection JSUnresolvedVariable
+      return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
+        details.must.be.an.array()
+        details.must.have.length(5)
+        console.log(details)
+      }))
+    })
+    it('resolves to the empty array with a non-existent service type', function () {
+      // noinspection JSUnresolvedVariable
+      return discover('_not-exist' + serviceTypePostfix)
+        .must.fulfill(discoverContract.resolved.implementation(details => {
+          details.must.be.an.array()
+          details.must.be.empty()
+          console.log(details)
+        }))
+    })
+    it('works with a death in the nominal case', function () {
+      const serviceType = `_t8i-5inst${serviceTypePostfix}`
+      const deaths = [
+        `Instance 8c.${serviceType}`,
+        `Instance 8e.${serviceType}`
+      ]
+      // noinspection JSUnresolvedVariable
+      return discover(serviceType, deaths)
+        .must.fulfill(discoverContract.resolved.implementation(details => {
+          details.must.be.an.array()
+          details.must.have.length(3)
+          details.forEach(d => deaths.must.not.contain(d.instance))
+          console.log(details)
+        }))
+    })
+
+    let failures = [
+      't2i-2-txt',
+      't3i-2-srv',
+      't4i-2-txt-srv',
+      't5i-no-txt',
+      't6i-no-srv'
+    ]
+    failures = failures.map(f => `_${f}${serviceTypePostfix}`)
+    failures.forEach(serviceType => {
+      it(`fails for instance type ${serviceType}`, function () {
+        // noinspection JSUnresolvedVariable
+        return discover(serviceType).must.betray(discoverContract.rejected.implementation(err => {
+          console.log(err)
+        }))
+      })
     })
   })
 })
