@@ -1,11 +1,8 @@
 {
   "name": "@toryt/dns-sd-lookup",
   "version": "0.0.0-dev.0",
-  "description": "Node library and CLI script that looks up service instance definitions for a service type defined with DNS-SD (RFC 6763)",
+  "description": "Node library that looks up service instance definitions for a service type defined with DNS-SD (RFC 6763)",
   "main": "index.js",
-  "bin": {
-    "dns_sd_lookup": "./bin/dns_sd_lookup.js"
-  },
   "keywords": [
     "registry",
     "service",
@@ -32,26 +29,19 @@
   },
   "dependencies": {
     "@toryt/contracts-iii": "^3.1.0",
-    "commander": "^2.11.0",
     "deeper": "^2.1.0",
     "denodeify": "^1.2.1",
-    "engine-check": "^1.0.0",
-    "pkginfo": "^0.4.1",
-    "rc": "^1.2.1",
     "validator": "^8.1.0"
   },
   "devDependencies": {
     "@ppwcode/terraform-ppwcode-modules": "^3.4.0",
     "cartesian": "^1.0.1",
-    "child-process-es6-promise": "^1.1.0",
     "legally": "^2.9.0",
     "mocha": "^3.5.0",
     "mocha-reporter": "^0.0.3",
     "must": "github:jandockx/js-must#fork/0.13.4/1",
     "npm-check": "^5.4.5",
     "nyc": "^11.2.1",
-    "proxyquire": "^1.8.0",
-    "sinon": "^3.2.1",
     "standard": "^10.0.3"
   },
   "nyc": {
@@ -67,7 +57,7 @@
     ]
   },
   "scripts": {
-    "pretest": "npm-check -i mocha-reporter -i standard -i npm-check -i legally -i @ppwcode/terraform-ppwcode-modules -i child-process-es6-promise -i commander -i engine-check -i pkginfo -i rc -i proxyquire -i sinon",
+    "pretest": "npm-check -i mocha-reporter -i standard -i npm-check -i legally -i @ppwcode/terraform-ppwcode-modules",
     "test": "standard && nyc mocha 'test/**/*Test.js'"
   }
 }
