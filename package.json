@@ -36,6 +36,7 @@
   "devDependencies": {
     "@ppwcode/terraform-ppwcode-modules": "^3.4.0",
     "cartesian": "^1.0.1",
+    "credits-cli": "^3.1.0",
     "legally": "^2.9.0",
     "mocha": "^3.5.0",
     "mocha-reporter": "^0.0.3",
@@ -59,6 +60,7 @@
   },
   "scripts": {
     "pretest": "npm-check -i mocha-reporter -i standard -i npm-check -i legally -i @ppwcode/terraform-ppwcode-modules",
-    "test": "standard && nyc mocha 'test/**/*Test.js'"
+    "test": "standard && nyc mocha 'test/**/*Test.js'",
+    "update_credits": "credits . --reporter markdown > CREDITS.md"
   }
 }
