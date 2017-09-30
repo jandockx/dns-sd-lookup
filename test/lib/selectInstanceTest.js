@@ -204,7 +204,7 @@ describe('selectInstance', function () {
     return testDistribution(labelA, deaths, expected)
   })
   const labelB = 'selects according to weight with a filter evenly with 5 instances'
-  it.only(labelB, function () {
+  it(labelB, function () {
     this.timeout(60000)
 
     const deaths = [
@@ -223,7 +223,29 @@ describe('selectInstance', function () {
 
     return testDistribution(labelB, deaths, expected)
   })
+  const labelC = 'selects according to weight with a filter evenly with 3 instances with weight 0'
+  it.only(labelC, function () {
+    this.timeout(60000)
 
+    const deaths = [
+      `Instance 8a.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8b.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8c.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8d.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8e.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8f.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8g.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8h.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8i.${serviceTypeNInstancesWithWeight}`
+    ]
+
+    const expected = {}
+    expected[`instance 8j`] = 0.0
+    expected[`instance 8k`] = 0.0
+    expected[`instance 8l`] = 0.0
+
+    return testDistribution(labelC, deaths, expected)
+  })
 
   let failures = [
     't2i-2-txt',
