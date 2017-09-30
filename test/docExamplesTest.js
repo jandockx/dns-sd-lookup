@@ -159,6 +159,32 @@ describe('doc examples', function () {
       console.log(extract.domain('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     })
   })
+  it('extendWithTxtStr', function () {
+    const extendWithTxtStr = require('../index').extendWithTxtStr
+
+    const obj = {
+      existing: 'existing property'
+    }
+    extendWithTxtStr(obj, 'newProperty=new property value')
+    console.assert(obj.newproperty === 'new property value')
+    extendWithTxtStr(obj, 'existing=override')
+    console.assert(obj.existing === 'existing property')
+    extendWithTxtStr(obj, '=this is not a valid attribute')
+    console.assert(obj[''] === undefined)
+    extendWithTxtStr(obj, 'empty string attribute=')
+    console.assert(obj['empty string attribute'] === '')
+    extendWithTxtStr(obj, 'boolean attribute')
+    console.assert(obj['boolean attribute'] === true)
+
+    console.log('%j', obj)
+  })
+  it('lookupInstance', function () {
+    const lookupInstance = require('../index').lookupInstance
+
+    return lookupInstance('instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org').then(serviceInstance => {
+      console.log('%j', serviceInstance)
+    })
+  })
   it('lookupInstance', function () {
     const lookupInstance = require('../index').lookupInstance
 

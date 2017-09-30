@@ -218,6 +218,44 @@ Extract the domain from a [RFC 6763] _Service Type_ or _Service Instance_.
 `extendWithTxtStr`
 ------------------
 
+Extend a given `obj` with a property based on a given DNS `TXT` resource record string that represents a
+[RFC 6763] _Service Instance_ attribute.
+
+Existing properties are never overwritten. The attribute name is converted to lower case before it is used as property
+name. DNS `TXT` resource record strings that do not represents a valid [RFC 6763] _Service Instance_ attribute leave
+the `obj` unchanged. A DNS `TXT` resource record string that represents a [RFC 6763] _Service Instance_ boolean 
+attribute, i.e., that does not contain a `=` character, result in a JavaScript property on `obj` with value `true`.
+
+The property values added by this method to `obj` are always either `true` or a string. The property value added
+might be the empty string.
+                       
+    const extendWithTxtStr = require('@toryt/dns-sd-lookup).extendWithTxtStr
+
+    const obj = {
+      existing: 'existing property'
+    }
+    extendWithTxtStr(obj, 'newProperty=new property value')
+    console.assert(obj.newproperty === 'new property value')
+    extendWithTxtStr(obj, 'existing=override')
+    console.assert(obj.existing === 'existing property')
+    extendWithTxtStr(obj, '=this is not a valid attribute')
+    console.assert(obj[''] === undefined)
+    extendWithTxtStr(obj, 'empty string attribute=')
+    console.assert(obj['empty string attribute'] === '')
+    extendWithTxtStr(obj, 'boolean attribute')
+    console.assert(obj['boolean attribute'] === true)
+
+    console.log('%j', obj)
+
+prints out
+
+    {
+      "existing": "existing property",
+      "newproperty": "new property value",
+      "empty string attribute": "",
+      "boolean attribute": true
+    }
+
 
 
 `lookupInstance`
