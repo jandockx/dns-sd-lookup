@@ -35,7 +35,7 @@ const serviceTypeNInstancesWithWeight = '_t8i-n-inst' + serviceTypePostfix
 const manyInstanceCount = 12
 const must = require('must')
 
-const batch = 16
+const batch = 8
 
 function testDistribution (timerLabel, deaths, expected) {
   const expectedPattern = Object.keys(expected).join('|')
@@ -93,7 +93,7 @@ function testDistribution (timerLabel, deaths, expected) {
 
   console.time(timerLabel)
 
-  return chain(128, Promise.resolve({}))
+  return chain(256, Promise.resolve({}))
     .then(selections => {
       console.timeEnd(timerLabel)
       const total = totalCount(selections)
@@ -103,7 +103,7 @@ function testDistribution (timerLabel, deaths, expected) {
                  When testing with 2 instances, in 1024 tries, if often happens that the deviation that the deviation
                  is larger. That is surprising. This would mean that a random choice is not good enough.
                  That would imply that we rather need some sort of memory, which would be bad.
-                 After this observation, the limit was lowered to 5%, and the tries are lowered to 128, for
+                 After this observation, the limit was lowered to 5%, and the tries are lowered to 256, for
                  test speed reasons. */
       })
     })
