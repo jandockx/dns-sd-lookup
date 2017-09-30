@@ -75,7 +75,7 @@ describe('lookupInstance', function () {
       response.details.txtvers.must.be.a.string()
       // noinspection JSCheckFunctionSignatures
       Number.parseInt(response.details.txtvers).must.equal(expected.txtvers)
-      response.details.aDetail.must.equal(expected.aDetail)
+      response.details['aDetail'.toLowerCase()].must.equal(expected.aDetail)
       const at = new Date(response.details.at)
       at.must.be.before(now)
     }))
