@@ -29,19 +29,31 @@ const selectionInstanceContract = selectInstance.contract
 const notOneOf = selectInstance.notOneOf
 
 // noinspection SpellCheckingInspection
-const serviceType = '_t8i-5inst._tcp.dns-sd-lookup.toryt.org'
+const serviceTypePostfix = '._tcp.dns-sd-lookup.toryt.org'
+// noinspection SpellCheckingInspection
+const serviceType1Instance = '_t1i-no-sub' + serviceTypePostfix
+// noinspection SpellCheckingInspection
+const serviceTypeWithWeight = '_t8i-5inst' + serviceTypePostfix
 
 describe('selectInstance', function () {
+  it('works in the nominal case, without a subtype', function () {
+    // noinspection JSUnresolvedVariable
+    return selectInstance(serviceType1Instance)
+      .must.fulfill(selectionInstanceContract.resolved.implementation(instance => {
+        instance.must.be.an.object()
+        console.log(instance)
+      }))
+  })
   it('selects according to weight', function () {
     const deaths = [
-      `Instance 8a.${serviceType}`,
-      `Instance 8d.${serviceType}`
+      `Instance 8a.${serviceTypeWithWeight}`,
+      `Instance 8d.${serviceTypeWithWeight}`
     ]
     // noinspection JSUnresolvedVariable
-    return selectInstance(serviceType, notOneOf(deaths))
+    return selectInstance(serviceTypeWithWeight, notOneOf(deaths))
       .must.fulfill(selectionInstanceContract.resolved.implementation(details => {
         details.must.be.an.object()
-        details.instance.must.match(`instance 8b.${serviceType}`)
+        details.instance.must.match(`instance 8b.${serviceTypeWithWeight}`)
         console.log(details)
       }))
   })
@@ -51,15 +63,15 @@ describe('selectInstance', function () {
     const timerLabel = 'selects according to weight evenly'
 
     const deaths = [
-      `Instance 8a.${serviceType}`,
-      `Instance 8b.${serviceType}`
+      `Instance 8a.${serviceTypeWithWeight}`,
+      `Instance 8b.${serviceTypeWithWeight}`
     ]
 
-    const matchExpr = new RegExp(`(instance 8c|instance 8d)\\.${serviceType.replace(/\./g, '\\.')}`)
+    const matchExpr = new RegExp(`(instance 8c|instance 8d)\\.${serviceTypeWithWeight.replace(/\./g, '\\.')}`)
 
     const expected = {}
-    expected[`instance 8c.${serviceType}`] = 0.3
-    expected[`instance 8d.${serviceType}`] = 0.7
+    expected[`instance 8c.${serviceTypeWithWeight}`] = 0.3
+    expected[`instance 8d.${serviceTypeWithWeight}`] = 0.7
 
     function totalCount (selections) {
       return Object.keys(selections).reduce(
@@ -93,7 +105,7 @@ describe('selectInstance', function () {
             for (let i = 0; i < batch; i++) {
               // noinspection JSUnresolvedFunction
               next.push(
-                selectInstance(serviceType, notOneOf(deaths))
+                selectInstance(serviceTypeWithWeight, notOneOf(deaths))
                   .then(selectionInstanceContract.resolved.implementation(selection => {
                     selection.must.be.an.object()
                     selection.instance.must.match(matchExpr)
