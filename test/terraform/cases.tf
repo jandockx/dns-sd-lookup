@@ -252,15 +252,15 @@ module "instance-type_with_1_instance_subtype" {
 }
 
 locals {
-  type_with_5_instances = "t8i-5inst"
+  type_with_n_instances = "t8i-n-inst"
 }
 
-module "instance-type_with_5_instances_a" {
+module "instance-type_with_n_instances_a" {
   source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
-  type           = "${local.type_with_5_instances}"
+  type           = "${local.type_with_n_instances}"
   instance       = "Instance\\0408a"
   host           = "host-of-instance-8a.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "7373"
@@ -275,12 +275,12 @@ module "instance-type_with_5_instances_a" {
   ttl = "${var.ttl}"
 }
 
-module "instance-type_with_5_instances_b" {
+module "instance-type_with_n_instances_b" {
   source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
-  type           = "${local.type_with_5_instances}"
+  type           = "${local.type_with_n_instances}"
   instance       = "Instance\\0408b"
   host           = "host-of-instance-8b.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "7878"
@@ -295,12 +295,12 @@ module "instance-type_with_5_instances_b" {
   ttl = "${var.ttl}"
 }
 
-module "instance-type_with_5_instances_c" {
+module "instance-type_with_n_instances_c" {
   source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
-  type           = "${local.type_with_5_instances}"
+  type           = "${local.type_with_n_instances}"
   instance       = "Instance\\0408c"
   host           = "host-of-instance-8c.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "8383"
@@ -315,12 +315,12 @@ module "instance-type_with_5_instances_c" {
   ttl = "${var.ttl}"
 }
 
-module "instance-type_with_5_instances_d" {
+module "instance-type_with_n_instances_d" {
   source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
-  type           = "${local.type_with_5_instances}"
+  type           = "${local.type_with_n_instances}"
   instance       = "Instance\\0408d"
   host           = "host-of-instance-8d.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "8888"
@@ -335,17 +335,17 @@ module "instance-type_with_5_instances_d" {
   ttl = "${var.ttl}"
 }
 
-module "instance-type_with_5_instances_e" {
+module "instance-type_with_n_instances_e" {
   source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
-  type           = "${local.type_with_5_instances}"
+  type           = "${local.type_with_n_instances}"
   instance       = "Instance\\0408e"
   host           = "host-of-instance-8e.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "9393"
   priority       = "200"
-  weight         = "200"
+  weight         = "10"
 
   details = {
     aDetail = "This is a detail 96"
@@ -355,17 +355,164 @@ module "instance-type_with_5_instances_e" {
   ttl = "${var.ttl}"
 }
 
-resource "aws_route53_record" "type_with_5_instances-PTR" {
+module "instance-type_with_n_instances_f" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_n_instances}"
+  instance       = "Instance\\0408f"
+  host           = "host-of-instance-8f.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "9898"
+  priority       = "200"
+  weight         = "20"
+
+  details = {
+    aDetail = "This is a detail 99"
+    txtvers = "100"
+  }
+
+  ttl = "${var.ttl}"
+}
+
+module "instance-type_with_n_instances_g" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_n_instances}"
+  instance       = "Instance\\0408g"
+  host           = "host-of-instance-8g.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "1111"
+  priority       = "200"
+  weight         = "30"
+
+  details = {
+    aDetail = "This is a detail 102"
+    txtvers = "103"
+  }
+
+  ttl = "${var.ttl}"
+}
+
+module "instance-type_with_n_instances_h" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_n_instances}"
+  instance       = "Instance\\0408h"
+  host           = "host-of-instance-8h.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "1515"
+  priority       = "200"
+  weight         = "20"
+
+  details = {
+    aDetail = "This is a detail 106"
+    txtvers = "107"
+  }
+
+  ttl = "${var.ttl}"
+}
+
+module "instance-type_with_n_instances_i" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_n_instances}"
+  instance       = "Instance\\0408i"
+  host           = "host-of-instance-8i.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "1818"
+  priority       = "200"
+  weight         = "20"
+
+  details = {
+    aDetail = "This is a detail 109"
+    txtvers = "110"
+  }
+
+  ttl = "${var.ttl}"
+}
+
+module "instance-type_with_n_instances_j" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_n_instances}"
+  instance       = "Instance\\0408j"
+  host           = "host-of-instance-8j.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "2121"
+  priority       = "300"
+  weight         = "0"
+
+  details = {
+    aDetail = "This is a detail 112"
+    txtvers = "113"
+  }
+
+  ttl = "${var.ttl}"
+}
+
+module "instance-type_with_n_instances_k" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_n_instances}"
+  instance       = "Instance\\0408k"
+  host           = "host-of-instance-8k.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "2424"
+  priority       = "300"
+  weight         = "0"
+
+  details = {
+    aDetail = "This is a detail 115"
+    txtvers = "116"
+  }
+
+  ttl = "${var.ttl}"
+}
+
+module "instance-type_with_n_instances_l" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_n_instances}"
+  instance       = "Instance\\0408l"
+  host           = "host-of-instance-8l.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "2727"
+  priority       = "300"
+  weight         = "0"
+
+  details = {
+    aDetail = "This is a detail 118"
+    txtvers = "119"
+  }
+
+  ttl = "${var.ttl}"
+}
+
+resource "aws_route53_record" "type_with_n_instances-PTR" {
   zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
-  name    = "${lookup(module.instance-type_with_5_instances_a.I-instance, "type")}"
+  name    = "${lookup(module.instance-type_with_n_instances_a.I-instance, "type")}"
   type    = "PTR"
   ttl     = "${var.ttl}"
 
   records = [
-    "${lookup(module.instance-type_with_5_instances_a.I-instance, "instance")}",
-    "${lookup(module.instance-type_with_5_instances_b.I-instance, "instance")}",
-    "${lookup(module.instance-type_with_5_instances_c.I-instance, "instance")}",
-    "${lookup(module.instance-type_with_5_instances_d.I-instance, "instance")}",
-    "${lookup(module.instance-type_with_5_instances_e.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_a.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_b.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_c.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_d.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_e.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_f.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_g.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_h.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_i.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_j.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_k.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_n_instances_l.I-instance, "instance")}",
   ]
 }

@@ -38,12 +38,18 @@ output "I-type_with_1_instance_subtype" {
   value = "${module.instance-type_with_1_instance_subtype.II-instance}"
 }
 
-output "I-5_instances" {
+output "I-n_instances" {
   value = [
-    "${module.instance-type_with_5_instances_a.I-instance}",
-    "${module.instance-type_with_5_instances_b.I-instance}",
-    "${module.instance-type_with_5_instances_c.I-instance}",
-    "${module.instance-type_with_5_instances_d.I-instance}",
-    "${module.instance-type_with_5_instances_e.I-instance}",
+    "${module.instance-type_with_n_instances_a.I-instance}",
+    "${module.instance-type_with_n_instances_b.I-instance}",
+    "${module.instance-type_with_n_instances_c.I-instance}",
+    "${module.instance-type_with_n_instances_d.I-instance}",
+    "${module.instance-type_with_n_instances_e.I-instance}",
+    "${module.instance-type_with_n_instances_g.I-instance}",
+    "${module.instance-type_with_n_instances_h.I-instance}",
+    "${module.instance-type_with_n_instances_i.I-instance}",
+    "${module.instance-type_with_n_instances_j.I-instance}",
+    "${module.instance-type_with_n_instances_k.I-instance}",
+    "${module.instance-type_with_n_instances_l.I-instance}",
   ]
 }
