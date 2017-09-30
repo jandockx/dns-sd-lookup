@@ -218,6 +218,8 @@ Extract the domain from a [RFC 6763] _Service Type_ or _Service Instance_.
 `extendWithTxtStr`
 ------------------
 
+
+
 `lookupInstance`
 ----------------
 
@@ -250,6 +252,7 @@ prints out
         "txtvers":"44"
       }
     }
+
 
 
 `discover`
@@ -345,6 +348,66 @@ The order of the instances is unspecified.
 `selectInstance`
 ----------------
 
+Lookup all instances for the given [RFC 6763] _Service Type_ in DNS and resolve to the `ServiceInstance` the user
+should use. Optionally, you can provide a `filter` function that filters out instances based on
+the _Service Instance_ name. With that, users can specify _Service Instance_ they do not want, because they know
+they are not in good health, or because they know by name that they are not interesting.
+
+`selectInstance.notOneOf` is a helper function that creates a `filter` function out of an Array of _Service Instance_ 
+names.
+
+The function uses `discover`, and the selects the appropriate instance from the resulting Array that have passed the
+`filter`, according to the rules of [RFC 2782]. The instance in the list with the lowest `priority` value is chosen.
+If there is more then 1 instance with the same lowest `priority` value, one is choose random from that set, according
+to the chance distribution given by the `weight` property values of the instance in the set.
+
+The function returns a Promise. If there are not exactly 1 DNS `SRV` and exactly 1 DNS `TXT` resource record in DNS for 
+all found instances that pass the `filter`, the Promise is betrayed. If there is no `PTR` resource record for the
+_Service Type_, or all instances are filtered out, the Promise returns `null`. 
+
+    const selectInstance = require('@toryt/dns-sd-lookup).selectInstance
+
+    const serviceType = '_t8i-n-inst._tcp.dns-sd-lookup.toryt.org'
+    let deaths = [
+      'Instance 8a',
+      'Instance 8b',
+      'Instance 8c',
+      'Instance 8d'
+    ]
+    deaths = deaths.map(d => `${d}.${serviceType}`)
+
+    return selectInstance(serviceType, selectInstance.notOneOf(deaths)).then(serviceInstance => {
+      console.log('%j', serviceInstance)
+    })
+
+prints out, e.g.,
+
+    {
+      "type": "_t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+      "instance": "instance 8f._t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+      "host": "host-of-instance-8f.dns-sd-lookup.toryt.org",
+      "port": 9898,
+      "priority": 200,
+      "weight": 20,
+      "details": {"adetail": "This is a detail 99", "at": "2017-09-30T13:25:49Z", "txtvers": "100"}
+    }
+
+In the example, all instances _e_ through _i_ have the same `priority`, so in another run, you might get another
+answer from that set, e.g.,
+
+    {
+      "type": "_t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+      "instance": "instance 8i._t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+      "host": "host-of-instance-8i.dns-sd-lookup.toryt.org",
+      "port": 1818,
+      "priority": 200,
+      "weight": 20,
+      "details": {"adetail": "This is a detail 109", "at": "2017-09-30T13:25:49Z", "txtvers": "110"}
+    }
+
+
+
+
 
 Style
 =====
@@ -360,4 +423,5 @@ This code uses [Standard] coding style.
 [DNS-SD]: http://www.dns-sd.org
 [RFC 6763]: https://www.ietf.org/rfc/rfc6763.txt
 [dns-sd]: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dns-sd.1.html
+[RFC 2782]: https://www.ietf.org/rfc/rfc2782.txt
 [Standard]: https://standardjs.com
