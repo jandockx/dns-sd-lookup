@@ -53,6 +53,7 @@ describe('doc examples', function () {
     console.assert(isBaseServiceType('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(isBaseServiceType('_a-service-type._udp.dns-sd-lookup.toryt.org'))
     console.assert(isBaseServiceType('_http._udp.dns-sd-lookup.toryt.org'))
+
     console.assert(!isBaseServiceType('sub type._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('_a-service-type-that-is-too-long._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('._tcp.dns-sd-lookup.toryt.org'))
@@ -69,6 +70,21 @@ describe('doc examples', function () {
     console.assert(!isBaseServiceType('_not-a-type9._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('_-not-a-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('_not-a-type-._tcp.dns-sd-lookup.toryt.org'))
+  })
+  it('isServiceType', function () {
+    const isServiceType = require('../index').isServiceType
+
+    console.assert(isServiceType('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(isServiceType('_sub-type._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(isServiceType('sub type._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(isServiceType('_a\\.complex\\\\sub\\.service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+
+    console.assert(!isServiceType('sub type._not-a-type._other.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceType('_sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceType('._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceType('unescaped.dot._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceType('unescaped\\backslash._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceType('ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
   })
   it('validate', function () {
     const validate = require('../index').validate

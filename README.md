@@ -90,6 +90,7 @@ The given string represents a [RFC 6763] base _Service Type_, i.e., a _Service T
     console.assert(isBaseServiceType('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(isBaseServiceType('_a-service-type._udp.dns-sd-lookup.toryt.org'))
     console.assert(isBaseServiceType('_http._udp.dns-sd-lookup.toryt.org'))
+    
     console.assert(!isBaseServiceType('sub type._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('_a-service-type-that-is-too-long._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('._tcp.dns-sd-lookup.toryt.org'))
@@ -106,6 +107,28 @@ The given string represents a [RFC 6763] base _Service Type_, i.e., a _Service T
     console.assert(!isBaseServiceType('_not-a-type9._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('_-not-a-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('_not-a-type-._tcp.dns-sd-lookup.toryt.org'))
+    
+    
+    
+### `isBaseServiceType`
+
+The given string represents a [RFC 6763] _Service Type_, i.e., a base _Service Type_,
+or a _service Type_ with a subtype.
+ 
+    const isServiceType = require('@toryt/dns-sd-lookup).isServiceType
+
+    console.assert(isServiceType('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(isServiceType('_sub-type._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(isServiceType('sub type._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(isServiceType('_a\\.complex\\\\sub\\.service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+
+    console.assert(!isServiceType('sub type._not-a-type._other.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceType('_sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceType('._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceType('unescaped.dot._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceType('unescaped\\backslash._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceType('ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+
 
 
 ### `validate`
