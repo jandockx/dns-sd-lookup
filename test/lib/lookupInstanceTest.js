@@ -147,7 +147,4 @@ describe('lookupInstance', function () {
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).must.betray(mustBeNotFoundError('ENODATA'))
   })
-
-  // MUDO add test with TXT string without =, with = in value
-  // IDEA add support for TXT string with escaped `= in key
 })
