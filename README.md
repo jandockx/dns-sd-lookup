@@ -215,13 +215,16 @@ Extract the domain from a [RFC 6763] _Service Type_ or _Service Instance_.
 
 
 
+`extendWithTxtStr`
+------------------
+
 `lookupInstance`
 ----------------
 
 Lookup the definition a [RFC 6763] _Service Instance_ in DNS and resolve to a `ServiceInstance` that represents it.
 
-The function returns a Promise. If not exactly 1 DNS `SRV` and exactly 1 DNS `TXT` record is found in DNS for the given
-_Service Instance_, the Promise is betrayed.
+The function returns a Promise. If not exactly 1 DNS `SRV` and exactly 1 DNS `TXT` resource record is found in DNS for
+the given _Service Instance_, the Promise is betrayed.
 The `details` property holds an object that contains all valid attributes found in the DNS `TXT` resource record,
 according to `extendWithTxtStr`.
 
@@ -248,6 +251,99 @@ prints out
       }
     }
 
+
+`discover`
+----------
+
+Lookup all instances for the given [RFC 6763] _Service Type_ in DNS and resolve to an Array of `ServiceInstance`
+objects that represent them. Optionally, you can provide a `filter` function that filters out instances based on
+the _Service Instance_ name. With that, users can specify _Service Instance_ they do not want, because they know
+they are not in good health, or because they know by name that they are not interesting.
+
+`discover.notOneOf` is a helper function that creates a `filter` function out of an Array of _Service Instance_ names.
+
+The function does a lookup for the DNS `PTR` resource records for the _Service Type_, and does `lookupInstance` for
+all instances found, that pass the `filter`.   
+
+The function returns a Promise. If there are not exactly 1 DNS `SRV` and exactly 1 DNS `TXT` resource record in DNS for 
+all found instances that pass the `filter`, the Promise is betrayed. If there is no `PTR` resource record for the
+_Service Type_, or all instances are filtered out, the Promise returns the empty Array. 
+
+    const discover = require('@toryt/dns-sd-lookup).discover
+
+    const serviceType = '_t8i-n-inst._tcp.dns-sd-lookup.toryt.org'
+    let deaths = [
+      'Instance 8c',
+      'Instance 8e',
+      'Instance 8g',
+      'Instance 8h',
+      'Instance 8i',
+      'Instance 8k',
+      'Instance 8l'
+    ]
+    deaths = deaths.map(d => `${d}.${serviceType}`)
+
+    return discover(serviceType, discover.notOneOf(deaths))
+      .then(serviceInstances => {
+        console.log('%j', serviceInstances)
+      })
+
+prints out
+
+    [
+      {
+        "type": "_t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+        "instance": "instance 8f._t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+        "host": "host-of-instance-8f.dns-sd-lookup.toryt.org",
+        "port": 9898,
+        "priority": 200,
+        "weight": 20,
+        "details": {"adetail": "This is a detail 99", "at": "2017-09-30T13:25:49Z", "txtvers": "100"}
+      },
+      {
+        "type": "_t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+        "instance": "instance 8a._t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+        "host": "host-of-instance-8a.dns-sd-lookup.toryt.org",
+        "port": 7373,
+        "priority": 50,
+        "weight": 75,
+        "details": {"adetail": "This is a detail 76", "at": "2017-09-30T13:25:49Z", "txtvers": "77"}
+      },
+      {
+        "type": "_t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+        "instance": "instance 8d._t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+        "host": "host-of-instance-8d.dns-sd-lookup.toryt.org",
+        "port": 8888,
+        "priority": 150,
+        "weight": 7,
+        "details": {"adetail": "This is a detail 91", "at": "2017-09-30T13:25:49Z", "txtvers": "92"}
+      },
+      {
+        "type": "_t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+        "instance": "instance 8j._t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+        "host": "host-of-instance-8j.dns-sd-lookup.toryt.org",
+        "port": 2121,
+        "priority": 300,
+        "weight": 0,
+        "details": {"adetail": "This is a detail 112", "at": "2017-09-30T13:25:49Z", "txtvers": "113"}
+      },
+      {
+        "type": "_t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+        "instance": "instance 8b._t8i-n-inst._tcp.dns-sd-lookup.toryt.org",
+        "host": "host-of-instance-8b.dns-sd-lookup.toryt.org",
+        "port": 7878,
+        "priority": 100,
+        "weight": 80,
+        "details": {"adetail": "This is a detail 81", "at": "2017-09-30T13:25:49Z", "txtvers": "82"}
+      }
+    ]
+
+The order of the instances is unspecified.
+
+
+
+`selectInstance`
+----------------
 
 
 Style

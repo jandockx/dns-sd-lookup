@@ -167,4 +167,24 @@ describe('doc examples', function () {
         console.log('%j', serviceInstance)
       })
   })
+  it('discover', function () {
+    const discover = require('../index').discover
+
+    const serviceType = '_t8i-n-inst._tcp.dns-sd-lookup.toryt.org'
+    let deaths = [
+      'Instance 8c',
+      'Instance 8e',
+      'Instance 8g',
+      'Instance 8h',
+      'Instance 8i',
+      'Instance 8k',
+      'Instance 8l'
+    ]
+    deaths = deaths.map(d => `${d}.${serviceType}`)
+
+    return discover(serviceType, discover.notOneOf(deaths))
+      .then(serviceInstances => {
+        console.log('%j', serviceInstances)
+      })
+  })
 })
