@@ -77,13 +77,28 @@ describe('selectInstance', function () {
     ]
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceType5InstancesWithWeight, notOneOf(deaths))
-      .must.fulfill(selectionInstanceContract.resolved.implementation(instance => {
-        instance.must.be.an.object()
-        instance.instance.must.match(`instance 8b.${serviceType5InstancesWithWeight}`)
-        console.log(instance)
+      .must.fulfill(selectionInstanceContract.resolved.implementation(selection => {
+        selection.must.be.an.object()
+        selection.instance.must.match(`instance 8b.${serviceType5InstancesWithWeight}`)
+        console.log(selection)
       }))
   })
-  it.skip('selects according to weight with a filter evenly', function () {
+  it('selects according to weight with a filter that excludes every instance', function () {
+    const deaths = [
+      `Instance 8a.${serviceType5InstancesWithWeight}`,
+      `Instance 8d.${serviceType5InstancesWithWeight}`,
+      `Instance 8c.${serviceType5InstancesWithWeight}`,
+      `Instance 8b.${serviceType5InstancesWithWeight}`,
+      `Instance 8e.${serviceType5InstancesWithWeight}`
+    ]
+    // noinspection JSUnresolvedVariable
+    return selectInstance(serviceType5InstancesWithWeight, notOneOf(deaths))
+      .must.fulfill(selectionInstanceContract.resolved.implementation(selection => {
+        must(selection).be.null()
+        console.log(selection)
+      }))
+  })
+  it('selects according to weight with a filter evenly', function () {
     const batch = 16
     this.timeout(60000)
     const timerLabel = 'selects according to weight evenly'

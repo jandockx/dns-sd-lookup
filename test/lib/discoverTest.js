@@ -121,6 +121,25 @@ describe('discover', function () {
           console.log(details)
         }))
     })
+    it('works with a filter in the nominal case that excludes all instances', function () {
+      const serviceType = `_t8i-5inst${serviceTypePostfix}`
+      const deaths = [
+        `Instance 8c.${serviceType}`,
+        `Instance 8e.${serviceType}`,
+        `Instance 8c.${serviceType}`,
+        `Instance 8a.${serviceType}`,
+        `Instance 8d.${serviceType}`,
+        `Instance 8e.${serviceType}`,
+        `Instance 8b.${serviceType}`
+      ]
+      // noinspection JSUnresolvedVariable
+      return discover(serviceType, discover.notOneOf(deaths))
+        .must.fulfill(discoverContract.resolved.implementation(details => {
+          details.must.be.an.array()
+          details.must.be.empty()
+          console.log(details)
+        }))
+    })
 
     let failures = [
       't2i-2-txt',
