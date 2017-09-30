@@ -83,7 +83,7 @@ describe('selectInstance', function () {
         console.log(instance)
       }))
   })
-  it('selects according to weight with a filter evenly', function () {
+  it.skip('selects according to weight with a filter evenly', function () {
     const batch = 16
     this.timeout(60000)
     const timerLabel = 'selects according to weight evenly'
@@ -157,5 +157,22 @@ describe('selectInstance', function () {
           Math.abs(expected[e] - (selections[e] / total)).must.be.below(0.025)
         })
       })
+  })
+
+  let failures = [
+    't2i-2-txt',
+    't3i-2-srv',
+    't4i-2-txt-srv',
+    't5i-no-txt',
+    't6i-no-srv'
+  ]
+  failures = failures.map(f => `_${f}${serviceTypePostfix}`)
+  failures.forEach(serviceType => {
+    it(`fails for instance type ${serviceType}`, function () {
+      // noinspection JSUnresolvedVariable
+      return selectInstance(serviceType).must.betray(selectionInstanceContract.rejected.implementation(err => {
+        console.log(err)
+      }))
+    })
   })
 })
