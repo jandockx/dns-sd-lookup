@@ -409,6 +409,18 @@ answer from that set, e.g.,
 
 
 
+Side information
+================
+
+While building this library, I had to burrow through some confusion. Here are some notes:
+
+* [Difference between DNS labels and full names, and internet host names]
+* [How to define multi-string TXT resource records]
+
+
+
+
+
 Style
 =====
 
@@ -438,6 +450,8 @@ Credits
 [RFC 6763]: https://www.ietf.org/rfc/rfc6763.txt
 [dns-sd]: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dns-sd.1.html
 [RFC 2782]: https://www.ietf.org/rfc/rfc2782.txt
+[Difference between DNS labels and full names, and internet host names]: ./On_dns_full_and_domain_and_host_names.md
+[How to define multi-string TXT resource records]: ./HowtoDefineMultiStringTXTRecords.md
 [Standard]: https://standardjs.com
 [MIT License]: ./LICENSE
 [F/OSS]: https://opensource.org
