@@ -188,7 +188,7 @@ describe('selectInstance', function () {
       }))
   })
 
-  const labelA = 'selects according to weight with a filter evenly'
+  const labelA = 'selects according to weight with a filter evenly with 2 instances'
   it(labelA, function () {
     this.timeout(60000)
 
@@ -203,6 +203,27 @@ describe('selectInstance', function () {
 
     return testDistribution(labelA, deaths, expected)
   })
+  const labelB = 'selects according to weight with a filter evenly with 5 instances'
+  it.only(labelB, function () {
+    this.timeout(60000)
+
+    const deaths = [
+      `Instance 8a.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8b.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8c.${serviceTypeNInstancesWithWeight}`,
+      `Instance 8d.${serviceTypeNInstancesWithWeight}`
+    ]
+
+    const expected = {}
+    expected[`instance 8e`] = 0.1
+    expected[`instance 8f`] = 0.2
+    expected[`instance 8g`] = 0.3
+    expected[`instance 8h`] = 0.2
+    expected[`instance 8i`] = 0.2
+
+    return testDistribution(labelB, deaths, expected)
+  })
+
 
   let failures = [
     't2i-2-txt',
