@@ -86,6 +86,20 @@ describe('doc examples', function () {
     console.assert(!isServiceType('unescaped\\backslash._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isServiceType('ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
   })
+  it('isServiceInstance', function () {
+    const isServiceInstance = require('../index').isServiceInstance
+
+    console.assert(isServiceInstance('Instance Sérvice ∆._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(isServiceInstance('instances\\.with\\.escaped\\\\dots\\\\and\\.slashes._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+
+    console.assert(!isServiceInstance('instance._not-a-type._other.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceInstance('instance._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceInstance('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceInstance('._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceInstance('unescaped.dot._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceInstance('unescaped\\backslash._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isServiceInstance('anInstanceThatIsLongerThanIsAcceptableWhichIs63ACharactersLabels._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+  })
   it('validate', function () {
     const validate = require('../index').validate
 
