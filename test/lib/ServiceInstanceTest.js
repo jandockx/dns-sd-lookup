@@ -43,12 +43,14 @@ const instanceName = 'This is An Instance Name'
 const detailObjects = [
   {},
   {
-    txtvers: 1
+    txtvers: '1'
   },
   {
     at: JSON.stringify(new Date(2017, 9, 17, 0, 33, 14.535)),
     path: '/a/path',
-    txtvers: 23
+    '%boolean#true]': true,
+    'boolean@false~': false,
+    txtvers: '23'
   }
 ]
 
