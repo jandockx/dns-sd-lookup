@@ -50,7 +50,7 @@ function mustBeNotFoundError (baseMessage) {
   return lookupInstance.contract.rejected.implementation(error => {
     error.must.be.an.instanceof(Error)
     // noinspection JSUnresolvedVariable
-    error.message.must.match(lookupInstance.contract.notFoundMessage)
+    error.message.must.match(lookupInstance.contract.notValidMessage)
     error.cause.must.be.an.instanceof(Error)
     error.cause.message.must.match(baseMessage)
     console.log(error)
@@ -92,7 +92,7 @@ describe('lookupInstance', function () {
     return lookupInstance(instanceName).must.betray(lookupInstance.contract.rejected.implementation(error => {
       error.must.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
-      error.message.must.match(lookupInstance.contract.notFoundMessage)
+      error.message.must.match(lookupInstance.contract.notValidMessage)
       error.cause.must.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
       error.cause.message.must.equal(lookupInstance.contract.moreThen1Message.TXT)
@@ -108,7 +108,7 @@ describe('lookupInstance', function () {
     return lookupInstance(instanceName).must.betray(lookupInstance.contract.rejected.implementation(error => {
       error.must.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
-      error.message.must.match(lookupInstance.contract.notFoundMessage)
+      error.message.must.match(lookupInstance.contract.notValidMessage)
       error.cause.must.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
       error.cause.message.must.equal(lookupInstance.contract.moreThen1Message.SRV)
@@ -124,7 +124,7 @@ describe('lookupInstance', function () {
     return lookupInstance(instanceName).must.betray(lookupInstance.contract.rejected.implementation(error => {
       error.must.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
-      error.message.must.match(lookupInstance.contract.notFoundMessage)
+      error.message.must.match(lookupInstance.contract.notValidMessage)
       error.cause.must.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
       error.cause.message.must.match(
