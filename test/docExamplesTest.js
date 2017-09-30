@@ -47,6 +47,29 @@ describe('doc examples', function () {
     console.log(instance)
     console.log('%j', instance)
   })
+  it('isBaseServiceType', function () {
+    const isBaseServiceType = require('../index').isBaseServiceType
+
+    console.assert(isBaseServiceType('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(isBaseServiceType('_a-service-type._udp.dns-sd-lookup.toryt.org'))
+    console.assert(isBaseServiceType('_http._udp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('sub type._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_a-service-type-that-is-too-long._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_not-a-type.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_not-a-type._other.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_not-a-type._tcp.not_a_fqdn'))
+    console.assert(!isBaseServiceType('_not a type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('not-a-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_not-a--type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_not_a_type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_not a type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_9not-a-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_not-a-type9._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_-not-a-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(!isBaseServiceType('_not-a-type-._tcp.dns-sd-lookup.toryt.org'))
+  })
   it('validate', function () {
     const validate = require('../index').validate
 
