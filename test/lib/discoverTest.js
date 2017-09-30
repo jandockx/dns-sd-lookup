@@ -112,7 +112,12 @@ describe('discover', function () {
     it('works with a filter in the nominal case', function () {
       const deaths = [
         `Instance 8c.${manyInstanceServiceType}`,
-        `Instance 8e.${manyInstanceServiceType}`
+        `Instance 8e.${manyInstanceServiceType}`,
+        `Instance 8g.${manyInstanceServiceType}`,
+        `Instance 8h.${manyInstanceServiceType}`,
+        `Instance 8i.${manyInstanceServiceType}`,
+        `Instance 8k.${manyInstanceServiceType}`,
+        `Instance 8l.${manyInstanceServiceType}`
       ]
       // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
