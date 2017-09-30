@@ -2,6 +2,7 @@
   <dictionary name="jand">
     <words>
       <w>bitbucket</w>
+      <w>blockquote</w>
       <w>codegen</w>
       <w>codgen</w>
       <w>dockerignore</w>
