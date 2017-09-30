@@ -28,6 +28,7 @@ const extract = require('./lib/extract')
 const lookupInstance = require('./lib/lookupInstance')
 const discover = require('./lib/discover')
 const selectInstance = require('./lib/selectInstance')
+const extendWithTxtStr = require('./lib/extendWithTxtStr')
 
 module.exports = {
   ServiceInstance: ServiceInstance,
@@ -44,5 +45,6 @@ module.exports = {
   extractDomain: extract.domain,
   lookupInstance: lookupInstance,
   discover: discover,
-  selectInstance: selectInstance
+  selectInstance: selectInstance,
+  extendWithTxtStr: extendWithTxtStr
 }

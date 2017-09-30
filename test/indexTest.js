@@ -46,5 +46,6 @@ describe('dns-sd-lookup', function () {
     index.must.have.property('lookupInstance', require('../lib/lookupInstance'))
     index.must.have.property('discover', require('../lib/discover'))
     index.must.have.property('selectInstance', require('../lib/selectInstance'))
+    index.must.have.property('extendWithTxtStr', require('../lib/extendWithTxtStr'))
   })
 })
