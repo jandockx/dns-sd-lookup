@@ -88,7 +88,6 @@ The validate-functions are available gathered in this namespace too.
 
     const validate = require('@toryt/dns-sd-lookup).validate
 
-    console.assert(validate.isValidDomainNamePart === require('@toryt/dns-sd-lookup).isValidDomainNamePart)
     console.assert(validate.isBaseServiceType === require('@toryt/dns-sd-lookup).isBaseServiceType)
     console.assert(validate.isServiceType === require('@toryt/dns-sd-lookup).isServiceType)
     console.assert(validate.isServiceInstance === require('@toryt/dns-sd-lookup).isServiceInstance)

@@ -50,7 +50,6 @@ describe('doc examples', function () {
   it('validate', function () {
     const validate = require('../index').validate
 
-    console.assert(validate.isValidDomainNamePart === require('../index').isValidDomainNamePart)
     console.assert(validate.isBaseServiceType === require('../index').isBaseServiceType)
     console.assert(validate.isServiceType === require('../index').isServiceType)
     console.assert(validate.isServiceInstance === require('../index').isServiceInstance)
