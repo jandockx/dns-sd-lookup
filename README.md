@@ -107,8 +107,7 @@ The given string represents a [RFC 6763] base _Service Type_, i.e., a _Service T
     console.assert(!isBaseServiceType('_not-a-type9._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('_-not-a-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('_not-a-type-._tcp.dns-sd-lookup.toryt.org'))
-    
-    
+        
     
 ### `isBaseServiceType`
 
@@ -130,7 +129,6 @@ or a _service Type_ with a subtype.
     console.assert(!isServiceType('ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
 
 
-
 ### `isServiceInstance`
 
 The given string represents a [RFC 6763] _Service Instance_.
@@ -149,16 +147,73 @@ The given string represents a [RFC 6763] _Service Instance_.
     console.assert(!isServiceInstance('anInstanceThatIsLongerThanIsAcceptableWhichIs63ACharactersLabels._a-service-type._tcp.dns-sd-lookup.toryt.org'))
 
 
-
 ### `validate`
 
-The validate-functions are available gathered in this namespace too.
+The validate-functions are gathered in the namespace `validate`.
 
     const validate = require('@toryt/dns-sd-lookup).validate
 
     console.assert(validate.isBaseServiceType === require('@toryt/dns-sd-lookup).isBaseServiceType)
     console.assert(validate.isServiceType === require('@toryt/dns-sd-lookup).isServiceType)
     console.assert(validate.isServiceInstance === require('@toryt/dns-sd-lookup).isServiceInstance)
+
+
+
+`extract`
+---------
+
+### `extract.subtype`
+
+Extract the subtype from a [RFC 6763] _Service Type_. If there is no subtype, the result is `undefined`.
+
+      const extract = require('@toryt/dns-sd-lookup).extract
+
+      console.assert(extract.subtype('_a-service-type._tcp.dns-sd-lookup.toryt.org') === undefined)
+      console.assert(extract.subtype('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === '_a-sub-service')
+
+
+### `extract.type`
+
+Extract the (base) type from a [RFC 6763] _Service Type_ or _Service Instance_.
+
+      const extract = require('@toryt/dns-sd-lookup).extract
+
+      console.assert(extract.type('_a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
+      console.assert(extract.type('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
+      console.assert(extract.type('Service Instance._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
+
+
+### `extract.instance`
+
+Extract the instance from a [RFC 6763] _Service Instance_.
+
+      const extract = require('@toryt/dns-sd-lookup).extract
+
+      console.assert(extract.instance('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'Service Instance')
+
+
+### `extract.protocol`
+
+Extract the protocol from a [RFC 6763] _Service Type_ or _Service Instance_.
+
+      const extract = require('@toryt/dns-sd-lookup).extract
+
+      console.assert(extract.protocol('_a-service-type._tcp.dns-sd-lookup.toryt.org') === 'tcp')
+      console.assert(extract.protocol('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org') === 'udp')
+      console.assert(extract.protocol('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'tcp')
+
+
+### `extract.domain`
+
+Extract the domain from a [RFC 6763] _Service Type_ or _Service Instance_.
+
+      const extract = require('@toryt/dns-sd-lookup).extract
+
+      console.assert(extract.domain('_a-service-type._tcp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
+      console.assert(extract.domain('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
+      console.assert(extract.domain('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
+
+
 
 
 

@@ -89,6 +89,7 @@ describe('doc examples', function () {
   it('isServiceInstance', function () {
     const isServiceInstance = require('../index').isServiceInstance
 
+    // noinspection SpellCheckingInspection
     console.assert(isServiceInstance('Instance Sérvice ∆._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(isServiceInstance('instances\\.with\\.escaped\\\\dots\\\\and\\.slashes._a-service-type._tcp.dns-sd-lookup.toryt.org'))
 
@@ -106,5 +107,56 @@ describe('doc examples', function () {
     console.assert(validate.isBaseServiceType === require('../index').isBaseServiceType)
     console.assert(validate.isServiceType === require('../index').isServiceType)
     console.assert(validate.isServiceInstance === require('../index').isServiceInstance)
+  })
+  describe('extract', function () {
+    it('#subtype', function () {
+      const extract = require('../index').extract
+
+      console.assert(extract.subtype('_a-service-type._tcp.dns-sd-lookup.toryt.org') === undefined)
+      console.assert(extract.subtype('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === '_a-sub-service')
+
+      console.log(extract.subtype('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
+      console.log(extract.subtype('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    })
+    it('#type', function () {
+      const extract = require('../index').extract
+
+      console.assert(extract.type('_a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
+      console.assert(extract.type('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
+      console.assert(extract.type('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
+
+      console.log(extract.type('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
+      console.log(extract.type('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+      console.log(extract.type('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    })
+    it('#instance', function () {
+      const extract = require('../index').extract
+
+      console.assert(extract.instance('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'Service Instance')
+
+      console.log(extract.instance('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    })
+    it('#protocol', function () {
+      const extract = require('../index').extract
+
+      console.assert(extract.protocol('_a-service-type._tcp.dns-sd-lookup.toryt.org') === 'tcp')
+      console.assert(extract.protocol('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org') === 'udp')
+      console.assert(extract.protocol('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'tcp')
+
+      console.log(extract.protocol('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
+      console.log(extract.protocol('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org'))
+      console.log(extract.protocol('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    })
+    it('#domain', function () {
+      const extract = require('../index').extract
+
+      console.assert(extract.domain('_a-service-type._tcp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
+      console.assert(extract.domain('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
+      console.assert(extract.domain('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
+
+      console.log(extract.domain('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
+      console.log(extract.domain('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org'))
+      console.log(extract.domain('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    })
   })
 })
