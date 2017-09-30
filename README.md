@@ -419,9 +419,26 @@ This code uses [Standard] coding style.
 
 
 
+License
+=======
+
+Released under the [MIT License]
+
+
+
+
+
+Credits
+=======
+
+`dns-sd-lookup` builds on the work of many people through [F/OSS]. See the [credits].
+
 
 [DNS-SD]: http://www.dns-sd.org
 [RFC 6763]: https://www.ietf.org/rfc/rfc6763.txt
 [dns-sd]: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dns-sd.1.html
 [RFC 2782]: https://www.ietf.org/rfc/rfc2782.txt
 [Standard]: https://standardjs.com
+[MIT License]: ./LICENSE
+[F/OSS]: https://opensource.org
+[credits]: ./CREDITS.md
