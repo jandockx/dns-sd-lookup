@@ -159,4 +159,12 @@ describe('doc examples', function () {
       console.log(extract.domain('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     })
   })
+  it('lookupInstance', function () {
+    const lookupInstance = require('../index').lookupInstance
+
+    return lookupInstance('instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org')
+      .then(serviceInstance => {
+        console.log('%j', serviceInstance)
+      })
+  })
 })

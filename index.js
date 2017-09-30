@@ -37,8 +37,8 @@ module.exports = {
   isServiceType: validate.isServiceType,
   isServiceInstance: validate.isServiceInstance,
   extract: extract,
+  extendWithTxtStr: extendWithTxtStr,
   lookupInstance: lookupInstance,
   discover: discover,
-  selectInstance: selectInstance,
-  extendWithTxtStr: extendWithTxtStr
+  selectInstance: selectInstance
 }

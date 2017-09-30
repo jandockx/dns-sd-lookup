@@ -215,6 +215,39 @@ Extract the domain from a [RFC 6763] _Service Type_ or _Service Instance_.
 
 
 
+`lookupInstance`
+----------------
+
+Lookup the definition a [RFC 6763] _Service Instance_ in DNS and resolve to a `ServiceInstance` that represents it.
+
+The function returns a Promise. If not exactly 1 DNS `SRV` and exactly 1 DNS `TXT` record is found in DNS for the given
+_Service Instance_, the Promise is betrayed.
+The `details` property holds an object that contains all valid attributes found in the DNS `TXT` resource record,
+according to `extendWithTxtStr`.
+
+    const lookupInstance = require('@toryt/dns-sd-lookup).lookupInstance
+
+    return lookupInstance('instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org')
+      .then(serviceInstance => {
+        console.log('%j', serviceInstance)
+      })
+
+prints out
+
+    {
+      "type": "_t1i-no-sub._tcp.dns-sd-lookup.toryt.org",
+      "instance": "instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org",
+      "host": "host-of-instance-1.dns-sd-lookup.toryt.org",
+      "port": 4141,
+      "priority": 42,
+      "weight": 43,
+      "details": {
+        "adetail": "This is a detail 1",
+        "at": "2017-09-30T13:25:49Z",
+        "txtvers":"44"
+      }
+    }
+
 
 
 Style
