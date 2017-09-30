@@ -32,6 +32,8 @@ const discoverContract = discover.contract
 const serviceTypePostfix = '._tcp.dns-sd-lookup.toryt.org'
 // noinspection SpellCheckingInspection
 const serviceType = '_t1i-no-sub' + serviceTypePostfix
+const manyInstanceServiceType = '_t8i-n-inst' + serviceTypePostfix
+const manyInstanceCount = 12
 
 describe('discover', function () {
   describe('#notOneOf', function () {
@@ -88,12 +90,13 @@ describe('discover', function () {
         console.log(details)
       }))
     })
-    it('works in the nominal case, with 5 instances', function () {
-      const serviceType = `_t8i-5inst${serviceTypePostfix}`
+    it(`works in the nominal case, with ${manyInstanceCount} instances`, function () {
+      this.timeout(10000)
+
       // noinspection JSUnresolvedVariable
-      return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
+      return discover(manyInstanceServiceType).must.fulfill(discoverContract.resolved.implementation(details => {
         details.must.be.an.array()
-        details.must.have.length(5)
+        details.must.have.length(manyInstanceCount)
         console.log(details)
       }))
     })
@@ -107,33 +110,39 @@ describe('discover', function () {
         }))
     })
     it('works with a filter in the nominal case', function () {
-      const serviceType = `_t8i-5inst${serviceTypePostfix}`
       const deaths = [
-        `Instance 8c.${serviceType}`,
-        `Instance 8e.${serviceType}`
+        `Instance 8c.${manyInstanceServiceType}`,
+        `Instance 8e.${manyInstanceServiceType}`
       ]
       // noinspection JSUnresolvedVariable
-      return discover(serviceType, discover.notOneOf(deaths))
+      return discover(manyInstanceServiceType, discover.notOneOf(deaths))
         .must.fulfill(discoverContract.resolved.implementation(details => {
           details.must.be.an.array()
-          details.must.have.length(3)
+          details.must.have.length(manyInstanceCount - deaths.length)
           details.forEach(d => deaths.must.not.contain(d.instance))
           console.log(details)
         }))
     })
     it('works with a filter in the nominal case that excludes all instances', function () {
-      const serviceType = `_t8i-5inst${serviceTypePostfix}`
       const deaths = [
-        `Instance 8c.${serviceType}`,
-        `Instance 8e.${serviceType}`,
-        `Instance 8c.${serviceType}`,
-        `Instance 8a.${serviceType}`,
-        `Instance 8d.${serviceType}`,
-        `Instance 8e.${serviceType}`,
-        `Instance 8b.${serviceType}`
+        `Instance 8c.${manyInstanceServiceType}`,
+        `Instance 8e.${manyInstanceServiceType}`,
+        `Instance 8c.${manyInstanceServiceType}`,
+        `Instance 8a.${manyInstanceServiceType}`,
+        `Instance 8f.${manyInstanceServiceType}`,
+        `Instance 8e.${manyInstanceServiceType}`,
+        `Instance 8j.${manyInstanceServiceType}`,
+        `Instance 8i.${manyInstanceServiceType}`,
+        `Instance 8e.${manyInstanceServiceType}`,
+        `Instance 8g.${manyInstanceServiceType}`,
+        `Instance 8k.${manyInstanceServiceType}`,
+        `Instance 8h.${manyInstanceServiceType}`,
+        `Instance 8d.${manyInstanceServiceType}`,
+        `Instance 8l.${manyInstanceServiceType}`,
+        `Instance 8b.${manyInstanceServiceType}`
       ]
       // noinspection JSUnresolvedVariable
-      return discover(serviceType, discover.notOneOf(deaths))
+      return discover(manyInstanceServiceType, discover.notOneOf(deaths))
         .must.fulfill(discoverContract.resolved.implementation(details => {
           details.must.be.an.array()
           details.must.be.empty()
