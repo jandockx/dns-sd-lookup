@@ -93,7 +93,7 @@ but limit the allowed characters.
 
 The allowed characters in a host name differ between TLDs, and change over time.
 
-# Existing regexs and validators
+# Existing regular expressions and validators
 
 ## http://rubular.com/r/KByADagF3Z
 

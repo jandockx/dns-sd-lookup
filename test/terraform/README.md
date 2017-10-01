@@ -28,7 +28,7 @@ of `lookupInstance`, `discover` and `selectInstance`.
 There are no services behind these definitions.
 
 The TTL has impact on the speed of the tests.
-When we test, e.g., 100 lookups, with a TTL of 30s, we see a stall in every test for
+When we test, e.g., 100 look-ups, with a TTL of 30s, we see a stall in every test for
 several seconds.
 This is when the TTL has passed, and the DNS system goes back all the way to the
 SOA.

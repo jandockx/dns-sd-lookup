@@ -25,6 +25,7 @@
 /* eslint-env mocha */
 
 const selectInstance = require('../../lib/selectInstance')
+// noinspection JSUnresolvedVariable
 const selectionInstanceContract = selectInstance.contract
 const notOneOf = selectInstance.notOneOf
 

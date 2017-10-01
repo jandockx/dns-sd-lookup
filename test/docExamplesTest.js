@@ -166,6 +166,7 @@ describe('doc examples', function () {
       existing: 'existing property'
     }
     extendWithTxtStr(obj, 'newProperty=new property value')
+    // noinspection JSUnresolvedVariable
     console.assert(obj.newproperty === 'new property value')
     extendWithTxtStr(obj, 'existing=override')
     console.assert(obj.existing === 'existing property')
