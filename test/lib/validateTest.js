@@ -242,33 +242,6 @@ describe('validate', function () {
     })
   })
 
-  describe('#isValidDomainNamePart', function () {
-    it('true on a good part', function () {
-      const result = validate.isValidDomainNamePart('a-valid09-€₰૱εέ𒀪©∭∏∇𐡀☯°廓DOMAIN-é--name-part')
-      result.must.be.true()
-    })
-    const wrongParts = [
-      '-starts-with-a-dash',
-      'ends-with-a-dash-',
-      'has-a-(-character',
-      'has-a-}-character',
-      'has-a-.-character',
-      'has-a-]-character',
-      'has-a-_-character',
-      'has-a-+-character',
-      'has-a-%20-character',
-      'has-a-%-character',
-      'has-a- -space',
-      'theLengthOfAPartIsLimitedTo63CharactersThisIsTooLongBy1Character'
-    ]
-    wrongParts.forEach(part => {
-      it('false on wrong part ' + part, function () {
-        const result = validate.isValidDomainNamePart(part)
-        result.must.be.false()
-      })
-    })
-  })
-
   describe('#isNatural', function () {
     const rights = [
       0,
