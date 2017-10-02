@@ -24,4 +24,5 @@ script:
   - yarn test
   - yarn run legally -- -l -r
   - yarn run tldrlegal
-
+after_success:
+  - yarn codecov
