@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=master)](https://travis-ci.org/Toryt/dns-sd-lookup)
+[![codecov](https://codecov.io/bb/toryt/dns-sd-lookup/branch/master/graph/badge.svg)](https://codecov.io/bb/toryt/dns-sd-lookup)
 
 Node library that looks up service instance definitions for a service type defined with [DNS-SD] ([RFC 6763]).
 
