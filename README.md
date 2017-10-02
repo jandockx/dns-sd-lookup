@@ -467,6 +467,8 @@ Style
 
 This code uses [Standard] coding style.
 
+Coverage with [Istanbul] and [Codecov].
+
 
 
 
@@ -515,6 +517,8 @@ Credits
 [Difference between DNS labels and full names, and internet host names]: ./On_dns_full_and_domain_and_host_names.md
 [How to define multi-string TXT resource records]: ./HowtoDefineMultiStringTXTRecords.md
 [Standard]: https://standardjs.com
+[Istanbul]: https://istanbul.js.org
+[Codecov]: https://codecov.io/bb/toryt/dns-sd-lookup
 [MIT License]: ./LICENSE
 [F/OSS]: https://opensource.org
 [credits]: ./CREDITS.md
