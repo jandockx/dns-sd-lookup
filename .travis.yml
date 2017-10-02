@@ -25,4 +25,5 @@ script:
   - yarn run legally -- -l -r
   - yarn run tldrlegal
 after_success:
+  - yarn nyc report --reporter=text-lcov > coverage.lcov
   - yarn codecov
