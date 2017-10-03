@@ -114,6 +114,11 @@ describe('validate', function () {
         })
     })
     describe('false', function () {
+      it('returns false without an argument', function () {
+        const result = validate.isSubtypeOrInstanceName()
+        result.must.be.false()
+      })
+
       const falsies = [
         null,
         undefined,
@@ -157,6 +162,11 @@ describe('validate', function () {
       })
     })
     describe('false', function () {
+      it('returns false without an argument', function () {
+        const result = validate.isBaseServiceType()
+        result.must.be.false()
+      })
+
       // noinspection SpellCheckingInspection
       const fqdns = falseBaseServiceTypes.concat([
         null,
@@ -210,6 +220,11 @@ describe('validate', function () {
       })
     })
     describe('false', function () {
+      it('returns false without an argument', function () {
+        const result = validate.isServiceType()
+        result.must.be.false()
+      })
+
       const fqdns = falseBaseServiceTypes.concat([
         null,
         undefined,
@@ -261,6 +276,11 @@ describe('validate', function () {
       })
     })
     describe('false', function () {
+      it('returns false without an argument', function () {
+        const result = validate.isServiceInstance()
+        result.must.be.false()
+      })
+
       const fqdns = [
         null,
         undefined,
@@ -307,6 +327,12 @@ describe('validate', function () {
         result.must.be.true()
       })
     })
+
+    it('returns false without an argument', function () {
+      const result = validate.isNatural()
+      result.must.be.false()
+    })
+
     const wrongs = [
       undefined,
       null,
