@@ -327,6 +327,10 @@ describe('validate', function () {
         result.must.be.true()
       })
     })
+    it('true on 0 with maximum 0', function () {
+      const result = validate.isNatural(0, 0)
+      result.must.be.true()
+    })
 
     it('returns false without an argument', function () {
       const result = validate.isNatural()
@@ -368,6 +372,12 @@ describe('validate', function () {
     wrongs2.forEach(w => {
       it('false on ' + w + ' with a maximum', function () {
         const result = validate.isNatural(w, 4)
+        result.must.be.false()
+      })
+    })
+    wrongs2.forEach(w => {
+      it('false on ' + w + ' with maximum 0', function () {
+        const result = validate.isNatural(w, 0)
         result.must.be.false()
       })
     })
