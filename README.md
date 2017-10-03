@@ -114,6 +114,9 @@ The given string represents a [RFC 6763] base _Service Type_, i.e., a _Service T
 
 The given string represents a [RFC 6763] _Service Type_, i.e., a base _Service Type_,
 or a _service Type_ with a subtype.
+
+This function does not allow gratuitous escapes, i.e., a backslash must be followed by
+a dot or another backslash in the subtype label.
  
     const isServiceType = require('@toryt/dns-sd-lookup).isServiceType
 
@@ -133,6 +136,9 @@ or a _service Type_ with a subtype.
 ### `isServiceInstance`
 
 The given string represents a [RFC 6763] _Service Instance_.
+
+This function does not allow gratuitous escapes, i.e., a backslash must be followed by
+a dot or another backslash in the instance name label.
 
     const isServiceInstance = require('@toryt/dns-sd-lookup).isServiceInstance
 
