@@ -47,6 +47,17 @@ describe('doc examples', function () {
     console.log(instance)
     console.log('%j', instance)
   })
+  it('isSubtypeOrInstanceName', function () {
+    const isSubtypeOrInstanceName = require('../index').isSubtypeOrInstanceName
+
+    console.assert(isSubtypeOrInstanceName('any ∆é^# ï € / octet! is all0wed'))
+    console.assert(isSubtypeOrInstanceName('dots\\.must\\.be\\.escaped'))
+    console.assert(isSubtypeOrInstanceName('backslash\\\\must\\\\be\\\\escaped'))
+
+    console.assert(!isSubtypeOrInstanceName('aLabelThatIsLongerThanIsAcceptableWhichIs63ACharactersLongLabels'))
+    console.assert(!isSubtypeOrInstanceName('label.with.unescaped.dot'))
+    console.assert(!isSubtypeOrInstanceName('label with \\gratuitous escape'))
+  })
   it('isBaseServiceType', function () {
     const isBaseServiceType = require('../index').isBaseServiceType
 
