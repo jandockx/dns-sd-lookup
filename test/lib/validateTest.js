@@ -92,6 +92,46 @@ const falseBaseServiceTypes = [
 ]
 
 describe('validate', function () {
+  it('has the expected properties', function () {
+    validate.must.have.property('subtypeOrInstance')
+    validate.subtypeOrInstance.must.be.a.regexp()
+    validate.must.have.property('serviceType')
+    validate.serviceType.must.be.a.regexp()
+    validate.must.have.property('serviceInstance')
+    validate.serviceInstance.must.be.a.regexp()
+  })
+  describe('#isSubtypeOrInstanceName', function () {
+    describe('true', function () {
+      serviceSubTypes
+        .concat(instances)
+        .filter(i => !!i)
+        .forEach(subtypeOrInstance => {
+          it(`returns true for ${subtypeOrInstance}`, function () {
+            const result = validate.isSubtypeOrInstanceName(subtypeOrInstance)
+            console.log('%s --> %s', subtypeOrInstance, result)
+            result.must.be.true()
+          })
+        })
+    })
+    describe('false', function () {
+      const falsies = [
+        null,
+        undefined,
+        '',
+        // since we know that we delegate here to isBaseServiceType, we do not need to test the variants (white box)
+        'anInstanceThatIsLongerThanIsAcceptableWhichIs63ACharactersLabels',
+        'contains.an.unescaped.dot._service',
+        'contains\\unescaped\\backslash._service'
+      ]
+      falsies.forEach(falsy => {
+        it(`returns false for ${falsy}`, function () {
+          const result = validate.isSubtypeOrInstanceName(falsy)
+          console.log('%s --> %s', falsy, result)
+          result.must.be.false()
+        })
+      })
+    })
+  })
   describe('#isBaseServiceType', function () {
     const tooLong = generateMaxLength('_' + serviceType)
 
