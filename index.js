@@ -33,6 +33,7 @@ const extendWithTxtStr = require('./lib/extendWithTxtStr')
 module.exports = {
   ServiceInstance: ServiceInstance,
   validate: validate,
+  isSubtypeOrInstanceName: validate.isSubtypeOrInstanceName,
   isBaseServiceType: validate.isBaseServiceType,
   isServiceType: validate.isServiceType,
   isServiceInstance: validate.isServiceInstance,

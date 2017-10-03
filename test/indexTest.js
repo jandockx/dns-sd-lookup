@@ -32,6 +32,7 @@ describe('dns-sd-lookup', function () {
     index.must.have.property('ServiceInstance', require('../lib/ServiceInstance'))
     const validate = require('../lib/validate')
     index.must.have.property('validate', validate)
+    index.must.have.property('isSubtypeOrInstanceName', validate.isSubtypeOrInstanceName)
     index.must.have.property('isBaseServiceType', validate.isBaseServiceType)
     index.must.have.property('isServiceType', validate.isServiceType)
     index.must.have.property('isServiceInstance', validate.isServiceInstance)
