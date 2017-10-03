@@ -94,7 +94,7 @@ characters, etc.).
 
 This function does not allow gratuitous escapes, i.e., a backslash must be followed by a dot or another backslash.
 
-    const isSubtypeOrInstanceName = require('../index').isSubtypeOrInstanceName
+    const isSubtypeOrInstanceName = require('@toryt/dns-sd-lookup).isSubtypeOrInstanceName
 
     console.assert(isSubtypeOrInstanceName('any ∆é^# ï € / octet! is all0wed'))
     console.assert(isSubtypeOrInstanceName('dots\\.must\\.be\\.escaped'))
