@@ -516,3 +516,81 @@ resource "aws_route53_record" "type_with_n_instances-PTR" {
     "${lookup(module.instance-type_with_n_instances_l.I-instance, "instance")}",
   ]
 }
+
+locals {
+  type_with_weird_names    = "t9i-weird"
+  subtype_with_weird_names = "_Subtype\\040\\.\\040\\\\\\040escapes,\\040non-ascii\\040\\044\\313\\01D!(/\\040just\\040as\\040LongAs\\040allowed"
+}
+
+module "instance-type_with_weird_names_a" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_weird_names}"
+  instance       = "Instance\\0409a"
+  host           = "host-of-instance-9a.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "3232"
+  priority       = "300"
+  weight         = "10"
+
+  details = {
+    aDetail = "This is a detail 121"
+    txtvers = "122"
+  }
+
+  ttl = "${var.ttl}"
+}
+
+module "instance-type_with_weird_names_b" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_weird_names}"
+  instance       = "Instance\\0409b,\\044\\313\\01D!(/"
+  host           = "host-of-instance-9b.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "3333"
+  priority       = "300"
+  weight         = "70"
+
+  details = {
+    aDetail = "This is a detail 123"
+    txtvers = "124"
+  }
+
+  ttl = "${var.ttl}"
+}
+
+module "instance-type_with_weird_names_c" {
+  source         = "../../node_modules/@ppwcode/terraform-ppwcode-modules/dnsSdInstance"
+  domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
+  domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  protocol       = "${var.protocol}"
+  type           = "${local.type_with_weird_names}"
+  instance       = "Instance\\0409c"
+  host           = "host-of-instance-9b.${aws_route53_zone.dns_sd_lookup.name}"
+  port           = "3434"
+  priority       = "300"
+  weight         = "20"
+
+  details = {
+    aDetail = "This is a detail 125"
+    txtvers = "126"
+  }
+
+  ttl = "${var.ttl}"
+}
+
+resource "aws_route53_record" "type_with_weird_names-PTR" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${lookup(module.instance-type_with_weird_names_a.I-instance, "type")}"
+  type    = "PTR"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "${lookup(module.instance-type_with_weird_names_a.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_weird_names_b.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_weird_names_c.I-instance, "instance")}",
+  ]
+}
