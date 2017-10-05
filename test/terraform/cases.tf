@@ -519,7 +519,7 @@ resource "aws_route53_record" "type_with_n_instances-PTR" {
 
 locals {
   type_with_weird_names    = "t9i-weird"
-  subtype_with_weird_names = "_Subtype\\040\\.\\040\\\\\\040escapes,\\040non-ascii\\040\\044\\313\\035!(/\\040just\\040as\\040LongAs\\040allowed"
+  subtype_with_weird_names = "_Subtype\\040\\.\\040\\\\\\040escapes,\\040non-ascii\\040\\044\\113\\035?(/\\040just\\040as\\040LongAs\\040allowed"
 }
 
 module "instance-type_with_weird_names_a" {
@@ -548,7 +548,7 @@ module "instance-type_with_weird_names_b" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_weird_names}"
-  instance       = "Instance\\0409b,\\044\\313\\035!(/"
+  instance       = "Instance\\0409b,\\044\\113\\035?(/"
   host           = "host-of-instance-9b.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "3333"
   priority       = "300"
