@@ -77,3 +77,15 @@ output "I-n_instances" {
     "${module.instance-type_with_n_instances_l.I-instance}",
   ]
 }
+
+output "I-weird_instances" {
+  value = [
+    "${module.instance-type_with_weird_names_a.I-instance}",
+    "${module.instance-type_with_weird_names_b.I-instance}",
+    "${module.instance-type_with_weird_names_c.I-instance}",
+  ]
+}
+
+output "I-weird_subtype" {
+  value = "${aws_route53_record.subtype_with_weird_names-PTR.name}"
+}

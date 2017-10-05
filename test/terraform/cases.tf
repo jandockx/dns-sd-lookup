@@ -594,3 +594,16 @@ resource "aws_route53_record" "type_with_weird_names-PTR" {
     "${lookup(module.instance-type_with_weird_names_c.I-instance, "instance")}",
   ]
 }
+
+resource "aws_route53_record" "subtype_with_weird_names-PTR" {
+  zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
+  name    = "${local.subtype_with_weird_names}._sub.${lookup(module.instance-type_with_weird_names_a.I-instance, "type")}"
+  type    = "PTR"
+  ttl     = "${var.ttl}"
+
+  records = [
+    "${lookup(module.instance-type_with_weird_names_a.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_weird_names_b.I-instance, "instance")}",
+    "${lookup(module.instance-type_with_weird_names_c.I-instance, "instance")}",
+  ]
+}
