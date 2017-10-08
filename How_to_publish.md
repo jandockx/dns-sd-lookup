@@ -1,3 +1,9 @@
+Have you updated the credits?    
+    
+    > yarn update_credits
+    > git commit -m"update credits"
+    > npm version a.i.p
+    > git push
     > npm adduser --scope=@toryt
     Username: jandockx
     Password: 
