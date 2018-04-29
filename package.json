@@ -31,21 +31,21 @@
     "@toryt/contracts-iii": "^3.1.0",
     "deeper": "^2.1.0",
     "denodeify": "^1.2.1",
-    "validator": "^9.0.0"
+    "validator": "^9.4.1"
   },
   "devDependencies": {
-    "@ppwcode/terraform-ppwcode-modules": "^3.4.0",
+    "@ppwcode/terraform-ppwcode-modules": "^3.8.4",
     "cartesian": "^1.0.1",
-    "codecov": "^2.3.0",
+    "codecov": "^3.0.1",
     "credits-cli": "^3.1.0",
-    "legally": "^2.9.0",
-    "mocha": "^4.0.1",
-    "mocha-reporter": "^0.0.3",
+    "legally": "^2.10.0",
+    "mocha": "^5.1.1",
+    "mocha-reporter": "^0.1.1",
     "must": "github:jandockx/js-must#fork/0.13.4/1",
-    "npm-check": "^5.4.5",
-    "nyc": "^11.2.1",
-    "standard": "^10.0.3",
-    "tldrlegal": "^1.0.5"
+    "npm-check": "^5.7.0",
+    "nyc": "^11.7.1",
+    "standard": "^11.0.1",
+    "tldrlegal": "^1.0.6"
   },
   "nyc": {
     "check-coverage": true,
