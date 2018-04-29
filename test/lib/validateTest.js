@@ -231,12 +231,12 @@ describe('validate', function () {
         tooLongWithoutSub.too,
         tooLongWithSub.too
       ])
-      .concat(falseBaseServiceTypes.map(t => `${simpleSubType}._sub.${t}`))
-      .concat([
-        'unescaped.dot',
-        'unescaped\\backslash',
-        'ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel'
-      ].map(s => `${s}._sub._${serviceType}._tcp.${domain}`))
+        .concat(falseBaseServiceTypes.map(t => `${simpleSubType}._sub.${t}`))
+        .concat([
+          'unescaped.dot',
+          'unescaped\\backslash',
+          'ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel'
+        ].map(s => `${s}._sub._${serviceType}._tcp.${domain}`))
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
           const result = validate.isServiceType(fqdn)
