@@ -25,9 +25,8 @@
 /* eslint-env mocha */
 
 const selectInstance = require('../../lib/selectInstance')
-// noinspection JSUnresolvedVariable
-const selectionInstanceContract = selectInstance.contract
 const notOneOf = selectInstance.notOneOf
+const verifyPostconditions = require('../_util/verifyPostconditions')
 
 const serviceTypePostfix = '._tcp.dns-sd-lookup.toryt.org'
 const serviceType1InstanceNoSubtype = '_t1i-no-sub' + serviceTypePostfix
@@ -75,13 +74,13 @@ function testDistribution (timerLabel, deaths, expected) {
           // noinspection JSUnresolvedFunction
           next.push(
             selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
-              .then(selectionInstanceContract.resolved.implementation(selection => {
+              .then(selection => {
                 selection.must.be.an.object()
                 selection.instance.must.match(matchExpr)
                 selections[selection.instance]
                   ? selections[selection.instance]++
                   : selections[selection.instance] = 1
-              }))
+              })
           )
         }
         return Promise.all(next).then(() => {
@@ -112,42 +111,45 @@ function testDistribution (timerLabel, deaths, expected) {
 }
 
 describe('selectInstance', function () {
+  verifyPostconditions(selectInstance)
+  verifyPostconditions(selectInstance.selectByWeight)
+
   it('works in the nominal case with 1 instance, without a subtype', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceType1InstanceNoSubtype)
-      .must.fulfill(selectionInstanceContract.resolved.implementation(selection => {
+      .must.fulfill(selection => {
         selection.must.be.an.object()
         selection.instance.must.equal('instance 1.' + serviceType1InstanceNoSubtype)
         console.log(selection)
-      }))
+      })
   })
   it('works in the nominal case with 1 instance, with a subtype', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceType1InstanceSubtype)
-      .must.fulfill(selectionInstanceContract.resolved.implementation(selection => {
+      .must.fulfill(selection => {
         selection.must.be.an.object()
         selection.instance.must.equal('instance 7._t7i-sub' + serviceTypePostfix)
         console.log(selection)
-      }))
+      })
   })
   it(`works in the nominal case, with ${manyInstanceCount} instances`, function () {
     this.timeout(10000)
 
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight)
-      .must.fulfill(selectionInstanceContract.resolved.implementation(selection => {
+      .must.fulfill(selection => {
         selection.must.be.an.object()
         selection.instance.must.equal('instance 8a.' + serviceTypeNInstancesWithWeight)
         console.log(selection)
-      }))
+      })
   })
   it('resolves to null with a non-existent service type', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance('_not-exist' + serviceTypePostfix)
-      .must.fulfill(selectionInstanceContract.resolved.implementation(selection => {
+      .must.fulfill(selection => {
         must(selection).be.null()
         console.log(selection)
-      }))
+      })
   })
   it('selects according to weight with a filter', function () {
     this.timeout(10000)
@@ -158,11 +160,11 @@ describe('selectInstance', function () {
     ]
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
-      .must.fulfill(selectionInstanceContract.resolved.implementation(selection => {
+      .must.fulfill(selection => {
         selection.must.be.an.object()
         selection.instance.must.match(`instance 8b.${serviceTypeNInstancesWithWeight}`)
         console.log(selection)
-      }))
+      })
   })
   it('selects according to weight with a filter that excludes every instance', function () {
     const deaths = [
@@ -184,10 +186,10 @@ describe('selectInstance', function () {
     ]
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
-      .must.fulfill(selectionInstanceContract.resolved.implementation(selection => {
+      .must.fulfill(selection => {
         must(selection).be.null()
         console.log(selection)
-      }))
+      })
   })
 
   const labelA = 'selects according to weight with a filter evenly with 2 instances'
@@ -261,9 +263,9 @@ describe('selectInstance', function () {
   failures.forEach(serviceType => {
     it(`fails for instance type ${serviceType}`, function () {
       // noinspection JSUnresolvedVariable
-      return selectInstance(serviceType).must.betray(selectionInstanceContract.rejected.implementation(err => {
+      return selectInstance(serviceType).must.betray(err => {
         console.log(err)
-      }))
+      })
     })
   })
 })
