@@ -26,6 +26,7 @@
 
 const validate = require('../../lib/validate')
 const x = require('cartesian')
+const verifyPostconditions = require('../_util/verifyPostconditions')
 
 const domain = 'dns-sd-lookup.toryt.org'
 const protocols = ['tcp', 'udp']
@@ -101,8 +102,7 @@ describe('validate', function () {
     validate.serviceInstance.must.be.a.regexp()
   })
   describe('#isSubtypeOrInstanceName', function () {
-    beforeEach(function () { validate.isSubtypeOrInstanceName.contract.verifyPostconditions = true })
-    afterEach(function () { validate.isSubtypeOrInstanceName.contract.verifyPostconditions = false })
+    verifyPostconditions(validate.isSubtypeOrInstanceName)
 
     describe('true', function () {
       serviceSubTypes
@@ -141,8 +141,7 @@ describe('validate', function () {
     })
   })
   describe('#isBaseServiceType', function () {
-    beforeEach(function () { validate.isBaseServiceType.contract.verifyPostconditions = true })
-    afterEach(function () { validate.isBaseServiceType.contract.verifyPostconditions = false })
+    verifyPostconditions(validate.isBaseServiceType)
 
     const tooLong = generateMaxLength('_' + serviceType)
 
@@ -190,8 +189,7 @@ describe('validate', function () {
   })
 
   describe('#isServiceType', function () {
-    beforeEach(function () { validate.isServiceType.contract.verifyPostconditions = true })
-    afterEach(function () { validate.isServiceType.contract.verifyPostconditions = false })
+    verifyPostconditions(validate.isServiceType)
 
     const tooLongWithoutSub = generateMaxLength('_' + serviceType)
     const tooLongWithSub = generateMaxLength(simpleSubType + '._sub._' + serviceType)
@@ -257,8 +255,7 @@ describe('validate', function () {
   })
 
   describe('#isServiceInstance', function () {
-    beforeEach(function () { validate.isServiceInstance.contract.verifyPostconditions = true })
-    afterEach(function () { validate.isServiceInstance.contract.verifyPostconditions = false })
+    verifyPostconditions(validate.isServiceInstance)
 
     const tooLong = generateMaxLength(`${instances[0]}._${serviceType}`)
 
@@ -315,8 +312,7 @@ describe('validate', function () {
   })
 
   describe('#isNatural', function () {
-    beforeEach(function () { validate.isNatural.contract.verifyPostconditions = true })
-    afterEach(function () { validate.isNatural.contract.verifyPostconditions = false })
+    verifyPostconditions(validate.isNatural)
 
     const rights = [
       0,

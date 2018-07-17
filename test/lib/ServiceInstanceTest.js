@@ -26,6 +26,7 @@
 
 const ServiceInstance = require('../../lib/ServiceInstance')
 const x = require('cartesian')
+const verifyPostconditions = require('../_util/verifyPostconditions')
 
 const protocols = ['udp', 'tcp']
 
@@ -79,8 +80,7 @@ function createKwargs (c) {
 
 describe('ServiceInstance', () => {
   describe('constructor', () => {
-    beforeEach(function () { ServiceInstance.contract.verifyPostconditions = true })
-    afterEach(function () { ServiceInstance.contract.verifyPostconditions = false })
+    verifyPostconditions(ServiceInstance)
 
     it('is a constructor', function () {
       ServiceInstance.must.have.property('prototype')
