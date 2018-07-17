@@ -48,14 +48,14 @@ const expected = {
 
 function mustBeNotFoundError (baseMessage) {
   // noinspection JSUnresolvedVariable
-  return lookupInstance.contract.rejected.implementation(error => {
+  return error => {
     error.must.be.an.instanceof(Error)
     // noinspection JSUnresolvedVariable
     error.message.must.match(lookupInstance.contract.notValidMessage)
     error.cause.must.be.an.instanceof(Error)
     error.cause.message.must.match(baseMessage)
     console.log(error)
-  })
+  }
 }
 
 describe('lookupInstance', function () {
@@ -64,7 +64,7 @@ describe('lookupInstance', function () {
   it('works in the nominal case', function () {
     const now = new Date()
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.fulfill(lookupInstance.contract.resolved.implementation(response => {
+    return lookupInstance(instanceName).must.fulfill(response => {
       response.must.be.an.instanceof(ServiceInstance)
       console.log(response)
       response.type.must.equal(expected.type)
@@ -81,7 +81,7 @@ describe('lookupInstance', function () {
       response.details['aDetail'.toLowerCase()].must.equal(expected.aDetail)
       const at = new Date(response.details.at)
       at.must.be.before(now)
-    }))
+    })
   })
 
   it('fails with non-existent instance', function () {
@@ -92,7 +92,7 @@ describe('lookupInstance', function () {
   it('fails with an instance with 2 TXTs', function () {
     const instanceName = 'instance 2._t2i-2-txt' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(lookupInstance.contract.rejected.implementation(error => {
+    return lookupInstance(instanceName).must.betray(error => {
       error.must.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
       error.message.must.match(lookupInstance.contract.notValidMessage)
@@ -102,13 +102,13 @@ describe('lookupInstance', function () {
       error.cause.instance.must.equal(instanceName)
       error.cause.count.must.equal(2)
       console.log(error)
-    }))
+    })
   })
 
   it('fails with an instance with 2 SRVs', function () {
     const instanceName = 'instance 3._t3i-2-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(lookupInstance.contract.rejected.implementation(error => {
+    return lookupInstance(instanceName).must.betray(error => {
       error.must.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
       error.message.must.match(lookupInstance.contract.notValidMessage)
@@ -118,13 +118,13 @@ describe('lookupInstance', function () {
       error.cause.instance.must.equal(instanceName)
       error.cause.count.must.equal(2)
       console.log(error)
-    }))
+    })
   })
 
   it('fails with an instance with 2 TXTs and 2 SRVs', function () {
     const instanceName = 'instance 4._t4i-2-txt-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(lookupInstance.contract.rejected.implementation(error => {
+    return lookupInstance(instanceName).must.betray(error => {
       error.must.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
       error.message.must.match(lookupInstance.contract.notValidMessage)
@@ -136,7 +136,7 @@ describe('lookupInstance', function () {
       error.cause.instance.must.equal(instanceName)
       error.cause.count.must.equal(2)
       console.log(error)
-    }))
+    })
   })
 
   it('fails with an instance without a TXT', function () {
