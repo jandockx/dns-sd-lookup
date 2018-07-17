@@ -26,6 +26,7 @@
 
 const lookupInstance = require('../../lib/lookupInstance')
 const ServiceInstance = require('../../lib/ServiceInstance')
+const verifyPostconditions = require('../_util/verifyPostconditions')
 
 const nameCompletion = '._tcp.dns-sd-lookup.toryt.org'
 
@@ -58,6 +59,8 @@ function mustBeNotFoundError (baseMessage) {
 }
 
 describe('lookupInstance', function () {
+  verifyPostconditions(lookupInstance)
+
   it('works in the nominal case', function () {
     const now = new Date()
     // noinspection JSUnresolvedVariable
