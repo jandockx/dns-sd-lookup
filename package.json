@@ -28,7 +28,6 @@
     "node": ">=v6.11.3"
   },
   "dependencies": {
-    "@toryt/contracts-iii": "^3.1.0",
     "@toryt/contracts-iv": "^4.0.0-pre",
     "deeper": "^2.1.0",
     "denodeify": "^1.2.1",
