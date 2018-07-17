@@ -32,7 +32,7 @@
     "@toryt/contracts-iv": "^4.0.0-pre",
     "deeper": "^2.1.0",
     "denodeify": "^1.2.1",
-    "validator": "^9.4.1"
+    "validator": "^10.4.0"
   },
   "devDependencies": {
     "@ppwcode/terraform-ppwcode-modules": "^3.8.4",
@@ -44,7 +44,7 @@
     "mocha-reporter": "^0.1.1",
     "must": "github:jandockx/js-must#fork/0.13.4/1",
     "npm-check": "^5.7.0",
-    "nyc": "^11.7.1",
+    "nyc": "^12.0.2",
     "standard": "^11.0.1",
     "tldrlegal": "^1.0.6"
   },
