@@ -1,0 +1,26 @@
+{
+  "name": "@toryt/dns-sd-lookup",
+  "version": "1.1.4",
+  "dependencies": {
+    "@toryt/contracts-iv": {
+      "version": "4.0.0-pre.6",
+      "from": "@toryt/contracts-iv@>=4.0.0-pre <5.0.0",
+      "resolved": "https://registry.npmjs.org/@toryt/contracts-iv/-/contracts-iv-4.0.0-pre.6.tgz"
+    },
+    "deeper": {
+      "version": "2.1.0",
+      "from": "deeper@>=2.1.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/deeper/-/deeper-2.1.0.tgz"
+    },
+    "denodeify": {
+      "version": "1.2.1",
+      "from": "denodeify@>=1.2.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/denodeify/-/denodeify-1.2.1.tgz"
+    },
+    "validator": {
+      "version": "10.4.0",
+      "from": "validator@>=10.4.0 <11.0.0",
+      "resolved": "https://registry.npmjs.org/validator/-/validator-10.4.0.tgz"
+    }
+  }
+}
