@@ -79,6 +79,9 @@ function createKwargs (c) {
 
 describe('ServiceInstance', () => {
   describe('constructor', () => {
+    beforeEach(function () { ServiceInstance.contract.verifyPostconditions = true })
+    afterEach(function () { ServiceInstance.contract.verifyPostconditions = false })
+
     it('is a constructor', function () {
       ServiceInstance.must.have.property('prototype')
       ServiceInstance.prototype.must.have.property('constructor', ServiceInstance)
