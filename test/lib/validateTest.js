@@ -101,6 +101,9 @@ describe('validate', function () {
     validate.serviceInstance.must.be.a.regexp()
   })
   describe('#isSubtypeOrInstanceName', function () {
+    beforeEach(function () { validate.isSubtypeOrInstanceName.contract.verifyPostconditions = true })
+    afterEach(function () { validate.isSubtypeOrInstanceName.contract.verifyPostconditions = false })
+
     describe('true', function () {
       serviceSubTypes
         .concat(instances)
@@ -138,6 +141,9 @@ describe('validate', function () {
     })
   })
   describe('#isBaseServiceType', function () {
+    beforeEach(function () { validate.isBaseServiceType.contract.verifyPostconditions = true })
+    afterEach(function () { validate.isBaseServiceType.contract.verifyPostconditions = false })
+
     const tooLong = generateMaxLength('_' + serviceType)
 
     describe('true', function () {
@@ -184,6 +190,9 @@ describe('validate', function () {
   })
 
   describe('#isServiceType', function () {
+    beforeEach(function () { validate.isServiceType.contract.verifyPostconditions = true })
+    afterEach(function () { validate.isServiceType.contract.verifyPostconditions = false })
+
     const tooLongWithoutSub = generateMaxLength('_' + serviceType)
     const tooLongWithSub = generateMaxLength(simpleSubType + '._sub._' + serviceType)
 
@@ -248,6 +257,9 @@ describe('validate', function () {
   })
 
   describe('#isServiceInstance', function () {
+    beforeEach(function () { validate.isServiceInstance.contract.verifyPostconditions = true })
+    afterEach(function () { validate.isServiceInstance.contract.verifyPostconditions = false })
+
     const tooLong = generateMaxLength(`${instances[0]}._${serviceType}`)
 
     describe('true', function () {
@@ -303,6 +315,9 @@ describe('validate', function () {
   })
 
   describe('#isNatural', function () {
+    beforeEach(function () { validate.isNatural.contract.verifyPostconditions = true })
+    afterEach(function () { validate.isNatural.contract.verifyPostconditions = false })
+
     const rights = [
       0,
       1,
