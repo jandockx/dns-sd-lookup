@@ -27,6 +27,7 @@
 const extract = require('../../lib/extract')
 const x = require('cartesian')
 const must = require('must')
+const verifyPostconditions = require('../_util/verifyPostconditions')
 
 const domain = 'dns-sd-lookup.toryt.org'
 const protocols = ['tcp', 'udp']
@@ -59,6 +60,8 @@ function createFqdn (c) {
 
 describe('extract', function () {
   describe('#domain', function () {
+    verifyPostconditions(extract.domain)
+
     // noinspection JSUnresolvedFunction
     const fqdns = x({
       service: services,
@@ -74,6 +77,8 @@ describe('extract', function () {
   })
 
   describe('#protocol', function () {
+    verifyPostconditions(extract.protocol)
+
     const cases = x({
       service: services,
       protocol: protocols
@@ -90,6 +95,8 @@ describe('extract', function () {
   })
 
   describe('#type', function () {
+    verifyPostconditions(extract.type)
+
     const cases = x({
       service: services,
       protocol: protocols
@@ -106,6 +113,8 @@ describe('extract', function () {
   })
 
   describe('#instance', function () {
+    verifyPostconditions(extract.instance)
+
     const cases = x({
       instance: instances,
       protocol: protocols
@@ -125,6 +134,8 @@ describe('extract', function () {
   })
 
   describe('#subtype', function () {
+    verifyPostconditions(extract.subtype)
+
     const cases = x({
       subtype: serviceSubTypes,
       protocol: protocols
