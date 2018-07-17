@@ -25,8 +25,7 @@
 /* eslint-env mocha */
 
 const discover = require('../../lib/discover')
-// noinspection JSUnresolvedVariable
-const discoverContract = discover.contract
+const verifyPostconditions = require('../_util/verifyPostconditions')
 
 // noinspection SpellCheckingInspection
 const serviceTypePostfix = '._tcp.dns-sd-lookup.toryt.org'
@@ -37,6 +36,8 @@ const manyInstanceCount = 12
 
 describe('discover', function () {
   describe('#notOneOf', function () {
+    verifyPostconditions(discover.notOneOf)
+
     const instanceName = 'candidate instance._type._tcp.dns-sd-lookup.toryt.org'
 
     it('works with the empty array', function () {
@@ -73,41 +74,43 @@ describe('discover', function () {
     })
   })
   describe('main method', function () {
+    verifyPostconditions(discover)
+
     it('works in the nominal case, without a subtype', function () {
       // noinspection JSUnresolvedVariable
-      return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
+      return discover(serviceType).must.fulfill(details => {
         details.must.be.an.array()
         details.must.have.length(1)
         console.log(details)
-      }))
+      })
     })
     it('works in the nominal case, with a subtype', function () {
       const serviceType = `_subtype._sub._t7i-sub${serviceTypePostfix}`
       // noinspection JSUnresolvedVariable
-      return discover(serviceType).must.fulfill(discoverContract.resolved.implementation(details => {
+      return discover(serviceType).must.fulfill(details => {
         details.must.be.an.array()
         details.must.have.length(1)
         console.log(details)
-      }))
+      })
     })
     it(`works in the nominal case, with ${manyInstanceCount} instances`, function () {
       this.timeout(10000)
 
       // noinspection JSUnresolvedVariable
-      return discover(manyInstanceServiceType).must.fulfill(discoverContract.resolved.implementation(details => {
+      return discover(manyInstanceServiceType).must.fulfill(details => {
         details.must.be.an.array()
         details.must.have.length(manyInstanceCount)
         console.log(details)
-      }))
+      })
     })
     it('resolves to the empty array with a non-existent service type', function () {
       // noinspection JSUnresolvedVariable
       return discover('_not-exist' + serviceTypePostfix)
-        .must.fulfill(discoverContract.resolved.implementation(details => {
+        .must.fulfill(details => {
           details.must.be.an.array()
           details.must.be.empty()
           console.log(details)
-        }))
+        })
     })
     it('works with a filter in the nominal case', function () {
       const deaths = [
@@ -121,12 +124,12 @@ describe('discover', function () {
       ]
       // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
-        .must.fulfill(discoverContract.resolved.implementation(details => {
+        .must.fulfill(details => {
           details.must.be.an.array()
           details.must.have.length(manyInstanceCount - deaths.length)
           details.forEach(d => deaths.must.not.contain(d.instance))
           console.log(details)
-        }))
+        })
     })
     it('works with a filter in the nominal case that excludes all instances', function () {
       const deaths = [
@@ -148,11 +151,11 @@ describe('discover', function () {
       ]
       // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
-        .must.fulfill(discoverContract.resolved.implementation(details => {
+        .must.fulfill(details => {
           details.must.be.an.array()
           details.must.be.empty()
           console.log(details)
-        }))
+        })
     })
 
     let failures = [
@@ -166,9 +169,9 @@ describe('discover', function () {
     failures.forEach(serviceType => {
       it(`fails for instance type ${serviceType}`, function () {
         // noinspection JSUnresolvedVariable
-        return discover(serviceType).must.betray(discoverContract.rejected.implementation(err => {
+        return discover(serviceType).must.betray(err => {
           console.log(err)
-        }))
+        })
       })
     })
   })
