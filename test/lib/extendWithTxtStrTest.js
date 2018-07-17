@@ -25,11 +25,14 @@
 /* eslint-env mocha */
 
 const extendWithTxtStr = require('../../lib/extendWithTxtStr')
+const verifyPostconditions = require('../_util/verifyPostconditions')
 
 const attributeName = 'attribute'
 const attributeValue = 'attributeValue'
 
 describe('extendWithTxtStr', function () {
+  verifyPostconditions(extendWithTxtStr)
+
   beforeEach(function () {
     this.preExistingValue = 'pre-existing value'
     this.subject = {
