@@ -545,7 +545,6 @@ Plan
 MUDO
 ----
 
-* Check [`.npmignore`](.npmignore)
 * Rebuild [`CREDITS.md`](CREDITS.md)
 
 
