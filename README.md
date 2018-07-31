@@ -545,8 +545,6 @@ Plan
 MUDO
 ----
 
-* Rebuild [`CREDITS.md`](CREDITS.md)
-
 
 TODO
 ----
