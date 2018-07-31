@@ -553,6 +553,7 @@ MUDO
 TODO
 ----
 
+* Add tests for Node 10
 * Make `prettier-standard`
 * Further automate build (with tags, and building of [`CREDITS.md`](CREDITS.md), …)
 
