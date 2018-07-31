@@ -549,7 +549,6 @@ Plan
 MUDO
 ----
 
-* Upgrade to `@toryt/contracts-iv@4.0.0`
 * Loose `yarn` (and update `README`)
 * Loose Bitbucket
 * Check [`.npmignore`](.npmignore)
