@@ -62,6 +62,8 @@
   "scripts": {
     "pretest": "npm-check -i mocha-reporter -i standard -i npm-check -i legally -i @ppwcode/terraform-ppwcode-modules -i codecov || exit 0",
     "test": "standard && nyc mocha \"test/**/*Test.js\"",
+    "legalReport": "legally -l -r && tldrlegal",
+    "reportCoverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "preversion": "npm-check -i mocha-reporter -i standard -i npm-check -i legally -i @ppwcode/terraform-ppwcode-modules -i codecov && standard && nyc mocha \"test/**/*Test.js\"",
     "update_credits": "credits . --reporter markdown > CREDITS.md"
   }

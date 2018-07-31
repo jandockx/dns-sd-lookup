@@ -1,29 +1,30 @@
+branches:
+  except:
+    - /^travis\/.*/
 language: node_js
-node_js:
-  - "8"
-  - "6"
-cache: yarn
+cache:
+  directories:
+    - "node_modules"
 "os":
-  - "linux"
+  - linux
 # Node js is not supported on macOS on Travis
 # Windows is not supported at all. Bummer.
-before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s
-   # latest yarn; at this commit, using 1.0.1
-   # add `-- --version 1.0.1` to fix a version (see https://yarnpkg.com/en/docs/install#alternatives-tab)
-  - export PATH=$HOME/.yarn/bin:$PATH
-script:
-  - export NODE_ENV="ci"
-  - echo 'node:' `node --version`
-  - echo 'npm:' `npm --version`
-  - echo 'yarn:' `yarn --version`
-  - echo 'branch:' `git rev-parse --abbrev-ref HEAD`
-  - echo 'tags:' `git name-rev --tags --name-only $(git rev-parse HEAD)`
-  - echo 'sha:' `git rev-parse --verify HEAD`
-  - echo $NODE_ENV
-  - yarn test
-  - yarn run legally -- -l -r
-  - yarn run tldrlegal
 after_success:
   - yarn nyc report --reporter=text-lcov > coverage.lcov
   - yarn codecov
+jobs:
+  include:
+    # stage test
+    - node_js: '6' # npm test
+    - node_js: '8' # npm test
+      script:
+        - npm test
+        - npm run reportCoverage
+    - node_js: '10' # npm test
+    # stage tag
+    - stage: tag
+      node_js: '8'
+      install: skip
+      script:
+        - npm run legalReport
+        - scripts/travisGithubTag.sh

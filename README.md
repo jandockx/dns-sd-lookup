@@ -14,11 +14,7 @@ only does look-ups in regular DNS. The functionality is comparable to
 Install
 =======
 
-    > yarn add @toryt/dns-sd-lookup
-
-or
-
-    > npm install @toryt/dns-sd-lookup
+    > npm install --save @toryt/dns-sd-lookup
 
 
 
@@ -549,7 +545,6 @@ Plan
 MUDO
 ----
 
-* Loose `yarn` (and update `README`)
 * Loose Bitbucket
 * Check [`.npmignore`](.npmignore)
 * Rebuild [`CREDITS.md`](CREDITS.md)
@@ -558,8 +553,6 @@ MUDO
 TODO
 ----
 
-* Add tests for Node 10
-* Update [`.travis.yml`](.travis.yml)
 * Make `prettier-standard`
 * Further automate build (with tags, and building of [`CREDITS.md`](CREDITS.md), …)
 
