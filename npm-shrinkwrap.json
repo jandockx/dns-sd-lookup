@@ -3,9 +3,9 @@
   "version": "1.1.4",
   "dependencies": {
     "@toryt/contracts-iv": {
-      "version": "4.0.0-pre.6",
+      "version": "4.0.0-pre.7",
       "from": "@toryt/contracts-iv@>=4.0.0-pre <5.0.0",
-      "resolved": "https://registry.npmjs.org/@toryt/contracts-iv/-/contracts-iv-4.0.0-pre.6.tgz"
+      "resolved": "https://registry.npmjs.org/@toryt/contracts-iv/-/contracts-iv-4.0.0-pre.7.tgz"
     },
     "deeper": {
       "version": "2.1.0",
