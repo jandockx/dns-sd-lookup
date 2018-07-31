@@ -174,5 +174,16 @@ describe('discover', function () {
         })
       })
     })
+    const aFailure = failures[0]
+    it(`fails for instance type ${aFailure} with a filter`, function () {
+      const filter = discover.contract.filter.implementation(instance => instance.indexOf(aFailure) >= 0)
+      filter.contract.verifyPostconditions = true
+      // noinspection JSUnresolvedVariable
+      return discover(aFailure, filter)
+        .must.betray(err => {
+          console.log(err)
+          err.instance.must.contain(aFailure)
+        })
+    })
   })
 })
