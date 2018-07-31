@@ -9,9 +9,6 @@ cache:
   - linux
 # Node js is not supported on macOS on Travis
 # Windows is not supported at all. Bummer.
-after_success:
-  - yarn nyc report --reporter=text-lcov > coverage.lcov
-  - yarn codecov
 jobs:
   include:
     # stage test
