@@ -545,7 +545,6 @@ Plan
 MUDO
 ----
 
-* Loose Bitbucket
 * Check [`.npmignore`](.npmignore)
 * Rebuild [`CREDITS.md`](CREDITS.md)
 
