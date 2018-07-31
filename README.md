@@ -559,6 +559,7 @@ MUDO
 TODO
 ----
 
+* Add tests for Node 10
 * Update [`.travis.yml`](.travis.yml)
 * Make `prettier-standard`
 * Further automate build (with tags, and building of [`CREDITS.md`](CREDITS.md), …)
