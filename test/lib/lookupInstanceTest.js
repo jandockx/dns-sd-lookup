@@ -59,6 +59,7 @@ function mustBeNotFoundError (baseMessage) {
 }
 
 describe('lookupInstance', function () {
+  this.timeout(6000) // DNS lookups can take a long time on Travis
   verifyPostconditions(lookupInstance)
 
   it('works in the nominal case', function () {

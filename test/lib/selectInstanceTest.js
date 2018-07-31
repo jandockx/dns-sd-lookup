@@ -111,6 +111,7 @@ function testDistribution (timerLabel, deaths, expected) {
 }
 
 describe('selectInstance', function () {
+  this.timeout(6000) // DNS lookups can take a long time on Travis
   verifyPostconditions(selectInstance)
   verifyPostconditions(selectInstance.selectByWeight)
 

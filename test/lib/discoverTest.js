@@ -74,6 +74,7 @@ describe('discover', function () {
     })
   })
   describe('main method', function () {
+    this.timeout(6000) // DNS lookups can take a long time on Travis
     verifyPostconditions(discover)
 
     it('works in the nominal case, without a subtype', function () {
