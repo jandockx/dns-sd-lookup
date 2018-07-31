@@ -539,6 +539,35 @@ Credits
 `dns-sd-lookup` builds on the work of many people through [F/OSS]. See the [credits].
 
 
+
+
+
+Plan
+====
+
+
+MUDO
+----
+
+* Upgrade to `@toryt/contracts-iv@4.0.0`
+* Loose `yarn` (and update `README`)
+* Loose Bitbucket
+* Check [`.npmignore`](.npmignore)
+* Rebuild [`CREDITS.md`](CREDITS.md)
+
+
+TODO
+----
+
+* Update [`.travis.yml`](.travis.yml)
+* Make `prettier-standard`
+* Further automate build (with tags, and building of [`CREDITS.md`](CREDITS.md), …)
+
+
+
+
+
+
 [DNS-SD]: http://www.dns-sd.org
 [RFC 6763]: https://www.ietf.org/rfc/rfc6763.txt
 [dns-sd]: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dns-sd.1.html
