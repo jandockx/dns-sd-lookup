@@ -22,21 +22,8 @@
  * SOFTWARE.
  */
 
-// Type definitions for @toryt/dns-sd-lookup
+// Type definitions for extendWithTxtStr
 // Project: @toryt/dns-sd-lookup
 // Definitions by: Jan Dockx
 
-import * as validate from './lib/validate'
-import * as extract from './lib/extract'
-
-export * from './lib/ServiceInstance'
-export { validate }
-export { isSubtypeOrInstanceName } from './lib/validate'
-export { isBaseServiceType } from './lib/validate'
-export { isServiceType } from './lib/validate'
-export { isServiceInstance } from './lib/validate'
-export { extract }
-export * from './lib/extendWithTxtStr'
-export * from './lib/lookupInstance'
-export * from './lib/discover'
-export * from './lib/selectInstance'
+export function extendWithTxtStr(obj: object, txtStr: string): object
