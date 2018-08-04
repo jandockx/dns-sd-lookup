@@ -33,7 +33,7 @@ export const serviceType: RegExp;
 export const serviceInstance: RegExp;
 
 /**
- * The given string is a valid DNS-SD subtype or short instance name.
+ * The given label is a valid DNS-SD subtype or short instance name string.
  *
  * This means it is a _DNS label_, with dots and backslashes escaped. A DNS label consists of at least 1, and not more
  * then 63 characters ('octets'). Any character (octet) is allowed in a DNS label. (This in contrast to a _host name_,
@@ -46,11 +46,29 @@ export const serviceInstance: RegExp;
 export function isSubtypeOrInstanceName(label: any): boolean
 
 /**
- * The given string represents a [RFC 6763] base _Service Type_, i.e., a _Service Type_ without a subtype.
+ * The given string represents a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) base _Service Type_, i.e., a
+ * _Service Type_ without a subtype.
  */
 export function isBaseServiceType(fullName: any): boolean
-export function isServiceType(fullName: any): boolean
-export function isServiceInstance(fullName: any): boolean
-export function isNatural(nr: any, max?: any): boolean
 
-// [RFC 6763]: https://www.ietf.org/rfc/rfc6763.txt
+/**
+ * The given string represents a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) _Service Type_, i.e., a base
+ * _Service Type_, or a _service Type_ with a subtype.
+ *
+ * This function does not allow gratuitous escapes, i.e., a backslash must be followed by
+ * a dot or another backslash in the subtype label.
+ */
+export function isServiceType(fullName: any): boolean
+
+/**
+ * The given string represents a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) _Service Instance_.
+  *
+ * This function does not allow gratuitous escapes, i.e., a backslash must be followed by
+ * a dot or another backslash in the instance name label.
+ */
+export function isServiceInstance(fullName: any): boolean
+
+/**
+ * `nr` is a natural (i.e., an element of ℕ, a positive integer or 0). If `max` is given, `nr ≤ max` must also hold.
+ */
+export function isNatural(nr: any, max?: any): boolean
