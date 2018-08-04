@@ -3,6 +3,7 @@
   "version": "1.1.6",
   "description": "Node library that looks up service instance definitions for a service type defined with DNS-SD (RFC 6763)",
   "main": "index.js",
+  "types": "index.d.ts",
   "keywords": [
     "registry",
     "service",
