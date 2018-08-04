@@ -44,7 +44,13 @@ export const serviceInstance: RegExp;
  * This function does not allow gratuitous escapes, i.e., a backslash must be followed by a dot or another backslash.
  */
 export function isSubtypeOrInstanceName(label: any): boolean
+
+/**
+ * The given string represents a [RFC 6763] base _Service Type_, i.e., a _Service Type_ without a subtype.
+ */
 export function isBaseServiceType(fullName: any): boolean
 export function isServiceType(fullName: any): boolean
 export function isServiceInstance(fullName: any): boolean
 export function isNatural(nr: any, max?: any): boolean
+
+// [RFC 6763]: https://www.ietf.org/rfc/rfc6763.txt
