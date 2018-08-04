@@ -26,6 +26,9 @@
 // Project: @toryt/dns-sd-lookup
 // Definitions by: Jan Dockx
 
+/**
+ * Protocols available in DNS-SD as string: 'upd' or 'tcp'.
+ */
 export type Protocol = 'udp' | 'tcp'
 
 export function domain(fqdn: string): string
