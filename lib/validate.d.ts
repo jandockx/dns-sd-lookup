@@ -35,13 +35,13 @@ export const serviceInstance: RegExp;
 /**
  * The given string is a valid DNS-SD subtype or short instance name.
  *
- * This means it is a _DNS label_, with dots and backslashes escaped. A DNS label consists of at least 1,
- * and not more then 63 characters ('octets'). Any character (octet) is allowed in a DNS label.
- * (This in contrast to a _host name_, the parts of an _internet host name_, _DNS domain_ or _DNS subdomain_,
- * for which the allowed characters are limited. E.g., they cannot contain '_' or spaces, control
- * characters, etc.).
+ * This means it is a _DNS label_, with dots and backslashes escaped. A DNS label consists of at least 1, and not more
+ * then 63 characters ('octets'). Any character (octet) is allowed in a DNS label. (This in contrast to a _host name_,
+ * the parts of an _internet host name_, _DNS domain_ or _DNS subdomain_, for which the allowed characters are limited.
+ * E.g., they cannot contain '_' or spaces, control characters, etc.).
  *
- * This function does not allow gratuitous escapes, i.e., a backslash must be followed by a dot or another backslash.
+ * This function does not allow gratuitous escapes, i.e., a backslash must be followed by a dot or another
+ * backslash.
  */
 export function isSubtypeOrInstanceName(label: any): boolean
 
