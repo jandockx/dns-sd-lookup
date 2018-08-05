@@ -80,4 +80,4 @@
  * Note that a value added to `obj` will thus be `true` or a a string, which might be empty, and never be `null` or
  * `undefined`.
  */
-export function extendWithTxtStr(obj: object, txtStr: string): object
+export function extendWithTxtStr (obj: object, txtStr: string): object
