@@ -88,25 +88,20 @@ describe('ServiceInstance', () => {
     })
     it('has an implementation that is a constructor', function () {
       ServiceInstance.must.have.property('implementation')
-      // noinspection JSUnresolvedVariable
       ServiceInstance.implementation.must.be.a.function()
-      // noinspection JSUnresolvedVariable
       ServiceInstance.implementation.must.have.property('prototype')
-      // noinspection JSUnresolvedVariable
       ServiceInstance.implementation.prototype.must.have.property(
         'constructor',
         ServiceInstance.implementation
       )
     })
 
-    // noinspection JSUnresolvedFunction
     cases.forEach(c => {
       const kwargs = createKwargs(c)
       it(`works as expected for type '${kwargs.type}' and instance '${kwargs.instance}'`, function () {
         const subject = new ServiceInstance(kwargs)
         subject.must.be.instanceof(ServiceInstance)
         subject.must.be.frozen()
-        // noinspection JSUnresolvedFunction
         subject.must.be.valid()
         console.log(subject)
       })
@@ -114,7 +109,6 @@ describe('ServiceInstance', () => {
   })
 
   describe('stringify', () => {
-    // noinspection JSUnresolvedFunction
     cases.forEach(c => {
       const kwargs = createKwargs(c)
       it(`can be stringified for type '${kwargs.type}' and instance '${kwargs.instance}'`, function () {
@@ -126,17 +120,11 @@ describe('ServiceInstance', () => {
         console.log(result)
         const reverse = JSON.parse(result)
         reverse.must.be.an.object()
-        // noinspection JSUnresolvedVariable
         reverse.type.must.equal(subject.type)
-        // noinspection JSUnresolvedVariable
         reverse.instance.must.equal(subject.instance)
-        // noinspection JSUnresolvedVariable
         reverse.host.must.equal(subject.host)
-        // noinspection JSUnresolvedVariable
         reverse.port.must.equal(subject.port)
-        // noinspection JSUnresolvedVariable
         reverse.priority.must.equal(subject.priority)
-        // noinspection JSUnresolvedVariable
         reverse.details.must.eql(subject.details)
         console.log(reverse)
         const fullCircle = new ServiceInstance(reverse)

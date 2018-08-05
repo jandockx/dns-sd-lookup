@@ -71,7 +71,6 @@ function testDistribution (timerLabel, deaths, expected) {
       previous.then(selections => {
         const next = []
         for (let i = 0; i < batch; i++) {
-          // noinspection JSUnresolvedFunction
           next.push(
             selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
               .then(selection => {
@@ -116,7 +115,6 @@ describe('selectInstance', function () {
   verifyPostconditions(selectInstance.selectByWeight)
 
   it('works in the nominal case with 1 instance, without a subtype', function () {
-    // noinspection JSUnresolvedVariable
     return selectInstance(serviceType1InstanceNoSubtype)
       .must.fulfill(selection => {
         selection.must.be.an.object()
@@ -125,7 +123,6 @@ describe('selectInstance', function () {
       })
   })
   it('works in the nominal case with 1 instance, with a subtype', function () {
-    // noinspection JSUnresolvedVariable
     return selectInstance(serviceType1InstanceSubtype)
       .must.fulfill(selection => {
         selection.must.be.an.object()
@@ -136,7 +133,6 @@ describe('selectInstance', function () {
   it(`works in the nominal case, with ${manyInstanceCount} instances`, function () {
     this.timeout(10000)
 
-    // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight)
       .must.fulfill(selection => {
         selection.must.be.an.object()
@@ -145,7 +141,6 @@ describe('selectInstance', function () {
       })
   })
   it('resolves to null with a non-existent service type', function () {
-    // noinspection JSUnresolvedVariable
     return selectInstance('_not-exist' + serviceTypePostfix)
       .must.fulfill(selection => {
         must(selection).be.null()
@@ -159,7 +154,7 @@ describe('selectInstance', function () {
       `Instance 8a.${serviceTypeNInstancesWithWeight}`,
       `Instance 8d.${serviceTypeNInstancesWithWeight}`
     ]
-    // noinspection JSUnresolvedVariable
+
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
       .must.fulfill(selection => {
         selection.must.be.an.object()
@@ -185,7 +180,7 @@ describe('selectInstance', function () {
       `Instance 8l.${serviceTypeNInstancesWithWeight}`,
       `Instance 8b.${serviceTypeNInstancesWithWeight}`
     ]
-    // noinspection JSUnresolvedVariable
+
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
       .must.fulfill(selection => {
         must(selection).be.null()
@@ -263,7 +258,6 @@ describe('selectInstance', function () {
   failures = failures.map(f => `_${f}${serviceTypePostfix}`)
   failures.forEach(serviceType => {
     it(`fails for instance type ${serviceType}`, function () {
-      // noinspection JSUnresolvedVariable
       return selectInstance(serviceType).must.betray(err => {
         console.log(err)
       })
@@ -273,7 +267,6 @@ describe('selectInstance', function () {
   it(`fails for instance type ${aFailure} with a filter`, function () {
     const filter = selectInstance.contract.filter.implementation(instance => instance.indexOf(aFailure) >= 0)
     filter.contract.verifyPostconditions = true
-    // noinspection JSUnresolvedVariable
     return selectInstance(aFailure, filter).must.betray(err => {
       console.log(err)
       err.instance.must.contain(aFailure)

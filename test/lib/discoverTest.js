@@ -78,7 +78,6 @@ describe('discover', function () {
     verifyPostconditions(discover)
 
     it('works in the nominal case, without a subtype', function () {
-      // noinspection JSUnresolvedVariable
       return discover(serviceType).must.fulfill(details => {
         details.must.be.an.array()
         details.must.have.length(1)
@@ -87,7 +86,6 @@ describe('discover', function () {
     })
     it('works in the nominal case, with a subtype', function () {
       const serviceType = `_subtype._sub._t7i-sub${serviceTypePostfix}`
-      // noinspection JSUnresolvedVariable
       return discover(serviceType).must.fulfill(details => {
         details.must.be.an.array()
         details.must.have.length(1)
@@ -97,7 +95,6 @@ describe('discover', function () {
     it(`works in the nominal case, with ${manyInstanceCount} instances`, function () {
       this.timeout(10000)
 
-      // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType).must.fulfill(details => {
         details.must.be.an.array()
         details.must.have.length(manyInstanceCount)
@@ -105,7 +102,6 @@ describe('discover', function () {
       })
     })
     it('resolves to the empty array with a non-existent service type', function () {
-      // noinspection JSUnresolvedVariable
       return discover('_not-exist' + serviceTypePostfix)
         .must.fulfill(details => {
           details.must.be.an.array()
@@ -123,7 +119,6 @@ describe('discover', function () {
         `Instance 8k.${manyInstanceServiceType}`,
         `Instance 8l.${manyInstanceServiceType}`
       ]
-      // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
         .must.fulfill(details => {
           details.must.be.an.array()
@@ -150,7 +145,6 @@ describe('discover', function () {
         `Instance 8l.${manyInstanceServiceType}`,
         `Instance 8b.${manyInstanceServiceType}`
       ]
-      // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
         .must.fulfill(details => {
           details.must.be.an.array()
@@ -169,7 +163,6 @@ describe('discover', function () {
     failures = failures.map(f => `_${f}${serviceTypePostfix}`)
     failures.forEach(serviceType => {
       it(`fails for instance type ${serviceType}`, function () {
-        // noinspection JSUnresolvedVariable
         return discover(serviceType).must.betray(err => {
           console.log(err)
         })
@@ -179,7 +172,6 @@ describe('discover', function () {
     it(`fails for instance type ${aFailure} with a filter`, function () {
       const filter = discover.contract.filter.implementation(instance => instance.indexOf(aFailure) >= 0)
       filter.contract.verifyPostconditions = true
-      // noinspection JSUnresolvedVariable
       return discover(aFailure, filter)
         .must.betray(err => {
           console.log(err)

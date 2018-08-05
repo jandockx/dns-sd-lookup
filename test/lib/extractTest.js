@@ -62,7 +62,6 @@ describe('extract', function () {
   describe('#domain', function () {
     verifyPostconditions(extract.domain)
 
-    // noinspection JSUnresolvedFunction
     const fqdns = x({
       service: services,
       protocol: protocols
@@ -83,7 +82,7 @@ describe('extract', function () {
       service: services,
       protocol: protocols
     })
-    // noinspection JSUnresolvedFunction
+
     cases.forEach(c => {
       const fqdn = createFqdn(c)
       it(`works as expected for ${fqdn}`, function () {
@@ -101,7 +100,7 @@ describe('extract', function () {
       service: services,
       protocol: protocols
     })
-    // noinspection JSUnresolvedFunction
+
     cases.forEach(c => {
       const fqdn = createFqdn(c)
       it(`works as expected for ${fqdn}`, function () {
@@ -119,7 +118,7 @@ describe('extract', function () {
       instance: instances,
       protocol: protocols
     })
-    // noinspection JSUnresolvedFunction
+
     cases.forEach(c => {
       const fqdn = createFqdn({
         service: createService(c.instance),
@@ -140,7 +139,7 @@ describe('extract', function () {
       subtype: serviceSubTypes,
       protocol: protocols
     })
-    // noinspection JSUnresolvedFunction
+
     cases.forEach(c => {
       const fqdn = createFqdn({
         service: createService(createSubPrefix(c.subtype)),
