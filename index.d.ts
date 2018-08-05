@@ -35,10 +35,7 @@ import * as selectInstance from './lib/selectInstance'
 
 export { ServiceInstance }
 export { validate }
-export { isSubtypeOrInstanceName } from './lib/validate'
-export { isBaseServiceType } from './lib/validate'
-export { isServiceType } from './lib/validate'
-export { isServiceInstance } from './lib/validate'
+export { isSubtypeOrInstanceName, isBaseServiceType, isServiceType, isServiceInstance } from './lib/validate'
 export { extract }
 export * from './lib/extendWithTxtStr'
 export { lookupInstance }
