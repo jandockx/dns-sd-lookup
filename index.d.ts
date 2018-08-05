@@ -26,13 +26,14 @@
 // Project: @toryt/dns-sd-lookup
 // Definitions by: Jan Dockx
 
+import * as ServiceInstance from './lib/ServiceInstance'
 import * as validate from './lib/validate'
 import * as extract from './lib/extract'
 import * as lookupInstance from './lib/lookupInstance'
 import * as discover from './lib/discover'
 import * as selectInstance from './lib/selectInstance'
 
-export * from './lib/ServiceInstance'
+export { ServiceInstance }
 export { validate }
 export { isSubtypeOrInstanceName } from './lib/validate'
 export { isBaseServiceType } from './lib/validate'
