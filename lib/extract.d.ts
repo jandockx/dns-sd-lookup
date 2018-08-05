@@ -31,12 +31,39 @@
  */
 export type Protocol = 'udp' | 'tcp'
 
+/**
+ * Extract the domain from a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) _Service Type_ or _Service Instance_
+ * `fqdn`.
+ */
 export function domain(fqdn: string): string
 
+/**
+ * Extract the protocol ('upd' or 'tcp') from a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) _Service Type_ or
+ * _Service Instance_ `fqdn`.
+ */
 export function protocol(fqdn: string): Protocol
 
+/**
+ * Extract the (base) type from a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) _Service Type_ or _Service Instance_
+ * `fqdn`.
+ */
 export function type(fqdn: string): string
 
+/**
+ * Extract the instance from a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) _Service Instance_ `fqdn`.
+ */
 export function instance(fqdn: string): string
 
+/**
+ * Extract the subtype from a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) _Service Type_ `fqdn`. If there is no
+ * subtype, the result is `undefined`.
+ *
+ * This is essentially the same as extracting an instance name, except that
+ *
+ * - there might not be a subtype; we return `undefined`
+ * - we skip the '._sub' domain name part
+ *
+ * According to DNS-SD, a subtype does not have to start with a '_'. Therefor, if there is a starting '_', it is part of
+ * the name, and not removed.
+ */
 export function subtype(fqdn: string): string
