@@ -49,7 +49,7 @@ export = lookupInstance
  *
  * There are no additional preconditions on the contents of the `TXT` resource record.
  */
-declare function lookupInstance(serviceInstance: string): Promise<ServiceInstance>
+declare function lookupInstance (serviceInstance: string): Promise<ServiceInstance>
 
 declare namespace lookupInstance {
 

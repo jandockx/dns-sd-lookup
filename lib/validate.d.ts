@@ -43,13 +43,13 @@ export const serviceInstance: RegExp;
  * This function does not allow gratuitous escapes, i.e., a backslash must be followed by a dot or another
  * backslash.
  */
-export function isSubtypeOrInstanceName(label: any): boolean
+export function isSubtypeOrInstanceName (label: any): boolean
 
 /**
  * The given string represents a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) base _Service Type_, i.e., a
  * _Service Type_ without a subtype.
  */
-export function isBaseServiceType(fullName: any): boolean
+export function isBaseServiceType (fullName: any): boolean
 
 /**
  * The given string represents a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) _Service Type_, i.e., a base
@@ -58,7 +58,7 @@ export function isBaseServiceType(fullName: any): boolean
  * This function does not allow gratuitous escapes, i.e., a backslash must be followed by
  * a dot or another backslash in the subtype label.
  */
-export function isServiceType(fullName: any): boolean
+export function isServiceType (fullName: any): boolean
 
 /**
  * The given string represents a [RFC 6763](https://www.ietf.org/rfc/rfc6763.txt) _Service Instance_.
@@ -66,9 +66,9 @@ export function isServiceType(fullName: any): boolean
  * This function does not allow gratuitous escapes, i.e., a backslash must be followed by
  * a dot or another backslash in the instance name label.
  */
-export function isServiceInstance(fullName: any): boolean
+export function isServiceInstance (fullName: any): boolean
 
 /**
  * `nr` is a natural (i.e., an element of ℕ, a positive integer or 0). If `max` is given, `nr ≤ max` must also hold.
  */
-export function isNatural(nr: any, max?: any): boolean
+export function isNatural (nr: any, max?: any): boolean
