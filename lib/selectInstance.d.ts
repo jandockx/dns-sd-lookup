@@ -26,7 +26,6 @@
 // Project: @toryt/dns-sd-lookup
 // Definitions by: Jan Dockx
 
-import * as discover from './discover'
 import * as ServiceInstance from './ServiceInstance'
 
 export = selectInstance
@@ -50,22 +49,17 @@ export = selectInstance
  * for all found instances that pass the `filter`, the `Promise` is betrayed. If there is no `PTR` resource record for
  * the _Service Type_, or all instances are filtered out, the Promise returns `null`.
  */
-declare function selectInstance (serviceType: string, filter?: (serviceInstanceName: string) => boolean):
-  Promise<ServiceInstance>
+declare function selectInstance (serviceType: string, filter?: selectInstance.filter): Promise<ServiceInstance>
 
 declare namespace selectInstance {
 
-  export interface filterContract {
-
-  }
+  export { FilterContract, filter, notOneOf } from './discover'
 
   export interface selectInstanceContract extends Contract {
-    filter: discover.filterContract
+    filter: selectInstance.FilterContract
   }
 
   export const contract: selectInstanceContract;
-
-  export { notOneOf } from './discover'
 
   /**
    * [RFC 2782](https://www.ietf.org/rfc/rfc2782.txt) states:
@@ -97,4 +91,8 @@ declare namespace selectInstance {
    * all instances have weight 0.
    */
   export function selectByWeight (instances: ServiceInstance[]): ServiceInstance
+
+  export namespace selectByWeight {
+    export const contract: Contract
+  }
 }
