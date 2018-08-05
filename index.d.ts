@@ -28,6 +28,7 @@
 
 import * as validate from './lib/validate'
 import * as extract from './lib/extract'
+import * as lookupInstance from './lib/lookupInstance'
 
 export * from './lib/ServiceInstance'
 export { validate }
@@ -37,6 +38,6 @@ export { isServiceType } from './lib/validate'
 export { isServiceInstance } from './lib/validate'
 export { extract }
 export * from './lib/extendWithTxtStr'
-export * from './lib/lookupInstance'
+export { lookupInstance }
 export * from './lib/discover'
 export * from './lib/selectInstance'
