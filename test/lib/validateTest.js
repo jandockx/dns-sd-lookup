@@ -195,7 +195,6 @@ describe('validate', function () {
     const tooLongWithSub = generateMaxLength(simpleSubType + '._sub._' + serviceType)
 
     describe('true', function () {
-      // noinspection JSUnresolvedFunction
       const fqdns = x({
         sub: serviceSubTypes,
         protocol: protocols
@@ -260,7 +259,6 @@ describe('validate', function () {
     const tooLong = generateMaxLength(`${instances[0]}._${serviceType}`)
 
     describe('true', function () {
-      // noinspection JSUnresolvedFunction
       const fqdns = x({
         instance: instances,
         protocol: protocols
