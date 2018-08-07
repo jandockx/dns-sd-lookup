@@ -22,10 +22,6 @@
  * SOFTWARE.
  */
 
-// Type definitions for @toryt/dns-sd-lookup
-// Project: @toryt/dns-sd-lookup
-// Definitions by: Jan Dockx
-
 import * as ServiceInstance from './lib/ServiceInstance'
 import * as validate from './lib/validate'
 import * as extract from './lib/extract'
