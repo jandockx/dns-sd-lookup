@@ -1,5 +1,17 @@
 [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=master)](https://travis-ci.org/Toryt/dns-sd-lookup)
 [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/master/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup)
+[![npm version](http://img.shields.io/npm/v/@toryt/dns-sd-lookup.svg?style=flat)](https://npmjs.org/package/@toryt/dns-sd-lookup "View this project on npm")
+![downloads](https://img.shields.io/npm/dt/@toryt/dns-sd-lookup.svg)
+![dependencies](https://img.shields.io/david/Toryt/dns-sd-lookup.svg)
+![development dependencies](https://img.shields.io/david/dev/Toryt/dns-sd-lookup.svg)
+[![issues](https://img.shields.io/github/issues/Toryt/dns-sd-lookup.svg)](https://github.com/Toryt/dns-sd-lookup/issues)
+[![pull requests](https://img.shields.io/github/issues-pr-closed/Toryt/dns-sd-lookup.svg)](https://github.com/Toryt/dns-sd-lookup/pulls)
+![contributors](https://img.shields.io/github/contributors/Toryt/dns-sd-lookup.svg)
+![last commit](https://img.shields.io/github/last-commit/Toryt/dns-sd-lookup.svg)
+![commit activity](https://img.shields.io/github/commit-activity/y/Toryt/dns-sd-lookup.svg)
+![# languages](https://img.shields.io/github/languages/count/Toryt/dns-sd-lookup.svg)
+![top language](https://img.shields.io/github/languages/top/Toryt/dns-sd-lookup.svg)
+
 
 Node library that looks up service instance definitions for a service type defined with [DNS-SD] ([RFC 6763]).
 
