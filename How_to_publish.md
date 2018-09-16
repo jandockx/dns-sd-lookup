@@ -1,6 +1,6 @@
 Have you updated the credits?    
     
-    > yarn update_credits
+    > npm run update_credits
     > git commit -m"update credits"
     > npm version [major | minor | patch] -m "What changed was … : %s"
     > git push
