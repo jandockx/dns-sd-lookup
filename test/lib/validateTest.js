@@ -63,7 +63,7 @@ function generateMaxLength (beforeProtocol) {
   const tooLong = `${beforeProtocol}.${protocol}z${almostTooLong}`
   console.assert(tooLong.length === validate.maxLength + 1)
 
-  return {not: notTooLong, too: tooLong}
+  return { not: notTooLong, too: tooLong }
 }
 
 // noinspection SpellCheckingInspection
