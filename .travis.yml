@@ -17,6 +17,7 @@ jobs:
       script:
         - npm test
         - npm run reportCoverage
+    - node_js: '10' # npm test
   # stage tag
     - stage: tag
       node_js: '8'
