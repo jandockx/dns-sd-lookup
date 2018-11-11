@@ -4,7 +4,7 @@
 
 ## npm
 
-- **Sindre Sorhus** *sindresorhus@gmail.com* (117 packages)
+- **Sindre Sorhus** *sindresorhus@gmail.com* (118 packages)
 - **Isaac Z. Schlueter** *isaacs@npmjs.com* (33 packages)
 - **Jon Schlinkert** *github@sellside.com* (17 packages)
 - **Sebastian McKenzie** *sebmck@gmail.com* (12 packages)
