@@ -35,7 +35,7 @@ const serviceTypeNInstancesWithWeight = '_t8i-n-inst' + serviceTypePostfix
 const manyInstanceCount = 12
 const must = require('must')
 
-const batch = 4
+const batch = 3
 
 function testDistribution (timerLabel, deaths, expected) {
   const expectedPattern = Object.keys(expected).join('|')
