@@ -73,7 +73,7 @@ function testDistribution (timerLabel, deaths, expected) {
       todo - batch,
       previous.then(selections => {
         const next = []
-        for (let i = 0; i < batch; i++) {
+        for (let i = 0; i < Math.min(batch, todo); i++) {
           const tLabel = `${todo - i} - ${timerLabel}`
           console.time(tLabel)
           // noinspection JSUnresolvedFunction
