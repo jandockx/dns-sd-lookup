@@ -36,6 +36,9 @@ const manyInstanceCount = 12
 const must = require('must')
 
 const batch = 3
+/* NOTE: 3 is a magic number for tests on Travis with Node 10. For some reason, the first 3 DNS lookups in a batch take
+         in average less than 100ms, but after that the time goes up to 5s, and then 10s and 15s. By keeping the batch
+         size 3, the tests below take less than a minute. Note that on a local machine, they take less than a second. */
 
 function testDistribution (timerLabel, deaths, expected) {
   const expectedPattern = Object.keys(expected).join('|')
@@ -97,7 +100,7 @@ function testDistribution (timerLabel, deaths, expected) {
 
   console.time(timerLabel)
 
-  return chain(64, Promise.resolve({}))
+  return chain(128, Promise.resolve({}))
     .then(selections => {
       console.timeEnd(timerLabel)
       const total = totalCount(selections)
