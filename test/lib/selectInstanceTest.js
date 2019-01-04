@@ -100,7 +100,7 @@ function testDistribution (timerLabel, deaths, expected) {
 
   console.time(timerLabel)
 
-  return chain(128, Promise.resolve({}))
+  return chain(256, Promise.resolve({}))
     .then(selections => {
       console.timeEnd(timerLabel)
       const total = totalCount(selections)
