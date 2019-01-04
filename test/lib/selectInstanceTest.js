@@ -71,10 +71,13 @@ function testDistribution (timerLabel, deaths, expected) {
       previous.then(selections => {
         const next = []
         for (let i = 0; i < batch; i++) {
+          const tLabel = `${todo - i} - ${timerLabel}`
+          console.time(tLabel)
           // noinspection JSUnresolvedFunction
           next.push(
             selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
               .then(selection => {
+                console.timeEnd(tLabel)
                 selection.must.be.an.object()
                 selection.instance.must.match(matchExpr)
                 if (!selections[selection.instance]) {
