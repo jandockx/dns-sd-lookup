@@ -77,9 +77,10 @@ function testDistribution (timerLabel, deaths, expected) {
               .then(selection => {
                 selection.must.be.an.object()
                 selection.instance.must.match(matchExpr)
-                selections[selection.instance]
-                  ? selections[selection.instance]++
-                  : selections[selection.instance] = 1
+                if (!selections[selection.instance]) {
+                  selections[selection.instance] = 0
+                }
+                selections[selection.instance]++
               })
           )
         }
