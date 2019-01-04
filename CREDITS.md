@@ -4,7 +4,7 @@
 
 ## npm
 
-- **Sindre Sorhus** *sindresorhus@gmail.com* (118 packages)
+- **Sindre Sorhus** *sindresorhus@gmail.com* (114 packages)
 - **Isaac Z. Schlueter** *isaacs@npmjs.com* (33 packages)
 - **Jon Schlinkert** *github@sellside.com* (17 packages)
 - **Sebastian McKenzie** *sebmck@gmail.com* (12 packages)
@@ -21,13 +21,13 @@
 - **Mikeal Rogers** *mikeal.rogers@gmail.com* (6 packages)
 - **John-David Dalton** *john.david.dalton@gmail.com* (6 packages)
 - **Feross Aboukhadijeh** *feross@feross.org* (6 packages)
+- Unknown (5 packages)
 - **Toru Nagashima** (5 packages)
 - **George Zahariev** *z@georgezahariev.com* (4 packages)
 - **Francisco Presencia** *public@francisco.io* (4 packages)
 - **Forbes Lindesay** *forbes@lindesay.co.uk* (4 packages)
 - **Evgeny Poberezkin** (4 packages)
 - **James Talmage** *james@talmage.io* (4 packages)
-- Unknown (4 packages)
 - **Ben Mosher** (4 packages)
 - **Yusuke SUZUKI** *utatane.tea@gmail.com* (4 packages)
 - **Andri Möll** *andri@dot.ee* (4 packages)
