@@ -24,7 +24,6 @@
 
 /* eslint-env mocha */
 
-require('chai').should()
 const extendWithTxtStr = require('../../lib/extendWithTxtStr')
 const verifyPostconditions = require('../_util/verifyPostconditions')
 
@@ -95,7 +94,7 @@ describe('extendWithTxtStr', function () {
   it(`works for boolean attribute`, function () {
     extendWithTxtStr(this.subject, attributeName)
     this.subject['pre-existing'].should.equal(this.preExistingValue)
-    this.subject[attributeName].should.be.true
+    this.subject[attributeName].should.be.true()
     console.log(this.subject)
   })
 })
