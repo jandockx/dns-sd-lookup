@@ -23,9 +23,11 @@
  */
 
 const should = require('should')
+// noinspection JSUnresolvedVariable
 const Assertion = should.Assertion
 
 Assertion.add('RegExp', function () {
+  // noinspection JSUnusedGlobalSymbols
   this.params = {
     actual: this.obj,
     operator: 'to be a Regular Expression'
@@ -34,6 +36,7 @@ Assertion.add('RegExp', function () {
 })
 
 Assertion.add('frozen', function () {
+  // noinspection JSUnusedGlobalSymbols
   this.params = {
     actual: this.obj,
     operator: 'to be frozen'
@@ -41,7 +44,9 @@ Assertion.add('frozen', function () {
   this.assert(Object.isFrozen(this.obj))
 })
 
+// noinspection JSUnresolvedFunction
 Assertion.alias('below', 'before')
+// noinspection JSUnresolvedFunction
 Assertion.alias('above', 'after')
 
 /**
@@ -49,6 +54,7 @@ Assertion.alias('above', 'after')
  * (`should.match` only fails when `false` is returned exactly)
  */
 Assertion.add('upheldBy', function (subject) {
+  // noinspection JSUnusedGlobalSymbols
   this.params = {
     actual: typeof this.obj === 'function' ? this.obj.name || '' + this.obj : this.obj,
     operator: 'to be upheld by',
@@ -66,6 +72,7 @@ Assertion.add('upheldBy', function (subject) {
    However, than we cannot use arrow functions, and we have to use function() functions: we cannot associate
    a this, even with .call or .apply, to an arrow function. */
 Assertion.add('valid', function () {
+  // noinspection JSUnusedGlobalSymbols
   this.params = {
     actual: this.obj,
     operator: 'to adhere to its invariants'
