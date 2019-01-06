@@ -95,6 +95,7 @@ describe('discover', function () {
       })
     })
     it(`works in the nominal case, with ${manyInstanceCount} instances`, function () {
+      // noinspection JSPotentiallyInvalidUsageOfThis
       this.timeout(10000)
 
       // noinspection JSUnresolvedVariable
