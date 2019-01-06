@@ -33,7 +33,7 @@ const serviceType1InstanceNoSubtype = '_t1i-no-sub' + serviceTypePostfix
 const serviceType1InstanceSubtype = '_subtype._sub._t7i-sub' + serviceTypePostfix
 const serviceTypeNInstancesWithWeight = '_t8i-n-inst' + serviceTypePostfix
 const manyInstanceCount = 12
-const must = require('must')
+const should = require('should')
 
 const batch = 3
 /* NOTE: 3 is a magic number for tests on Travis with Node 10. For some reason, the first 3 DNS lookups in a batch take
@@ -81,8 +81,8 @@ function testDistribution (timerLabel, deaths, expected) {
             selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
               .then(selection => {
                 console.timeEnd(tLabel)
-                selection.must.be.an.object()
-                selection.instance.must.match(matchExpr)
+                selection.should.be.an.Object()
+                selection.instance.should.match(matchExpr)
                 if (!selections[selection.instance]) {
                   selections[selection.instance] = 0
                 }
@@ -105,7 +105,7 @@ function testDistribution (timerLabel, deaths, expected) {
       console.timeEnd(timerLabel)
       const total = totalCount(selections)
       Object.keys(expected).forEach(e => {
-        Math.abs(expected[e] - (selections[e + '.' + serviceTypeNInstancesWithWeight] / total)).must.be.below(0.15)
+        Math.abs(expected[e] - (selections[e + '.' + serviceTypeNInstancesWithWeight] / total)).should.be.below(0.15)
         /* NOTE: I would like for the deviation from the expected weight distribution to be less than 2.5% (2 sigma).
                  When testing with 2 instances, in 1024 tries, if often happens that the deviation that the deviation
                  is larger. That is surprising. This would mean that a random choice is not good enough.
@@ -127,8 +127,8 @@ describe('selectInstance', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceType1InstanceNoSubtype)
       .must.fulfill(selection => {
-        selection.must.be.an.object()
-        selection.instance.must.equal('instance 1.' + serviceType1InstanceNoSubtype)
+        selection.should.be.an.Object()
+        selection.instance.should.equal('instance 1.' + serviceType1InstanceNoSubtype)
         console.log(selection)
       })
   })
@@ -136,8 +136,8 @@ describe('selectInstance', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceType1InstanceSubtype)
       .must.fulfill(selection => {
-        selection.must.be.an.object()
-        selection.instance.must.equal('instance 7._t7i-sub' + serviceTypePostfix)
+        selection.should.be.an.Object()
+        selection.instance.should.equal('instance 7._t7i-sub' + serviceTypePostfix)
         console.log(selection)
       })
   })
@@ -147,8 +147,8 @@ describe('selectInstance', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight)
       .must.fulfill(selection => {
-        selection.must.be.an.object()
-        selection.instance.must.equal('instance 8a.' + serviceTypeNInstancesWithWeight)
+        selection.should.be.an.Object()
+        selection.instance.should.equal('instance 8a.' + serviceTypeNInstancesWithWeight)
         console.log(selection)
       })
   })
@@ -156,7 +156,7 @@ describe('selectInstance', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance('_not-exist' + serviceTypePostfix)
       .must.fulfill(selection => {
-        must(selection).be.null()
+        should(selection).be.null()
         console.log(selection)
       })
   })
@@ -170,8 +170,8 @@ describe('selectInstance', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
       .must.fulfill(selection => {
-        selection.must.be.an.object()
-        selection.instance.must.match(`instance 8b.${serviceTypeNInstancesWithWeight}`)
+        selection.should.be.an.Object()
+        selection.instance.should.equal(`instance 8b.${serviceTypeNInstancesWithWeight}`)
         console.log(selection)
       })
   })
@@ -196,7 +196,7 @@ describe('selectInstance', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
       .must.fulfill(selection => {
-        must(selection).be.null()
+        should(selection).be.null()
         console.log(selection)
       })
   })
@@ -284,7 +284,7 @@ describe('selectInstance', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(aFailure, filter).must.betray(err => {
       console.log(err)
-      err.instance.must.contain(aFailure)
+      err.instance.should.containEql(aFailure)
     })
   })
 })
