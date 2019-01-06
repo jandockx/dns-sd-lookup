@@ -41,6 +41,9 @@ Assertion.add('frozen', function () {
   this.assert(Object.isFrozen(this.obj))
 })
 
+Assertion.alias('below', 'before')
+Assertion.alias('above', 'after')
+
 /**
  * Tests that the object, which is supposed to boolean function, returns true when called with the `subject` argument.
  * (`should.match` only fails when `false` is returned exactly)
