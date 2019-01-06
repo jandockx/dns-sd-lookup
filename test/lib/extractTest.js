@@ -26,7 +26,7 @@
 
 const extract = require('../../lib/extract')
 const x = require('cartesian')
-const must = require('must')
+const should = require('should')
 const verifyPostconditions = require('../_util/verifyPostconditions')
 
 const domain = 'dns-sd-lookup.toryt.org'
@@ -71,7 +71,7 @@ describe('extract', function () {
       it(`works as expected for ${fqdn}`, function () {
         const result = extract.domain(fqdn)
         console.log('%s --> %s', fqdn, result)
-        result.must.equal(domain)
+        result.should.equal(domain)
       })
     })
   })
@@ -89,7 +89,7 @@ describe('extract', function () {
       it(`works as expected for ${fqdn}`, function () {
         const result = extract.protocol(fqdn)
         console.log('%s --> %s', fqdn, result)
-        result.must.equal(c.protocol)
+        result.should.equal(c.protocol)
       })
     })
   })
@@ -107,7 +107,7 @@ describe('extract', function () {
       it(`works as expected for ${fqdn}`, function () {
         const result = extract.type(fqdn)
         console.log('%s --> %s', fqdn, result)
-        result.must.equal(serviceType)
+        result.should.equal(serviceType)
       })
     })
   })
@@ -128,7 +128,7 @@ describe('extract', function () {
       it(`works as expected for ${fqdn}`, function () {
         const result = extract.instance(fqdn)
         console.log('%s --> %s', fqdn, result)
-        result.must.equal(c.instance)
+        result.should.equal(c.instance)
       })
     })
   })
@@ -150,9 +150,9 @@ describe('extract', function () {
         const result = extract.subtype(fqdn)
         console.log('%s --> %s', fqdn, result)
         if (c.subtype) {
-          result.must.equal(c.subtype)
+          result.should.equal(c.subtype)
         } else {
-          must(result).be.undefined()
+          should(result).be.undefined()
         }
       })
     })
