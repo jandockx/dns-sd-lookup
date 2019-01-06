@@ -29,8 +29,14 @@
  * `false`.
  */
 function verifyPostconditions (functionUnderTest) {
-  beforeEach(function () { functionUnderTest.contract.verifyPostconditions = true })
-  afterEach(function () { functionUnderTest.contract.verifyPostconditions = false })
+  beforeEach(function () {
+    // noinspection JSUnresolvedVariable
+    functionUnderTest.contract.verifyPostconditions = true
+  })
+  afterEach(function () {
+    // noinspection JSUnresolvedVariable
+    functionUnderTest.contract.verifyPostconditions = false
+  })
 }
 
 module.exports = verifyPostconditions

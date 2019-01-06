@@ -193,6 +193,7 @@ describe('doc examples', function () {
   it('lookupInstance', function () {
     const lookupInstance = require('../index').lookupInstance
 
+    // noinspection JSUnresolvedFunction
     return lookupInstance('instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org').then(serviceInstance => {
       console.log('%j', serviceInstance)
     })
@@ -200,6 +201,7 @@ describe('doc examples', function () {
   it('lookupInstance', function () {
     const lookupInstance = require('../index').lookupInstance
 
+    // noinspection JSUnresolvedFunction
     return lookupInstance('instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org')
       .then(serviceInstance => {
         console.log('%j', serviceInstance)
@@ -220,6 +222,7 @@ describe('doc examples', function () {
     ]
     deaths = deaths.map(d => `${d}.${serviceType}`)
 
+    // noinspection JSUnresolvedFunction
     return discover(serviceType, discover.notOneOf(deaths))
       .then(serviceInstances => {
         console.log('%j', serviceInstances)
@@ -237,6 +240,7 @@ describe('doc examples', function () {
     ]
     deaths = deaths.map(d => `${d}.${serviceType}`)
 
+    // noinspection JSUnresolvedFunction
     return selectInstance(serviceType, selectInstance.notOneOf(deaths)).then(serviceInstance => {
       console.log('%j', serviceInstance)
     })

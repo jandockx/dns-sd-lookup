@@ -142,6 +142,7 @@ describe('selectInstance', function () {
       })
   })
   it(`works in the nominal case, with ${manyInstanceCount} instances`, function () {
+    // noinspection JSPotentiallyInvalidUsageOfThis
     this.timeout(10000)
 
     // noinspection JSUnresolvedVariable
@@ -161,6 +162,7 @@ describe('selectInstance', function () {
       })
   })
   it('selects according to weight with a filter', function () {
+    // noinspection JSPotentiallyInvalidUsageOfThis
     this.timeout(10000)
 
     const deaths = [
@@ -203,6 +205,7 @@ describe('selectInstance', function () {
 
   const labelA = 'selects according to weight with a filter evenly with 2 instances'
   it(labelA, function () {
+    // noinspection JSPotentiallyInvalidUsageOfThis
     this.timeout(60000)
 
     const deaths = [
@@ -218,6 +221,7 @@ describe('selectInstance', function () {
   })
   const labelB = 'selects according to weight with a filter evenly with 5 instances'
   it(labelB, function () {
+    // noinspection JSPotentiallyInvalidUsageOfThis
     this.timeout(60000)
 
     const deaths = [
@@ -238,6 +242,7 @@ describe('selectInstance', function () {
   })
   const labelC = 'selects according to weight with a filter evenly with 3 instances with weight 0'
   it(labelC, function () {
+    // noinspection JSPotentiallyInvalidUsageOfThis
     this.timeout(60000)
 
     const deaths = [
@@ -279,7 +284,9 @@ describe('selectInstance', function () {
   })
   const aFailure = failures[0]
   it(`fails for instance type ${aFailure} with a filter`, function () {
+    // noinspection JSUnresolvedVariable
     const filter = selectInstance.contract.filter.implementation(instance => instance.indexOf(aFailure) >= 0)
+    // noinspection JSUnresolvedVariable
     filter.contract.verifyPostconditions = true
     // noinspection JSUnresolvedVariable
     return selectInstance(aFailure, filter).should.be.rejected().then(err => {

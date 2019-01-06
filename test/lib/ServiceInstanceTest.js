@@ -84,6 +84,7 @@ describe('ServiceInstance', () => {
 
     it('is a constructor', function () {
       ServiceInstance.should.have.property('prototype')
+      // noinspection JSUnresolvedVariable
       ServiceInstance.prototype.should.have.property('constructor', ServiceInstance)
     })
     it('has an implementation that is a constructor', function () {

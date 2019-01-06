@@ -178,7 +178,9 @@ describe('discover', function () {
     })
     const aFailure = failures[0]
     it(`fails for instance type ${aFailure} with a filter`, function () {
+      // noinspection JSUnresolvedVariable
       const filter = discover.contract.filter.implementation(instance => instance.indexOf(aFailure) >= 0)
+      // noinspection JSUnresolvedVariable
       filter.contract.verifyPostconditions = true
       // noinspection JSUnresolvedVariable
       return discover(aFailure, filter)
