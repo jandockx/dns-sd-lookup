@@ -24,6 +24,7 @@
 
 /* eslint-env mocha */
 
+require('chai').should()
 const extendWithTxtStr = require('../../lib/extendWithTxtStr')
 const verifyPostconditions = require('../_util/verifyPostconditions')
 
@@ -44,8 +45,8 @@ describe('extendWithTxtStr', function () {
     const txtStr = `${attributeName}=${attributeValue}`
     it(`works for txt ${txtStr}`, function () {
       extendWithTxtStr(this.subject, txtStr)
-      this.subject['pre-existing'].must.equal(this.preExistingValue)
-      this.subject[attributeName].must.equal(attributeValue)
+      this.subject['pre-existing'].should.equal(this.preExistingValue)
+      this.subject[attributeName].should.equal(attributeValue)
       console.log(this.subject)
     })
   })
@@ -59,8 +60,8 @@ describe('extendWithTxtStr', function () {
       it(`works for value ${value}`, function () {
         const txtStr = `${attributeName}=${value}`
         extendWithTxtStr(this.subject, txtStr)
-        this.subject['pre-existing'].must.equal(this.preExistingValue)
-        this.subject[attributeName].must.equal(value)
+        this.subject['pre-existing'].should.equal(this.preExistingValue)
+        this.subject[attributeName].should.equal(value)
         console.log(this.subject)
       })
     })
@@ -83,9 +84,9 @@ describe('extendWithTxtStr', function () {
       const txtStr = `${name}=${attributeValue}`
       it(`works for ${txtStr}`, function () {
         extendWithTxtStr(this.subject, txtStr)
-        this.subject['pre-existing'].must.equal(this.preExistingValue)
+        this.subject['pre-existing'].should.equal(this.preExistingValue)
         if (name && name.toLowerCase() !== 'pre-existing') {
-          this.subject[name.toLowerCase()].must.equal(attributeValue)
+          this.subject[name.toLowerCase()].should.equal(attributeValue)
         }
         console.log(this.subject)
       })
@@ -93,8 +94,8 @@ describe('extendWithTxtStr', function () {
   })
   it(`works for boolean attribute`, function () {
     extendWithTxtStr(this.subject, attributeName)
-    this.subject['pre-existing'].must.equal(this.preExistingValue)
-    this.subject[attributeName].must.be.true()
+    this.subject['pre-existing'].should.equal(this.preExistingValue)
+    this.subject[attributeName].should.be.true
     console.log(this.subject)
   })
 })
