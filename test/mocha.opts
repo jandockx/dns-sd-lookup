@@ -1,4 +1,3 @@
---require ./test/_util/must
 --require ./test/_util/should
 --check-leaks
 --reporter mocha-reporter

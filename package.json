@@ -41,7 +41,6 @@
     "legally": "^3.3.7",
     "mocha": "^5.1.1",
     "mocha-reporter": "^0.1.1",
-    "must": "github:jandockx/js-must#fork/0.13.4/1",
     "npm-check": "^5.7.0",
     "nyc": "^13.1.0",
     "should": "^13.2.3",
