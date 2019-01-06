@@ -272,7 +272,7 @@ describe('selectInstance', function () {
   failures.forEach(serviceType => {
     it(`fails for instance type ${serviceType}`, function () {
       // noinspection JSUnresolvedVariable
-      return selectInstance(serviceType).must.betray(err => {
+      return selectInstance(serviceType).should.be.rejected().then(err => {
         console.log(err)
       })
     })
@@ -282,7 +282,7 @@ describe('selectInstance', function () {
     const filter = selectInstance.contract.filter.implementation(instance => instance.indexOf(aFailure) >= 0)
     filter.contract.verifyPostconditions = true
     // noinspection JSUnresolvedVariable
-    return selectInstance(aFailure, filter).must.betray(err => {
+    return selectInstance(aFailure, filter).should.be.rejected().then(err => {
       console.log(err)
       err.instance.should.containEql(aFailure)
     })

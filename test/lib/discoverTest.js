@@ -170,7 +170,7 @@ describe('discover', function () {
     failures.forEach(serviceType => {
       it(`fails for instance type ${serviceType}`, function () {
         // noinspection JSUnresolvedVariable
-        return discover(serviceType).must.betray(err => {
+        return discover(serviceType).should.be.rejected().then(err => {
           console.log(err)
         })
       })
@@ -181,7 +181,7 @@ describe('discover', function () {
       filter.contract.verifyPostconditions = true
       // noinspection JSUnresolvedVariable
       return discover(aFailure, filter)
-        .must.betray(err => {
+        .should.be.rejected().then(err => {
           console.log(err)
           err.instance.should.containEql(aFailure)
         })
