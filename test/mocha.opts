@@ -1,4 +1,4 @@
 --require ./test/_util/must
---require should
+--require ./test/_util/should
 --check-leaks
 --reporter mocha-reporter

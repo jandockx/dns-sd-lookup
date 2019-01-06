@@ -83,17 +83,17 @@ describe('ServiceInstance', () => {
     verifyPostconditions(ServiceInstance)
 
     it('is a constructor', function () {
-      ServiceInstance.must.have.property('prototype')
-      ServiceInstance.prototype.must.have.property('constructor', ServiceInstance)
+      ServiceInstance.should.have.property('prototype')
+      ServiceInstance.prototype.should.have.property('constructor', ServiceInstance)
     })
     it('has an implementation that is a constructor', function () {
-      ServiceInstance.must.have.property('implementation')
+      ServiceInstance.should.have.property('implementation')
       // noinspection JSUnresolvedVariable
-      ServiceInstance.implementation.must.be.a.function()
+      ServiceInstance.implementation.should.be.a.Function()
       // noinspection JSUnresolvedVariable
-      ServiceInstance.implementation.must.have.property('prototype')
+      ServiceInstance.implementation.should.have.property('prototype')
       // noinspection JSUnresolvedVariable
-      ServiceInstance.implementation.prototype.must.have.property(
+      ServiceInstance.implementation.prototype.should.have.property(
         'constructor',
         ServiceInstance.implementation
       )
@@ -104,10 +104,10 @@ describe('ServiceInstance', () => {
       const kwargs = createKwargs(c)
       it(`works as expected for type '${kwargs.type}' and instance '${kwargs.instance}'`, function () {
         const subject = new ServiceInstance(kwargs)
-        subject.must.be.instanceof(ServiceInstance)
+        subject.should.be.instanceof(ServiceInstance)
         subject.must.be.frozen()
         // noinspection JSUnresolvedFunction
-        subject.must.be.valid()
+        subject.should.be.valid()
         console.log(subject)
       })
     })
@@ -121,26 +121,26 @@ describe('ServiceInstance', () => {
         const kwargs = createKwargs(c)
         const subject = new ServiceInstance(kwargs)
         const result = JSON.stringify(subject)
-        result.must.be.a.string()
-        result.must.match(/^{.*}$/)
+        result.should.be.a.String()
+        result.should.match(/^{.*}$/)
         console.log(result)
         const reverse = JSON.parse(result)
-        reverse.must.be.an.object()
+        reverse.should.be.an.Object()
         // noinspection JSUnresolvedVariable
-        reverse.type.must.equal(subject.type)
+        reverse.type.should.equal(subject.type)
         // noinspection JSUnresolvedVariable
-        reverse.instance.must.equal(subject.instance)
+        reverse.instance.should.equal(subject.instance)
         // noinspection JSUnresolvedVariable
-        reverse.host.must.equal(subject.host)
+        reverse.host.should.equal(subject.host)
         // noinspection JSUnresolvedVariable
-        reverse.port.must.equal(subject.port)
+        reverse.port.should.equal(subject.port)
         // noinspection JSUnresolvedVariable
-        reverse.priority.must.equal(subject.priority)
+        reverse.priority.should.equal(subject.priority)
         // noinspection JSUnresolvedVariable
-        reverse.details.must.eql(subject.details)
+        reverse.details.should.eql(subject.details)
         console.log(reverse)
         const fullCircle = new ServiceInstance(reverse)
-        fullCircle.must.eql(subject)
+        fullCircle.should.eql(subject)
       })
     })
   })
