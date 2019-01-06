@@ -43,10 +43,10 @@ describe('discover', function () {
     it('works with the empty array', function () {
       const deathInstances = []
       const result = discover.notOneOf(deathInstances)
-      result.must.be.a.function()
+      result.should.be.a.Function()
       const secondaryResult = result(instanceName)
-      secondaryResult.must.be.boolean()
-      secondaryResult.must.be.true()
+      secondaryResult.should.be.Boolean()
+      secondaryResult.should.be.true()
     })
     it('works with a non-empty array, without a match', function () {
       const deathInstances = [
@@ -55,10 +55,10 @@ describe('discover', function () {
         'death instance 3._type._tcp.dns-sd-lookup.toryt.org'
       ]
       const result = discover.notOneOf(deathInstances)
-      result.must.be.a.function()
+      result.should.be.a.Function()
       const secondaryResult = result(instanceName)
-      secondaryResult.must.be.boolean()
-      secondaryResult.must.be.true()
+      secondaryResult.should.be.Boolean()
+      secondaryResult.should.be.true()
     })
     it('works with a non-empty array, with a match', function () {
       const deathInstances = [
@@ -67,10 +67,10 @@ describe('discover', function () {
         'death instance 3._type._tcp.dns-sd-lookup.toryt.org'
       ]
       const result = discover.notOneOf(deathInstances)
-      result.must.be.a.function()
+      result.should.be.a.Function()
       const secondaryResult = result(instanceName)
-      secondaryResult.must.be.boolean()
-      secondaryResult.must.be.false()
+      secondaryResult.should.be.Boolean()
+      secondaryResult.should.be.false()
     })
   })
   describe('main method', function () {
@@ -80,8 +80,8 @@ describe('discover', function () {
     it('works in the nominal case, without a subtype', function () {
       // noinspection JSUnresolvedVariable
       return discover(serviceType).must.fulfill(details => {
-        details.must.be.an.array()
-        details.must.have.length(1)
+        details.should.be.an.Array()
+        details.should.have.length(1)
         console.log(details)
       })
     })
@@ -89,8 +89,8 @@ describe('discover', function () {
       const serviceType = `_subtype._sub._t7i-sub${serviceTypePostfix}`
       // noinspection JSUnresolvedVariable
       return discover(serviceType).must.fulfill(details => {
-        details.must.be.an.array()
-        details.must.have.length(1)
+        details.should.be.an.Array()
+        details.should.have.length(1)
         console.log(details)
       })
     })
@@ -99,8 +99,8 @@ describe('discover', function () {
 
       // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType).must.fulfill(details => {
-        details.must.be.an.array()
-        details.must.have.length(manyInstanceCount)
+        details.should.be.an.Array()
+        details.should.have.length(manyInstanceCount)
         console.log(details)
       })
     })
@@ -108,8 +108,8 @@ describe('discover', function () {
       // noinspection JSUnresolvedVariable
       return discover('_not-exist' + serviceTypePostfix)
         .must.fulfill(details => {
-          details.must.be.an.array()
-          details.must.be.empty()
+          details.should.be.an.Array()
+          details.should.be.empty()
           console.log(details)
         })
     })
@@ -126,10 +126,10 @@ describe('discover', function () {
       // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
         .must.fulfill(details => {
-          details.must.be.an.array()
-          details.must.have.length(manyInstanceCount - deaths.length)
-          details.forEach(d => deaths.must.not.contain(d.instance))
+          details.should.be.an.Array()
           console.log(details)
+          details.should.have.length(manyInstanceCount - deaths.length)
+          details.forEach(d => deaths.map(death => death.toLowerCase()).should.not.containEql(d.instance))
         })
     })
     it('works with a filter in the nominal case that excludes all instances', function () {
@@ -153,8 +153,8 @@ describe('discover', function () {
       // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
         .must.fulfill(details => {
-          details.must.be.an.array()
-          details.must.be.empty()
+          details.should.be.an.Array()
+          details.should.be.empty()
           console.log(details)
         })
     })
@@ -183,7 +183,7 @@ describe('discover', function () {
       return discover(aFailure, filter)
         .must.betray(err => {
           console.log(err)
-          err.instance.must.contain(aFailure)
+          err.instance.should.containEql(aFailure)
         })
     })
   })
