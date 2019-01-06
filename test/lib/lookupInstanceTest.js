@@ -46,7 +46,7 @@ const expected = {
   weight: 43
 }
 
-function mustBeNotFoundError (baseMessage) {
+function shouldBeNotFoundError (baseMessage) {
   // noinspection JSUnresolvedVariable
   return error => {
     error.should.be.an.Error()
@@ -87,7 +87,7 @@ describe('lookupInstance', function () {
 
   it('fails with non-existent instance', function () {
     // noinspection JSUnresolvedVariable
-    return lookupInstance('does-not-exist.' + typeName).must.betray(mustBeNotFoundError('ENOTFOUND'))
+    return lookupInstance('does-not-exist.' + typeName).must.betray(shouldBeNotFoundError('ENOTFOUND'))
   })
 
   it('fails with an instance with 2 TXTs', function () {
@@ -143,12 +143,12 @@ describe('lookupInstance', function () {
   it('fails with an instance without a TXT', function () {
     const instanceName = 'instance 5._t5i-no-txt' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(mustBeNotFoundError('ENODATA'))
+    return lookupInstance(instanceName).must.betray(shouldBeNotFoundError('ENODATA'))
   })
 
   it('fails with an instance without a SRV', function () {
     const instanceName = 'instance 6._t6i-no-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(mustBeNotFoundError('ENODATA'))
+    return lookupInstance(instanceName).must.betray(shouldBeNotFoundError('ENODATA'))
   })
 })
