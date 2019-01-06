@@ -87,13 +87,13 @@ describe('lookupInstance', function () {
 
   it('fails with non-existent instance', function () {
     // noinspection JSUnresolvedVariable
-    return lookupInstance('does-not-exist.' + typeName).must.betray(shouldBeNotFoundError('ENOTFOUND'))
+    return lookupInstance('does-not-exist.' + typeName).should.be.rejected().then(shouldBeNotFoundError('ENOTFOUND'))
   })
 
   it('fails with an instance with 2 TXTs', function () {
     const instanceName = 'instance 2._t2i-2-txt' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(error => {
+    return lookupInstance(instanceName).should.be.rejected().then(error => {
       error.should.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
       error.message.should.equal(lookupInstance.contract.notValidMessage)
@@ -109,7 +109,7 @@ describe('lookupInstance', function () {
   it('fails with an instance with 2 SRVs', function () {
     const instanceName = 'instance 3._t3i-2-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(error => {
+    return lookupInstance(instanceName).should.be.rejected().then(error => {
       error.should.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
       error.message.should.equal(lookupInstance.contract.notValidMessage)
@@ -125,11 +125,11 @@ describe('lookupInstance', function () {
   it('fails with an instance with 2 TXTs and 2 SRVs', function () {
     const instanceName = 'instance 4._t4i-2-txt-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(error => {
-      error.should.be.an.instanceof(Error)
+    return lookupInstance(instanceName).should.be.rejected().then(error => {
+      error.should.be.an.Error()
       // noinspection JSUnresolvedVariable
       error.message.should.equal(lookupInstance.contract.notValidMessage)
-      error.cause.should.be.an.instanceof(Error)
+      error.cause.should.be.an.Error()
       // noinspection JSUnresolvedVariable
       error.cause.message.should.match(
         new RegExp(lookupInstance.contract.moreThen1Message.TXT + '|' + lookupInstance.contract.moreThen1Message.SRV)
@@ -143,12 +143,12 @@ describe('lookupInstance', function () {
   it('fails with an instance without a TXT', function () {
     const instanceName = 'instance 5._t5i-no-txt' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(shouldBeNotFoundError('ENODATA'))
+    return lookupInstance(instanceName).should.be.rejected().then(shouldBeNotFoundError('ENODATA'))
   })
 
   it('fails with an instance without a SRV', function () {
     const instanceName = 'instance 6._t6i-no-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.betray(shouldBeNotFoundError('ENODATA'))
+    return lookupInstance(instanceName).should.be.rejected().then(shouldBeNotFoundError('ENODATA'))
   })
 })
