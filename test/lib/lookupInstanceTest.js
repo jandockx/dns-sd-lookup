@@ -49,11 +49,11 @@ const expected = {
 function mustBeNotFoundError (baseMessage) {
   // noinspection JSUnresolvedVariable
   return error => {
-    error.must.be.an.instanceof(Error)
+    error.should.be.an.Error()
     // noinspection JSUnresolvedVariable
-    error.message.must.match(lookupInstance.contract.notValidMessage)
-    error.cause.must.be.an.instanceof(Error)
-    error.cause.message.must.match(baseMessage)
+    error.message.should.equal(lookupInstance.contract.notValidMessage)
+    error.cause.should.be.an.Error()
+    error.cause.message.should.containEql(baseMessage)
     console.log(error)
   }
 }
@@ -66,22 +66,22 @@ describe('lookupInstance', function () {
     const now = new Date()
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).must.fulfill(response => {
-      response.must.be.an.instanceof(ServiceInstance)
+      response.should.be.an.instanceof(ServiceInstance)
       console.log(response)
-      response.type.must.equal(expected.type)
-      response.instance.must.equal(expected.instance)
-      response.host.must.equal(expected.host)
-      response.port.must.equal(expected.port)
-      response.priority.must.equal(expected.priority)
-      response.weight.must.equal(expected.weight)
+      response.type.should.equal(expected.type)
+      response.instance.should.equal(expected.instance)
+      response.host.should.equal(expected.host)
+      response.port.should.equal(expected.port)
+      response.priority.should.equal(expected.priority)
+      response.weight.should.equal(expected.weight)
       // no coercion happens on details
-      Object.keys(response.details).forEach(key => response.details[key].must.be.a.string())
-      response.details.txtvers.must.be.a.string()
+      Object.keys(response.details).forEach(key => response.details[key].should.be.a.String())
+      response.details.txtvers.should.be.a.String()
       // noinspection JSCheckFunctionSignatures
-      Number.parseInt(response.details.txtvers).must.equal(expected.txtvers)
-      response.details['aDetail'.toLowerCase()].must.equal(expected.aDetail)
+      Number.parseInt(response.details.txtvers).should.equal(expected.txtvers)
+      response.details['aDetail'.toLowerCase()].should.equal(expected.aDetail)
       const at = new Date(response.details.at)
-      at.must.be.before(now)
+      at.should.be.before(now)
     })
   })
 
@@ -94,14 +94,14 @@ describe('lookupInstance', function () {
     const instanceName = 'instance 2._t2i-2-txt' + nameCompletion
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).must.betray(error => {
-      error.must.be.an.instanceof(Error)
+      error.should.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
-      error.message.must.match(lookupInstance.contract.notValidMessage)
-      error.cause.must.be.an.instanceof(Error)
+      error.message.should.equal(lookupInstance.contract.notValidMessage)
+      error.cause.should.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
-      error.cause.message.must.equal(lookupInstance.contract.moreThen1Message.TXT)
-      error.cause.instance.must.equal(instanceName)
-      error.cause.count.must.equal(2)
+      error.cause.message.should.equal(lookupInstance.contract.moreThen1Message.TXT)
+      error.cause.instance.should.equal(instanceName)
+      error.cause.count.should.equal(2)
       console.log(error)
     })
   })
@@ -110,14 +110,14 @@ describe('lookupInstance', function () {
     const instanceName = 'instance 3._t3i-2-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).must.betray(error => {
-      error.must.be.an.instanceof(Error)
+      error.should.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
-      error.message.must.match(lookupInstance.contract.notValidMessage)
-      error.cause.must.be.an.instanceof(Error)
+      error.message.should.equal(lookupInstance.contract.notValidMessage)
+      error.cause.should.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
-      error.cause.message.must.equal(lookupInstance.contract.moreThen1Message.SRV)
-      error.cause.instance.must.equal(instanceName)
-      error.cause.count.must.equal(2)
+      error.cause.message.should.equal(lookupInstance.contract.moreThen1Message.SRV)
+      error.cause.instance.should.equal(instanceName)
+      error.cause.count.should.equal(2)
       console.log(error)
     })
   })
@@ -126,16 +126,16 @@ describe('lookupInstance', function () {
     const instanceName = 'instance 4._t4i-2-txt-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).must.betray(error => {
-      error.must.be.an.instanceof(Error)
+      error.should.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
-      error.message.must.match(lookupInstance.contract.notValidMessage)
-      error.cause.must.be.an.instanceof(Error)
+      error.message.should.equal(lookupInstance.contract.notValidMessage)
+      error.cause.should.be.an.instanceof(Error)
       // noinspection JSUnresolvedVariable
-      error.cause.message.must.match(
+      error.cause.message.should.match(
         new RegExp(lookupInstance.contract.moreThen1Message.TXT + '|' + lookupInstance.contract.moreThen1Message.SRV)
       )
-      error.cause.instance.must.equal(instanceName)
-      error.cause.count.must.equal(2)
+      error.cause.instance.should.equal(instanceName)
+      error.cause.count.should.equal(2)
       console.log(error)
     })
   })
