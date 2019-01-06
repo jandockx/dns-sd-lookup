@@ -94,12 +94,12 @@ const falseBaseServiceTypes = [
 
 describe('validate', function () {
   it('has the expected properties', function () {
-    validate.must.have.property('subtypeOrInstance')
-    validate.subtypeOrInstance.must.be.a.regexp()
-    validate.must.have.property('serviceType')
-    validate.serviceType.must.be.a.regexp()
-    validate.must.have.property('serviceInstance')
-    validate.serviceInstance.must.be.a.regexp()
+    validate.should.have.property('subtypeOrInstance')
+    validate.subtypeOrInstance.should.be.an.instanceof(RegExp)
+    validate.should.have.property('serviceType')
+    validate.serviceType.should.be.an.instanceof(RegExp)
+    validate.should.have.property('serviceInstance')
+    validate.serviceInstance.should.be.an.instanceof(RegExp)
   })
   describe('#isSubtypeOrInstanceName', function () {
     verifyPostconditions(validate.isSubtypeOrInstanceName)
@@ -112,14 +112,14 @@ describe('validate', function () {
           it(`returns true for ${subtypeOrInstance}`, function () {
             const result = validate.isSubtypeOrInstanceName(subtypeOrInstance)
             console.log('%s --> %s', subtypeOrInstance, result)
-            result.must.be.true()
+            result.should.be.true()
           })
         })
     })
     describe('false', function () {
       it('returns false without an argument', function () {
         const result = validate.isSubtypeOrInstanceName()
-        result.must.be.false()
+        result.should.be.false()
       })
 
       const falsies = [
@@ -135,7 +135,7 @@ describe('validate', function () {
         it(`returns false for ${falsy}`, function () {
           const result = validate.isSubtypeOrInstanceName(falsy)
           console.log('%s --> %s', falsy, result)
-          result.must.be.false()
+          result.should.be.false()
         })
       })
     })
@@ -151,25 +151,25 @@ describe('validate', function () {
         it(`returns true for ${candidate}`, function () {
           const result = validate.isBaseServiceType(candidate)
           console.log('%s --> %s', candidate, result)
-          result.must.be.true()
+          result.should.be.true()
         })
       })
       it(`returns true for the max length`, function () {
         const result = validate.isBaseServiceType(tooLong.not)
         console.log('%s --> %s', tooLong.not, result)
-        result.must.be.true()
+        result.should.be.true()
       })
       const lookupCase = '_t1i-no-sub._tcp.dns-sd-lookup.toryt.org'
       it(`returns true for the lookup case`, function () {
         const result = validate.isBaseServiceType(lookupCase)
         console.log('%s --> %s', lookupCase, result)
-        result.must.be.true()
+        result.should.be.true()
       })
     })
     describe('false', function () {
       it('returns false without an argument', function () {
         const result = validate.isBaseServiceType()
-        result.must.be.false()
+        result.should.be.false()
       })
 
       // noinspection SpellCheckingInspection
@@ -182,7 +182,7 @@ describe('validate', function () {
         it(`returns false for ${fqdn}`, function () {
           const result = validate.isBaseServiceType(fqdn)
           console.log('%s --> %s', fqdn, result)
-          result.must.be.false()
+          result.should.be.false()
         })
       })
     })
@@ -206,30 +206,30 @@ describe('validate', function () {
         it(`returns true for ${fqdn}`, function () {
           const result = validate.isServiceType(fqdn)
           console.log('%s --> %s', fqdn, result)
-          result.must.be.true()
+          result.should.be.true()
         })
       })
       it(`returns true for the max length`, function () {
         const result = validate.isServiceType(tooLongWithoutSub.not)
         console.log('%s --> %s', tooLongWithoutSub.not, result)
-        result.must.be.true()
+        result.should.be.true()
       })
       it(`returns true for the max length with sub`, function () {
         const result = validate.isServiceType(tooLongWithoutSub.not)
         console.log('%s --> %s', tooLongWithSub.not, result)
-        result.must.be.true()
+        result.should.be.true()
       })
       const lookupCase = '_t1i-no-sub._tcp.dns-sd-lookup.toryt.org'
       it(`returns true for the lookup case`, function () {
         const result = validate.isServiceType(lookupCase)
         console.log('%s --> %s', lookupCase, result)
-        result.must.be.true()
+        result.should.be.true()
       })
     })
     describe('false', function () {
       it('returns false without an argument', function () {
         const result = validate.isServiceType()
-        result.must.be.false()
+        result.should.be.false()
       })
 
       const fqdns = falseBaseServiceTypes.concat([
@@ -248,7 +248,7 @@ describe('validate', function () {
         it(`returns false for ${fqdn}`, function () {
           const result = validate.isServiceType(fqdn)
           console.log('%s --> %s', fqdn, result)
-          result.must.be.false()
+          result.should.be.false()
         })
       })
     })
@@ -269,25 +269,25 @@ describe('validate', function () {
         it(`returns true for ${candidate}`, function () {
           const result = validate.isServiceInstance(candidate)
           console.log('%s --> %s', candidate, result)
-          result.must.be.true()
+          result.should.be.true()
         })
       })
       it(`returns true for the max length`, function () {
         const result = validate.isServiceInstance(tooLong.not)
         console.log('%s --> %s', tooLong.not, result)
-        result.must.be.true()
+        result.should.be.true()
       })
       const lookupCase = 'instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org'
       it(`returns true for the lookup case`, function () {
         const result = validate.isServiceInstance(lookupCase)
         console.log('%s --> %s', lookupCase, result)
-        result.must.be.true()
+        result.should.be.true()
       })
     })
     describe('false', function () {
       it('returns false without an argument', function () {
         const result = validate.isServiceInstance()
-        result.must.be.false()
+        result.should.be.false()
       })
 
       const fqdns = [
@@ -305,7 +305,7 @@ describe('validate', function () {
         it(`returns false for ${fqdn}`, function () {
           const result = validate.isServiceInstance(fqdn)
           console.log('%s --> %s', fqdn, result)
-          result.must.be.false()
+          result.should.be.false()
         })
       })
     })
@@ -324,7 +324,7 @@ describe('validate', function () {
     rights.forEach(nr => {
       it('true on ' + nr, function () {
         const result = validate.isNatural(nr)
-        result.must.be.true()
+        result.should.be.true()
       })
     })
     const rights2 = [
@@ -335,17 +335,17 @@ describe('validate', function () {
     rights2.forEach(nr => {
       it('true on ' + nr + ' with a maximum', function () {
         const result = validate.isNatural(nr, 4)
-        result.must.be.true()
+        result.should.be.true()
       })
     })
     it('true on 0 with maximum 0', function () {
       const result = validate.isNatural(0, 0)
-      result.must.be.true()
+      result.should.be.true()
     })
 
     it('returns false without an argument', function () {
       const result = validate.isNatural()
-      result.must.be.false()
+      result.should.be.false()
     })
 
     const wrongs = [
@@ -371,7 +371,7 @@ describe('validate', function () {
     wrongs.forEach(w => {
       it('false on ' + w, function () {
         const result = validate.isNatural(w)
-        result.must.be.false()
+        result.should.be.false()
       })
     })
     const wrongs2 = [
@@ -383,13 +383,13 @@ describe('validate', function () {
     wrongs2.forEach(w => {
       it('false on ' + w + ' with a maximum', function () {
         const result = validate.isNatural(w, 4)
-        result.must.be.false()
+        result.should.be.false()
       })
     })
     wrongs2.forEach(w => {
       it('false on ' + w + ' with maximum 0', function () {
         const result = validate.isNatural(w, 0)
-        result.must.be.false()
+        result.should.be.false()
       })
     })
   })
