@@ -79,7 +79,7 @@ describe('discover', function () {
 
     it('works in the nominal case, without a subtype', function () {
       // noinspection JSUnresolvedVariable
-      return discover(serviceType).must.fulfill(details => {
+      return discover(serviceType).should.be.fulfilled().then(details => {
         details.should.be.an.Array()
         details.should.have.length(1)
         console.log(details)
@@ -88,7 +88,7 @@ describe('discover', function () {
     it('works in the nominal case, with a subtype', function () {
       const serviceType = `_subtype._sub._t7i-sub${serviceTypePostfix}`
       // noinspection JSUnresolvedVariable
-      return discover(serviceType).must.fulfill(details => {
+      return discover(serviceType).should.be.fulfilled().then(details => {
         details.should.be.an.Array()
         details.should.have.length(1)
         console.log(details)
@@ -98,7 +98,7 @@ describe('discover', function () {
       this.timeout(10000)
 
       // noinspection JSUnresolvedVariable
-      return discover(manyInstanceServiceType).must.fulfill(details => {
+      return discover(manyInstanceServiceType).should.be.fulfilled().then(details => {
         details.should.be.an.Array()
         details.should.have.length(manyInstanceCount)
         console.log(details)
@@ -107,7 +107,7 @@ describe('discover', function () {
     it('resolves to the empty array with a non-existent service type', function () {
       // noinspection JSUnresolvedVariable
       return discover('_not-exist' + serviceTypePostfix)
-        .must.fulfill(details => {
+        .should.be.fulfilled().then(details => {
           details.should.be.an.Array()
           details.should.be.empty()
           console.log(details)
@@ -125,7 +125,7 @@ describe('discover', function () {
       ]
       // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
-        .must.fulfill(details => {
+        .should.be.fulfilled().then(details => {
           details.should.be.an.Array()
           console.log(details)
           details.should.have.length(manyInstanceCount - deaths.length)
@@ -152,7 +152,7 @@ describe('discover', function () {
       ]
       // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
-        .must.fulfill(details => {
+        .should.be.fulfilled().then(details => {
           details.should.be.an.Array()
           details.should.be.empty()
           console.log(details)

@@ -126,7 +126,7 @@ describe('selectInstance', function () {
   it('works in the nominal case with 1 instance, without a subtype', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceType1InstanceNoSubtype)
-      .must.fulfill(selection => {
+      .should.be.fulfilled().then(selection => {
         selection.should.be.an.Object()
         selection.instance.should.equal('instance 1.' + serviceType1InstanceNoSubtype)
         console.log(selection)
@@ -135,7 +135,7 @@ describe('selectInstance', function () {
   it('works in the nominal case with 1 instance, with a subtype', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceType1InstanceSubtype)
-      .must.fulfill(selection => {
+      .should.be.fulfilled().then(selection => {
         selection.should.be.an.Object()
         selection.instance.should.equal('instance 7._t7i-sub' + serviceTypePostfix)
         console.log(selection)
@@ -146,7 +146,7 @@ describe('selectInstance', function () {
 
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight)
-      .must.fulfill(selection => {
+      .should.be.fulfilled().then(selection => {
         selection.should.be.an.Object()
         selection.instance.should.equal('instance 8a.' + serviceTypeNInstancesWithWeight)
         console.log(selection)
@@ -155,7 +155,7 @@ describe('selectInstance', function () {
   it('resolves to null with a non-existent service type', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance('_not-exist' + serviceTypePostfix)
-      .must.fulfill(selection => {
+      .should.be.fulfilled().then(selection => {
         should(selection).be.null()
         console.log(selection)
       })
@@ -169,7 +169,7 @@ describe('selectInstance', function () {
     ]
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
-      .must.fulfill(selection => {
+      .should.be.fulfilled().then(selection => {
         selection.should.be.an.Object()
         selection.instance.should.equal(`instance 8b.${serviceTypeNInstancesWithWeight}`)
         console.log(selection)
@@ -195,7 +195,7 @@ describe('selectInstance', function () {
     ]
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
-      .must.fulfill(selection => {
+      .should.be.fulfilled().then(selection => {
         should(selection).be.null()
         console.log(selection)
       })

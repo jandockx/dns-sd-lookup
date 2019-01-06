@@ -65,7 +65,7 @@ describe('lookupInstance', function () {
   it('works in the nominal case', function () {
     const now = new Date()
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).must.fulfill(response => {
+    return lookupInstance(instanceName).should.be.fulfilled().then(response => {
       response.should.be.an.instanceof(ServiceInstance)
       console.log(response)
       response.type.should.equal(expected.type)
