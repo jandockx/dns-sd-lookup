@@ -95,11 +95,11 @@ const falseBaseServiceTypes = [
 describe('validate', function () {
   it('has the expected properties', function () {
     validate.should.have.property('subtypeOrInstance')
-    validate.subtypeOrInstance.should.be.an.instanceof(RegExp)
+    validate.subtypeOrInstance.should.be.a.RegExp()
     validate.should.have.property('serviceType')
-    validate.serviceType.should.be.an.instanceof(RegExp)
+    validate.serviceType.should.be.a.RegExp()
     validate.should.have.property('serviceInstance')
-    validate.serviceInstance.should.be.an.instanceof(RegExp)
+    validate.serviceInstance.should.be.a.RegExp()
   })
   describe('#isSubtypeOrInstanceName', function () {
     verifyPostconditions(validate.isSubtypeOrInstanceName)
