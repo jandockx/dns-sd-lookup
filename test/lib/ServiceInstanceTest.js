@@ -105,7 +105,7 @@ describe('ServiceInstance', () => {
       it(`works as expected for type '${kwargs.type}' and instance '${kwargs.instance}'`, function () {
         const subject = new ServiceInstance(kwargs)
         subject.should.be.instanceof(ServiceInstance)
-        subject.must.be.frozen()
+        subject.should.be.frozen()
         // noinspection JSUnresolvedFunction
         subject.should.be.valid()
         console.log(subject)
