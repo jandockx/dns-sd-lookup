@@ -1,0 +1,4 @@
+[submodule "scripts/common"]
+	path = scripts/common
+	url = https://jandppw@bitbucket.org/ppwcode/scripts.git
+	branch = feature/npm-test
