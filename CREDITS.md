@@ -48,7 +48,7 @@
 - **Mark Wubben** (2 packages)
 - **Stefan Judis** *stefanjudis@gmail.com* (2 packages)
 - **IndigoUnited** *hello@indigounited.com* (2 packages)
-- **Jan Dockx** *<Jan_Dockx@peopleware.be* (2 packages)
+- **Jan Dockx** *<Jan_Dockx@peopleware.be>* (2 packages)
 - **Joyent, Inc** (2 packages)
 - **Brian Woodward** (2 packages)
 - **Thorsten Lorenz** *thlorenz@gmx.de* (2 packages)
