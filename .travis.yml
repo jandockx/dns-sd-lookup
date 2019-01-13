@@ -24,4 +24,4 @@ jobs:
       install: skip
       script:
         - npm run legalReport
-        - scripts/travisGithubTag.sh
+        - scripts/common/git/tagTravisGithub.sh
