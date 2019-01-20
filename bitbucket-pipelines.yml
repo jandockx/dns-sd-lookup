@@ -11,7 +11,7 @@ pipelines:
               - node
             script:
               - git submodule update --init
-              - scripts/common/npm/testCi.sh
+              - scripts/common/npm/testNpm3.sh
         - step:
             name: Latest Node 8
             image: node:8
