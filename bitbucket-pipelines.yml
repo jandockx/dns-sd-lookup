@@ -32,7 +32,7 @@ pipelines:
             name: Latest Node
             image: node
             caches:
-              - nodeLatest
+              - node-latest
             script:
               - git submodule update --init
               - scripts/common/npm/testCi.sh
@@ -42,7 +42,7 @@ definitions:
     # not node_modules, which is replaced by npm ci
     node8: ~/.npm
     node10: ~/.npm
-    nodeLatest: ~/.npm
+    node-latest: ~/.npm
 
 # MUDOs
 #
