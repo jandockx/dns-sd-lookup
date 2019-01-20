@@ -16,7 +16,7 @@ pipelines:
             name: Latest Node 8
             image: node:8
             caches:
-              - node
+              - node8
             script:
               - git submodule update --init
               - scripts/common/npm/testCi.sh
@@ -24,19 +24,26 @@ pipelines:
             name: Latest Node 10
             image: node:10
             caches:
-              - node
+              - node10
             script:
               - git submodule update --init
               - scripts/common/npm/testCi.sh
+definitions:
+  caches:
+    # for node with npm >=5, cache the npm cache at ~/.npm (per node version),
+    # not node_modules, which is replaced by npm ci
+    node8: ~/.npm
+    node10: ~/.npm
 
 # MUDOs
 #
 # - nodegit build fails
-# - cache is shared between versions of node, and that is not the intention
+# + cache is shared between versions of node, and that is not the intention
 # - script does not fail if early commands fail
-# - npm ci actually deletes node_modules; that does away with the effect of the cache!
+# + npm ci actually deletes node_modules; that does away with the effect of the cache!
 #
 # - Build Teardown mentions the gathering of test reports etc. Is that a new feature?
+#   Yes. See https://confluence.atlassian.com/bitbucket/test-reporting-in-pipelines-939708543.html
 #
 # - node6 works because of cache of node 8/10, but doesn't work on its own, because we are using npm 5 commands and npx,
 #   which don't exist in npm 3 for node 6
