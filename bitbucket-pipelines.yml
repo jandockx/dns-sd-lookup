@@ -46,8 +46,13 @@ definitions:
 
 # MUDOs
 #
-# - nodegit build fails
 # - postinstall `npm run update_credits` fails
+# - passes, but finally `"npm test" command failed with exit code 0.` <-- FAILS; or is this the update_credits thing?
+#
+# - Latest Node step takes very long, because there is no binary download for nodegit, and it is build from scratch
+#    every time; is this not cached?
+#
+# - when are caches invalidated? There does not seem to be a check whether the cache has changed?
 #
 # - Build Teardown mentions the gathering of test reports etc. Is that a new feature?
 #   Yes. See https://confluence.atlassian.com/bitbucket/test-reporting-in-pipelines-939708543.html
