@@ -38,12 +38,7 @@ definitions:
 # MUDOs
 #
 # - nodegit build fails
-# + cache is shared between versions of node, and that is not the intention
-# - script does not fail if early commands fail
-# + npm ci actually deletes node_modules; that does away with the effect of the cache!
+# - postinstall `npm run update_credits` fails
 #
 # - Build Teardown mentions the gathering of test reports etc. Is that a new feature?
 #   Yes. See https://confluence.atlassian.com/bitbucket/test-reporting-in-pipelines-939708543.html
-#
-# - node6 works because of cache of node 8/10, but doesn't work on its own, because we are using npm 5 commands and npx,
-#   which don't exist in npm 3 for node 6
