@@ -28,12 +28,21 @@ pipelines:
             script:
               - git submodule update --init
               - scripts/common/npm/testCi.sh
+        - step:
+            name: Latest Node
+            image: node
+            caches:
+              - nodeLatest
+            script:
+              - git submodule update --init
+              - scripts/common/npm/testCi.sh
 definitions:
   caches:
     # for node with npm >=5, cache the npm cache at ~/.npm (per node version),
     # not node_modules, which is replaced by npm ci
     node8: ~/.npm
     node10: ~/.npm
+    nodeLatest: ~/.npm
 
 # MUDOs
 #
