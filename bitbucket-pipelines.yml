@@ -51,6 +51,8 @@ definitions:
 #
 # - Latest Node step takes very long, because there is no binary download for nodegit, and it is build from scratch
 #    every time; is this not cached?
+#   - fix by using npm install instead of ci, and als caching node_modules?
+# - Latest Node reports 0% coverage
 #
 # - when are caches invalidated? There does not seem to be a check whether the cache has changed?
 #
