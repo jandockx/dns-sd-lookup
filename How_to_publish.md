@@ -1,5 +1,7 @@
 Have you updated the credits?    
     
+Add version to status table in README
+    
     > npm run update_credits
     > git commit -m"update credits"
     > npm version [major | minor | patch] -m "What changed was … : %s"
