@@ -65,7 +65,6 @@
     "legalReport": "legally -l -r && tldrlegal",
     "reportCoverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "preversion": "npm run test",
-    "postversion": "npm run update_credits",
     "update_credits": "credits . --reporter markdown > CREDITS.md",
     "upgrade": "rm -Rf node_modules package-lock.json && npm install && npm test"
   }
