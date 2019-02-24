@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=master)](https://travis-ci.org/Toryt/dns-sd-lookup)
-[![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/master/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup)
 [![npm version](http://img.shields.io/npm/v/@toryt/dns-sd-lookup.svg?style=flat)](https://npmjs.org/package/@toryt/dns-sd-lookup "View this project on npm")
 ![downloads](https://img.shields.io/npm/dt/@toryt/dns-sd-lookup.svg)
 ![dependencies](https://img.shields.io/david/Toryt/dns-sd-lookup.svg)
@@ -12,6 +10,25 @@
 ![# languages](https://img.shields.io/github/languages/count/Toryt/dns-sd-lookup.svg)
 ![top language](https://img.shields.io/github/languages/top/Toryt/dns-sd-lookup.svg)
 
+| Version | Build Status | Coverage |
+|:--------|:-------------|:---------|
+| `master` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=master)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/master/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.12` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.12)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.12/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.11` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.11)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.11/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.10` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.10)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.10/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.9` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.9)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.9/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.8` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.8)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.8/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.7` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.7)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.7/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.6` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.6)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.6/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.5` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.5)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.5/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.4` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.4)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.4/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.3` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.3)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.3/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.3` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.2)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.2/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.1` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.1)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.1/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.1.0` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.0)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.0/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.0.2` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.0.2)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.0.2/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
+| `1.0.1` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.0.1)](https://travis-ci.org/Toryt/dns-sd-lookup) | |
+| `1.0.0` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.0.0)](https://travis-ci.org/Toryt/dns-sd-lookup) | |
 
 Node library that looks up service instance definitions for a service type defined with [DNS-SD] ([RFC 6763]).
 
