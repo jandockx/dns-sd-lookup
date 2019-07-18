@@ -11,6 +11,7 @@
 [![codecov](https://codecov.io/bb/toryt/dns-sd-lookup/branch/feature/pipelines/graph/badge.svg)](https://codecov.io/bb/toryt/dns-sd-lookup)
 
 - Transition from Github to Bitbucket, and from Travis to Bitbucket pipelines.
+- Make tests that were relaxed in 1.1.10 for Travis stricter again.
 
 ## 1.1.15
 

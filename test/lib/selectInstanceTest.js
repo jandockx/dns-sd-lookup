@@ -35,7 +35,7 @@ const serviceTypeNInstancesWithWeight = '_t8i-n-inst' + serviceTypePostfix
 const manyInstanceCount = 12
 const should = require('should')
 
-const batch = 3
+const batch = 8
 /* NOTE: 3 is a magic number for tests on Travis with Node 10. For some reason, the first 3 DNS lookups in a batch take
          in average less than 100ms, but after that the time goes up to 5s, and then 10s and 15s. By keeping the batch
          size 3, the tests below take less than a minute. Note that on a local machine, they take less than a second. */
@@ -100,20 +100,20 @@ function testDistribution (timerLabel, deaths, expected) {
 
   console.time(timerLabel)
 
-  return chain(150, Promise.resolve({}))
+  return chain(250, Promise.resolve({}))
     .then(selections => {
       console.timeEnd(timerLabel)
       const total = totalCount(selections)
       Object.keys(expected).forEach(e => {
-        Math.abs(expected[e] - (selections[e + '.' + serviceTypeNInstancesWithWeight] / total)).should.be.below(0.15)
+        Math.abs(expected[e] - (selections[e + '.' + serviceTypeNInstancesWithWeight] / total)).should.be.below(0.05)
         /* NOTE: I would like for the deviation from the expected weight distribution to be less than 2.5% (2 sigma).
-                 When testing with 2 instances, in 1024 tries, if often happens that the deviation that the deviation
-                 is larger. That is surprising. This would mean that a random choice is not good enough.
-                 That would imply that we rather need some sort of memory, which would be bad.
-                 After this observation, the limit was lowered to 5%, and the tries are lowered to 256, for
-                 test speed reasons. Still there are enough failures to be annoying. The limit was then raised to
-                 10%. Since Travis DNS became very slow in 2018 Q III, the tries are lowered to 64, and the limit
-                 is raised to 15%. */
+                 When testing with 2 instances, in 1024 tries, if often happens that the deviation is larger. That is
+                 surprising. This would mean that a random choice is not good enough. That would imply that we rather
+                 need some sort of memory, which would be bad. After this observation, the limit was lowered to 5%,
+                 and the tries are lowered to 256, for test speed reasons. Still there are enough failures to be
+                 annoying. The limit was then raised to 10%. Since Travis DNS became very slow in 2018 Q III, the tries
+                 are lowered to 64, and the limit is raised to 15%. In 2019/7, while switching to Bitbucket, we try
+                 again with 250 samples, and a value of 5%. */
       })
     })
 }
