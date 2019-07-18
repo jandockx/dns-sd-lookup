@@ -100,20 +100,20 @@ function testDistribution (timerLabel, deaths, expected) {
 
   console.time(timerLabel)
 
-  return chain(250, Promise.resolve({}))
+  return chain(150, Promise.resolve({}))
     .then(selections => {
       console.timeEnd(timerLabel)
       const total = totalCount(selections)
       Object.keys(expected).forEach(e => {
-        Math.abs(expected[e] - (selections[e + '.' + serviceTypeNInstancesWithWeight] / total)).should.be.below(0.05)
+        Math.abs(expected[e] - (selections[e + '.' + serviceTypeNInstancesWithWeight] / total)).should.be.below(0.10)
         /* NOTE: I would like for the deviation from the expected weight distribution to be less than 2.5% (2 sigma).
                  When testing with 2 instances, in 1024 tries, if often happens that the deviation is larger. That is
-                 surprising. This would mean that a random choice is not good enough. That would imply that we rather
-                 need some sort of memory, which would be bad. After this observation, the limit was lowered to 5%,
-                 and the tries are lowered to 256, for test speed reasons. Still there are enough failures to be
-                 annoying. The limit was then raised to 10%. Since Travis DNS became very slow in 2018 Q III, the tries
-                 are lowered to 64, and the limit is raised to 15%. In 2019/7, while switching to Bitbucket, we try
-                 again with 250 samples, and a value of 5%. */
+                 surprising. This would mean a random choice is not good enough. That would imply that we rather need
+                 some sort of memory, which would be bad. After this observation, the limit was lowered to 5%, and the
+                 tries are lowered to 256, for test speed reasons. Still there are enough failures to be annoying. The
+                 limit was then raised to 10%. Since Travis DNS became very slow in 2018 Q III, the tries are lowered to
+                 64, and the limit is raised to 15%. In 2019/7, while switching to Bitbucket, we try again with 150
+                 samples, and a value of 10%. */
       })
     })
 }
