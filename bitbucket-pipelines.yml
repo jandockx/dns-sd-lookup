@@ -28,14 +28,6 @@ pipelines:
             script:
               - git submodule update --init
               - scripts/common/npm/testCi.sh
-        - step:
-            name: Latest Node
-            image: node
-            caches:
-              - node-latest
-            script:
-              - git submodule update --init
-              - scripts/common/npm/testCi.sh
 definitions:
   caches:
     # for node with npm >=5, cache the npm cache at ~/.npm (per node version),
@@ -45,16 +37,8 @@ definitions:
     node-latest: ~/.npm
 
 # MUDOs
-#
-# - postinstall `npm run update_credits` fails
-# - passes, but finally `"npm test" command failed with exit code 0.` <-- FAILS; or is this the update_credits thing?
-#
-# - Latest Node step takes very long, because there is no binary download for nodegit, and it is build from scratch
-#    every time; is this not cached?
-#   - fix by using npm install instead of ci, and als caching node_modules?
-# - Latest Node reports 0% coverage
-#
-# - when are caches invalidated? There does not seem to be a check whether the cache has changed?
-#
 # - Build Teardown mentions the gathering of test reports etc. Is that a new feature?
 #   Yes. See https://confluence.atlassian.com/bitbucket/test-reporting-in-pipelines-939708543.html
+
+# NOTE: Not testing on node12 / node latest for now, because there is no binary download for nodegit, and building it
+#       it from src fails. It also builds from src for node10, but that succeeds.
