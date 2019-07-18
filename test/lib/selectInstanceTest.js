@@ -35,7 +35,7 @@ const serviceTypeNInstancesWithWeight = '_t8i-n-inst' + serviceTypePostfix
 const manyInstanceCount = 12
 const should = require('should')
 
-const batch = 8
+const batch = 3
 /* NOTE: 3 is a magic number for tests on Travis with Node 10. For some reason, the first 3 DNS lookups in a batch take
          in average less than 100ms, but after that the time goes up to 5s, and then 10s and 15s. By keeping the batch
          size 3, the tests below take less than a minute. Note that on a local machine, they take less than a second. */
