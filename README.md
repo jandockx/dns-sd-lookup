@@ -1,3 +1,7 @@
+# @toryt/dns-sd-lookup
+
+Node library that looks up service instance definitions for a service type defined with [DNS-SD] ([RFC 6763]).
+
 [![npm version](http://img.shields.io/npm/v/@toryt/dns-sd-lookup.svg?style=flat)](https://npmjs.org/package/@toryt/dns-sd-lookup "View this project on npm")
 ![downloads](https://img.shields.io/npm/dt/@toryt/dns-sd-lookup.svg)
 ![dependencies](https://img.shields.io/david/Toryt/dns-sd-lookup.svg)
@@ -9,6 +13,14 @@
 ![commit activity](https://img.shields.io/github/commit-activity/y/Toryt/dns-sd-lookup.svg)
 ![# languages](https://img.shields.io/github/languages/count/Toryt/dns-sd-lookup.svg)
 ![top language](https://img.shields.io/github/languages/top/Toryt/dns-sd-lookup.svg)
+
+This project is maintained on [Bitbucket](https://bitbucket.org/toryt/dns-sd-lookup) and released on 
+[npm](https://www.npmjs.com/package/@toryt/dns-sd-lookup).
+
+**There is no support for Multicast DNS in this library.** This library only does look-ups in regular DNS. The 
+functionality is comparable to `dns-sd -B` and `dns-sd -L` (see [dns-sd]). 
+
+
 
 | Version | Build Status | Coverage |
 |:--------|:-------------|:---------|
@@ -33,18 +45,11 @@
 | `1.0.1` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.0.1)](https://travis-ci.org/Toryt/dns-sd-lookup) | |
 | `1.0.0` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.0.0)](https://travis-ci.org/Toryt/dns-sd-lookup) | |
 
-Node library that looks up service instance definitions for a service type defined with [DNS-SD] ([RFC 6763]).
-
-**There is no support for Multicast DNS in this library.** This library
-only does look-ups in regular DNS. The functionality is comparable to
-`dns-sd -B` and `dns-sd -L` (see [dns-sd]). 
 
 
 
 
-
-Install
-=======
+## Install
 
     > npm install --save @toryt/dns-sd-lookup
 
@@ -52,11 +57,9 @@ Install
 
 
 
-API
-===
+## API
 
-`ServiceInstance`
------------------
+### `ServiceInstance`
 
 All lookup methods return `ServiceInstance` objects. These represent an [RFC 6763] _Service Instance_ description.
 
@@ -105,12 +108,11 @@ natural number.
 
 
 
-`validate`
-----------
+### `validate`
 
 A collection of string validation methods, related to [RFC 6763].
 
-### `isSubtypeOrInstanceName`
+#### `isSubtypeOrInstanceName`
 
 The given string is a valid DNS-SD subtype or short instance name.
 
@@ -133,7 +135,7 @@ This function does not allow gratuitous escapes, i.e., a backslash must be follo
     console.assert(!isSubtypeOrInstanceName('label with \\gratuitous escape'))
 
 
-### `isBaseServiceType`
+#### `isBaseServiceType`
 
 The given string represents a [RFC 6763] base _Service Type_, i.e., a _Service Type_ without a subtype. 
 
@@ -161,7 +163,7 @@ The given string represents a [RFC 6763] base _Service Type_, i.e., a _Service T
     console.assert(!isBaseServiceType('_not-a-type-._tcp.dns-sd-lookup.toryt.org'))
         
     
-### `isBaseServiceType`
+#### `isBaseServiceType`
 
 The given string represents a [RFC 6763] _Service Type_, i.e., a base _Service Type_,
 or a _service Type_ with a subtype.
@@ -184,7 +186,7 @@ a dot or another backslash in the subtype label.
     console.assert(!isServiceType('ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
 
 
-### `isServiceInstance`
+#### `isServiceInstance`
 
 The given string represents a [RFC 6763] _Service Instance_.
 
@@ -205,7 +207,7 @@ a dot or another backslash in the instance name label.
     console.assert(!isServiceInstance('anInstanceThatIsLongerThanIsAcceptableWhichIs63ACharactersLabels._a-service-type._tcp.dns-sd-lookup.toryt.org'))
 
 
-### `validate`
+#### `validate`
 
 The validate-functions are gathered in the namespace `validate`.
 
@@ -217,10 +219,9 @@ The validate-functions are gathered in the namespace `validate`.
 
 
 
-`extract`
----------
+### `extract`
 
-### `extract.subtype`
+#### `extract.subtype`
 
 Extract the subtype from a [RFC 6763] _Service Type_. If there is no subtype, the result is `undefined`.
 
@@ -230,7 +231,7 @@ Extract the subtype from a [RFC 6763] _Service Type_. If there is no subtype, th
       console.assert(extract.subtype('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === '_a-sub-service')
 
 
-### `extract.type`
+#### `extract.type`
 
 Extract the (base) type from a [RFC 6763] _Service Type_ or _Service Instance_.
 
@@ -241,7 +242,7 @@ Extract the (base) type from a [RFC 6763] _Service Type_ or _Service Instance_.
       console.assert(extract.type('Service Instance._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
 
 
-### `extract.instance`
+#### `extract.instance`
 
 Extract the instance from a [RFC 6763] _Service Instance_.
 
@@ -250,7 +251,7 @@ Extract the instance from a [RFC 6763] _Service Instance_.
       console.assert(extract.instance('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'Service Instance')
 
 
-### `extract.protocol`
+#### `extract.protocol`
 
 Extract the protocol from a [RFC 6763] _Service Type_ or _Service Instance_.
 
@@ -261,7 +262,7 @@ Extract the protocol from a [RFC 6763] _Service Type_ or _Service Instance_.
       console.assert(extract.protocol('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'tcp')
 
 
-### `extract.domain`
+#### `extract.domain`
 
 Extract the domain from a [RFC 6763] _Service Type_ or _Service Instance_.
 
@@ -273,8 +274,7 @@ Extract the domain from a [RFC 6763] _Service Type_ or _Service Instance_.
 
 
 
-`extendWithTxtStr`
-------------------
+### `extendWithTxtStr`
 
 Extend a given `obj` with a property based on a given DNS `TXT` resource record string that represents a
 [RFC 6763] _Service Instance_ attribute.
@@ -316,8 +316,7 @@ prints out
 
 
 
-`lookupInstance`
-----------------
+### `lookupInstance`
 
 Lookup the definition a [RFC 6763] _Service Instance_ in DNS and resolve to a `ServiceInstance` that represents it.
 
@@ -351,8 +350,7 @@ prints out
 
 
 
-`discover`
-----------
+### `discover`
 
 Lookup all instances for the given [RFC 6763] _Service Type_ in DNS and resolve to an Array of `ServiceInstance`
 objects that represent them. Optionally, you can provide a `filter` function that filters out instances based on
@@ -441,8 +439,7 @@ The order of the instances is unspecified.
 
 
 
-`selectInstance`
-----------------
+### `selectInstance`
 
 Lookup all instances for the given [RFC 6763] _Service Type_ in DNS and resolve to the `ServiceInstance` the user
 should use. Optionally, you can provide a `filter` function that filters out instances based on
@@ -505,8 +502,7 @@ answer from that set, e.g.,
 
 
 
-Side information
-================
+## Side information
 
 While building this library, I had to burrow through some confusion. Here are some notes:
 
@@ -517,8 +513,7 @@ While building this library, I had to burrow through some confusion. Here are so
 
 
 
-Style
-=====
+## Style
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
@@ -529,15 +524,11 @@ Coverage with [Istanbul] and [Codecov].
 
 
 
-License
-=======
+## License
 
 Released under the [MIT License]
 
-MIT License
------------
-
-Copyright (c) 2017-2017 Jan Dockx
+Copyright (c) 2017-2019 Jan Dockx
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -561,8 +552,7 @@ SOFTWARE.
 
 
 
-Credits
-=======
+## Credits
 
 `dns-sd-lookup` builds on the work of many people through [F/OSS]. See the [credits].
 
@@ -570,16 +560,13 @@ Credits
 
 
 
-Plan
-====
+## Plan
 
 
-MUDO
-----
+## MUDO
 
 
-TODO
-----
+## TODO
 
 * get rid of nodegit (indirect for terraform)
 * Make `prettier-standard`

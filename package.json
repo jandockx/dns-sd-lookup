@@ -13,12 +13,12 @@
     "TXT",
     "RFC 6763"
   ],
-  "homepage": "https://github.com/Toryt/dns-sd-lookup",
+  "homepage": "https://bitbucket.org/toryt/dns-sd-lookup",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Toryt/dns-sd-lookup.git"
+    "url": "https://bitbucket.org/toryt/dns-sd-lookup"
   },
-  "bugs": "https://github.com/Toryt/dns-sd-lookup/issues",
+  "bugs": "https://bitbucket.org/toryt/dns-sd-lookup/issues",
   "author": {
     "name": "Jan Dockx",
     "email": "jandockx@gmail.com"
