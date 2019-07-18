@@ -48,8 +48,6 @@ functionality is comparable to `dns-sd -B` and `dns-sd -L` (see [dns-sd]).
 
 
 
-
-
 ## Install
 
     > npm install --save @toryt/dns-sd-lookup
@@ -58,7 +56,9 @@ functionality is comparable to `dns-sd -B` and `dns-sd -L` (see [dns-sd]).
 
 ## Other
 
-- [API]
+- See [API] for detailed documentation
+- Released under the [MIT License]
+- `dns-sd-lookup` builds on the work of many people through [F/OSS]. See the [credits].
 
 
 
@@ -68,8 +68,6 @@ While building this library, I had to burrow through some confusion. Here are so
 
 * [Difference between DNS labels and full names, and internet host names]
 * [How to define multi-string TXT resource records]
-
-
 
 
 
@@ -83,64 +81,8 @@ Coverage with [Istanbul] and [Codecov].
 
 
 
-
-## License
-
-Released under the [MIT License]
-
-Copyright (c) 2017-2019 Jan Dockx
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
-
-
-
-## Credits
-
-`dns-sd-lookup` builds on the work of many people through [F/OSS]. See the [credits].
-
-
-
-
-
-## Plan
-
-
-## MUDO
-
-
-## TODO
-
-* get rid of nodegit (indirect for terraform)
-* Make `prettier-standard`
-* Further automate build (with tags, and building of [`CREDITS.md`](CREDITS.md), …)
-
-
-
-
-
-
 [DNS-SD]: http://www.dns-sd.org
-[RFC 6763]: https://www.ietf.org/rfc/rfc6763.txt
 [dns-sd]: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dns-sd.1.html
-[RFC 2782]: https://www.ietf.org/rfc/rfc2782.txt
 [Difference between DNS labels and full names, and internet host names]: ./On_dns_full_and_domain_and_host_names.md
 [How to define multi-string TXT resource records]: ./HowtoDefineMultiStringTXTRecords.md
 [Standard]: https://standardjs.com
