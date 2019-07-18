@@ -1,6 +1,6 @@
 # @toryt/dns-sd-lookup API
 
-## `ServiceInstance`
+## ServiceInstance
 
 All lookup methods return `ServiceInstance` objects. These represent an [RFC 6763] _Service Instance_ description.
 
