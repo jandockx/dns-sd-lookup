@@ -57,6 +57,7 @@ Coverage with [Istanbul] and [Codecov].
 
 
 [DNS-SD]: http://www.dns-sd.org
+[RFC 6763]: https://www.ietf.org/rfc/rfc6763.txt
 [dns-sd]: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dns-sd.1.html
 [Difference between DNS labels and full names, and internet host names]: ./On_dns_full_and_domain_and_host_names.md
 [How to define multi-string TXT resource records]: ./HowtoDefineMultiStringTXTRecords.md
