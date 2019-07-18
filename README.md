@@ -24,6 +24,7 @@ functionality is comparable to `dns-sd -B` and `dns-sd -L` (see [dns-sd]).
 
 | Version | Build Status | Coverage |
 |:--------|:-------------|:---------|
+| `feature/pipelines` | [![Build Status](https://img.shields.io/bitbucket/pipelines/toryt/dns-sd-lookup/feature/pipelines.svg)](https://bitbucket.org/toryt/dns-sd-lookup/addon/pipelines/home#!/results/branch/feature%252Fpipelines/page/1) | [![codecov](https://codecov.io/bb/toryt/dns-sd-lookup/branch/feature/pipelines/graph/badge.svg)](https://codecov.io/bb/toryt/dns-sd-lookup) |
 | `master` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=master)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/bb/toryt/dns-sd-lookup/branch/master/graph/badge.svg)](https://codecov.io/bb/toryt/dns-sd-lookup) |
 | `1.1.15` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.15)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.15/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
 | `1.1.14` | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.1.14)](https://travis-ci.org/Toryt/dns-sd-lookup) | [![codecov](https://codecov.io/gh/Toryt/dns-sd-lookup/branch/v1.1.14/graph/badge.svg)](https://codecov.io/gh/Toryt/dns-sd-lookup) |
