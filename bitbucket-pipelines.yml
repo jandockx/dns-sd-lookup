@@ -41,13 +41,13 @@ definitions:
                 name: Latest Node 8
                 image: node:8
                 caches:
-                  - npm8
+                  - node8
             - step:
                 <<: *testNpmGE5
                 name: Latest Node 10
                 image: node:10
                 caches:
-                  - npm10
+                  - node10
         - step:
             name: Tag
             image: node:10
