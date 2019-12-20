@@ -34,7 +34,7 @@
     "validator": "^11.0.0"
   },
   "devDependencies": {
-    "@ppwcode/terraform-ppwcode-modules": "^3.8.5",
+    "@ppwcode/terraform-ppwcode-modules": "^5.0.0",
     "cartesian": "^1.0.1",
     "codecov": "^3.0.1",
     "credits-cli": "^3.1.0",
