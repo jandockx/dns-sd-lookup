@@ -30,18 +30,19 @@ const manyInstanceCount = 12
 const discover = require('../../lib/discover')
 
 describe('discover not in order of priority', function () {
-  it(`discovers ${manyInstanceCount} instances, not in order of priority`, async function () {
+  it(`discovers ${manyInstanceCount} instances, not in order of priority`, function () {
     /* This tests makes sure instances in the next test are discovered out of priority order.
        For some reason, this does not seem to be the case on Node 12 / Travis (but not a problem on Node 6, 8, 10,
        nor Node 12 on macOS). */
-    const instances = await discover(serviceTypeNInstancesWithWeight)
-    instances.length.should.equal(manyInstanceCount)
-    console.log(instances)
-    console.log(`unsorted priorities: ${instances.map(i => i.priority)}`)
-    // should not be ordered
-    instances.some((instance, index) => index > 0 && instance.priority < instances[index - 1].priority)
-      .should.be.true()
-    instances.some((instance, index) => index > 0 && instance.priority > instances[index - 1].priority)
-      .should.be.true()
+    return discover(serviceTypeNInstancesWithWeight).then(instances => {
+      instances.length.should.equal(1/*manyInstanceCount*/)
+      console.log(instances)
+      console.log(`unsorted priorities: ${instances.map(i => i.priority)}`)
+      // should not be ordered
+      instances.some((instance, index) => index > 0 && instance.priority < instances[index - 1].priority)
+        .should.be.true()
+      instances.some((instance, index) => index > 0 && instance.priority > instances[index - 1].priority)
+        .should.be.true()
+    })
   })
 })
