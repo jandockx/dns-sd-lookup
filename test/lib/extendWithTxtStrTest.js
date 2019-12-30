@@ -91,7 +91,7 @@ describe('extendWithTxtStr', function () {
       })
     })
   })
-  it(`works for boolean attribute`, function () {
+  it('works for boolean attribute', function () {
     extendWithTxtStr(this.subject, attributeName)
     this.subject['pre-existing'].should.equal(this.preExistingValue)
     this.subject[attributeName].should.be.true()

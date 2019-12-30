@@ -154,13 +154,13 @@ describe('validate', function () {
           result.should.be.true()
         })
       })
-      it(`returns true for the max length`, function () {
+      it('returns true for the max length', function () {
         const result = validate.isBaseServiceType(tooLong.not)
         console.log('%s --> %s', tooLong.not, result)
         result.should.be.true()
       })
       const lookupCase = '_t1i-no-sub._tcp.dns-sd-lookup.toryt.org'
-      it(`returns true for the lookup case`, function () {
+      it('returns true for the lookup case', function () {
         const result = validate.isBaseServiceType(lookupCase)
         console.log('%s --> %s', lookupCase, result)
         result.should.be.true()
@@ -209,18 +209,18 @@ describe('validate', function () {
           result.should.be.true()
         })
       })
-      it(`returns true for the max length`, function () {
+      it('returns true for the max length', function () {
         const result = validate.isServiceType(tooLongWithoutSub.not)
         console.log('%s --> %s', tooLongWithoutSub.not, result)
         result.should.be.true()
       })
-      it(`returns true for the max length with sub`, function () {
+      it('returns true for the max length with sub', function () {
         const result = validate.isServiceType(tooLongWithoutSub.not)
         console.log('%s --> %s', tooLongWithSub.not, result)
         result.should.be.true()
       })
       const lookupCase = '_t1i-no-sub._tcp.dns-sd-lookup.toryt.org'
-      it(`returns true for the lookup case`, function () {
+      it('returns true for the lookup case', function () {
         const result = validate.isServiceType(lookupCase)
         console.log('%s --> %s', lookupCase, result)
         result.should.be.true()
@@ -272,13 +272,13 @@ describe('validate', function () {
           result.should.be.true()
         })
       })
-      it(`returns true for the max length`, function () {
+      it('returns true for the max length', function () {
         const result = validate.isServiceInstance(tooLong.not)
         console.log('%s --> %s', tooLong.not, result)
         result.should.be.true()
       })
       const lookupCase = 'instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org'
-      it(`returns true for the lookup case`, function () {
+      it('returns true for the lookup case', function () {
         const result = validate.isServiceInstance(lookupCase)
         console.log('%s --> %s', lookupCase, result)
         result.should.be.true()
