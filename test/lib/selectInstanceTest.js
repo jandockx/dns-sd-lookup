@@ -142,20 +142,19 @@ describe('selectInstance', function () {
         console.log(selection)
       })
   })
-  it(`discovers ${manyInstanceCount} instances, not in order of priority`, function () {
+  it(`discovers ${manyInstanceCount} instances, not in order of priority`, async function () {
     /* This tests makes sure instances in the next test are discovered out of priority order.
        For some reason, this does not seem to be the case on Node 12 / Travis (but not a problem on Node 6, 8, 10,
        nor Node 12 on macOS). */
-    return discover(serviceTypeNInstancesWithWeight).then(instances => {
-      instances.length.should.equal(manyInstanceCount)
-      console.log(instances)
-      console.log(`unsorted priorities: ${instances.map(i => i.priority)}`)
-      // should not be ordered
-      instances.some((instance, index) => index > 0 && instance.priority < instances[index - 1].priority)
-        .should.be.true()
-      instances.some((instance, index) => index > 0 && instance.priority > instances[index - 1].priority)
-        .should.be.true()
-    })
+    const instances = await discover(serviceTypeNInstancesWithWeight)
+    instances.length.should.equal(manyInstanceCount)
+    console.log(instances)
+    console.log(`unsorted priorities: ${instances.map(i => i.priority)}`)
+    // should not be ordered
+    instances.some((instance, index) => index > 0 && instance.priority < instances[index - 1].priority)
+      .should.be.true()
+    instances.some((instance, index) => index > 0 && instance.priority > instances[index - 1].priority)
+      .should.be.true()
   })
   it(`works in the nominal case, with ${manyInstanceCount} instances`, function () {
     // noinspection JSPotentiallyInvalidUsageOfThis
