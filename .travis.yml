@@ -15,7 +15,6 @@ jobs:
     - node_js: '8' # npm test
     - node_js: '10' # npm test
     - node_js: '12' # npm test
-    - node_js: '13' # npm test
       script:
         - npm test
         - npm run reportCoverage
