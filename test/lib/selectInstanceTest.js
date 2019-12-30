@@ -34,6 +34,7 @@ const serviceType1InstanceSubtype = '_subtype._sub._t7i-sub' + serviceTypePostfi
 const serviceTypeNInstancesWithWeight = '_t8i-n-inst' + serviceTypePostfix
 const manyInstanceCount = 12
 const should = require('should')
+const discover = require('../../lib/discover')
 
 const batch = 3
 /* NOTE: 3 is a magic number for tests on Travis with Node 10. For some reason, the first 3 DNS lookups in a batch take
@@ -140,6 +141,20 @@ describe('selectInstance', function () {
         selection.instance.should.equal('instance 7._t7i-sub' + serviceTypePostfix)
         console.log(selection)
       })
+  })
+  it(`discovers ${manyInstanceCount} instances, not in order of priority`, async function () {
+    /* This tests makes sure instances in the next test are discovered out of priority order.
+       For some reason, this does not seem to be the case on Node 12 / Travis (but not a problem on Node 6, 8, 10,
+       nor Node 12 on macOS). */
+    const instances = await discover(serviceTypeNInstancesWithWeight)
+    instances.length.should.equal(manyInstanceCount)
+    console.log(instances)
+    console.log(`unsorted priorities: ${instances.map(i => i.priority)}`)
+    // should not be ordered
+    instances.some((instance, index) => index > 0 && instance.priority < instances[index - 1].priority)
+      .should.be.true()
+    instances.some((instance, index) => index > 0 && instance.priority > instances[index - 1].priority)
+      .should.be.true()
   })
   it(`works in the nominal case, with ${manyInstanceCount} instances`, function () {
     // noinspection JSPotentiallyInvalidUsageOfThis
