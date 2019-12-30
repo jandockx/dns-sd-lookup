@@ -12,6 +12,7 @@ cache:
 jobs:
   include:
     # stage test
+    - node_js: '6' # npm test
     - node_js: '8' # npm test
     - node_js: '10' # npm test
     - node_js: '12' # npm test
