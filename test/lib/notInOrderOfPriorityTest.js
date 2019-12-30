@@ -35,7 +35,7 @@ describe('discover not in order of priority', function () {
        For some reason, this does not seem to be the case on Node 12 / Travis (but not a problem on Node 6, 8, 10,
        nor Node 12 on macOS). */
     return discover(serviceTypeNInstancesWithWeight).then(instances => {
-      instances.length.should.equal(1/*manyInstanceCount*/)
+      instances.length.should.equal(manyInstanceCount)
       console.log(instances)
       console.log(`unsorted priorities: ${instances.map(i => i.priority)}`)
       // should not be ordered
