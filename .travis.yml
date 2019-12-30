@@ -18,6 +18,7 @@ jobs:
       script:
         - npm test
         - npm run reportCoverage
+        - cat coverage/dns-sd-lookup/lib/selectInstance.js.html
   # stage tag
     - stage: tag
       node_js: '10'
