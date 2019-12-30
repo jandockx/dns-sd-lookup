@@ -60,8 +60,7 @@
     ]
   },
   "scripts": {
-    "pretest": "npm-check -i mocha-reporter -i standard -i npm-check -i legally -i @ppwcode/terraform-ppwcode-modules -i codecov || exit 0",
-    "test": "node --version && standard && nyc mocha \"test/**/*Test.js\"",
+    "test": "mocha \"test/**/*Test.js\"",
     "legalReport": "legally -l -r && tldrlegal",
     "reportCoverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "preversion": "npm run test",
