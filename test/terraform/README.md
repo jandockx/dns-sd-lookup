@@ -94,3 +94,5 @@ no other option for the period (`\056`).
 
 A solution therefor is to not clean what is returned from AWS, but instead make sure we compare what is returned
 to an escaped version of what the user specified.
+
+The only workaround we can do at this time, is to only use `a-z0-9-!"#$%&'()*+,-/:;<=>?@[\]^_`{|}~\` in labels.
