@@ -22,6 +22,9 @@
  * SOFTWARE.
  */
 
+#  MUDO to work around https://github.com/terraform-providers/terraform-provider-aws/issues/11445,
+#       '_' is replaced everywhere with '_'
+
 variable "protocol" {
   default = "tcp"
 }
@@ -34,7 +37,7 @@ module "instance-type_with_1_instance_no_subtype" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "t1i-no-sub"                                                            // type for instance 1 - no subtype
-  instance       = "Instance\\0401"
+  instance       = "Instance_1"
   host           = "host-of-instance-1.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "4141"
   priority       = "42"
@@ -51,7 +54,7 @@ module "instance-type_with_1_instance_no_subtype" {
 locals {
   instance-double_txt-type          = "t2i-2-txt"
   instance-double_txt-full_type     = "_${local.instance-double_txt-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
-  instance-double_txt-instance      = "Instance\\0402"
+  instance-double_txt-instance      = "Instance_2"
   instance-double_txt-full_instance = "${local.instance-double_txt-instance}.${local.instance-double_txt-full_type}"
 }
 
@@ -92,7 +95,7 @@ resource "aws_route53_record" "instance-double_txt-srv" {
 locals {
   instance-double_srv-type          = "t3i-2-srv"
   instance-double_srv-full_type     = "_${local.instance-double_srv-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
-  instance-double_srv-instance      = "Instance\\0403"
+  instance-double_srv-instance      = "Instance_3"
   instance-double_srv-full_instance = "${local.instance-double_srv-instance}.${local.instance-double_srv-full_type}"
 }
 
@@ -133,7 +136,7 @@ resource "aws_route53_record" "instance-double_srv-srv" {
 locals {
   instance-double_txt_srv-type          = "t4i-2-txt-srv"
   instance-double_txt_srv-full_type     = "_${local.instance-double_txt_srv-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
-  instance-double_txt_srv-instance      = "Instance\\0404"
+  instance-double_txt_srv-instance      = "Instance_4"
   instance-double_txt_srv-full_instance = "${local.instance-double_txt_srv-instance}.${local.instance-double_txt_srv-full_type}"
 }
 
@@ -175,7 +178,7 @@ resource "aws_route53_record" "instance-double_txt_srv-srv" {
 locals {
   instance-no_txt-type          = "t5i-no-txt"
   instance-no_txt-full_type     = "_${local.instance-no_txt-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
-  instance-no_txt-instance      = "Instance\\0405"
+  instance-no_txt-instance      = "Instance_5"
   instance-no_txt-full_instance = "${local.instance-no_txt-instance}.${local.instance-no_txt-full_type}"
 }
 
@@ -204,7 +207,7 @@ resource "aws_route53_record" "instance-no_txt-srv" {
 locals {
   instance-no_srv-type          = "t6i-no-srv"
   instance-no_srv-full_type     = "_${local.instance-no_srv-type}._${var.protocol}.${aws_route53_zone.dns_sd_lookup.name}"
-  instance-no_srv-instance      = "Instance\\0406"
+  instance-no_srv-instance      = "Instance_6"
   instance-no_srv-full_instance = "${local.instance-no_srv-instance}.${local.instance-no_srv-full_type}"
 }
 
@@ -237,7 +240,7 @@ module "instance-type_with_1_instance_subtype" {
   protocol       = "${var.protocol}"
   type           = "t7i-sub"
   subtype        = "subtype"
-  instance       = "Instance\\0407"
+  instance       = "Instance_7"
   host           = "host-of-instance-7.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "6868"
   priority       = "69"
@@ -261,7 +264,7 @@ module "instance-type_with_n_instances_a" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408a"
+  instance       = "Instance_8a"
   host           = "host-of-instance-8a.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "7373"
   priority       = "50"
@@ -281,7 +284,7 @@ module "instance-type_with_n_instances_b" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408b"
+  instance       = "Instance_8b"
   host           = "host-of-instance-8b.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "7878"
   priority       = "100"
@@ -301,7 +304,7 @@ module "instance-type_with_n_instances_c" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408c"
+  instance       = "Instance_8c"
   host           = "host-of-instance-8c.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "8383"
   priority       = "150"
@@ -321,7 +324,7 @@ module "instance-type_with_n_instances_d" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408d"
+  instance       = "Instance_8d"
   host           = "host-of-instance-8d.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "8888"
   priority       = "150"
@@ -341,7 +344,7 @@ module "instance-type_with_n_instances_e" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408e"
+  instance       = "Instance_8e"
   host           = "host-of-instance-8e.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "9393"
   priority       = "200"
@@ -361,7 +364,7 @@ module "instance-type_with_n_instances_f" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408f"
+  instance       = "Instance_8f"
   host           = "host-of-instance-8f.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "9898"
   priority       = "200"
@@ -381,7 +384,7 @@ module "instance-type_with_n_instances_g" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408g"
+  instance       = "Instance_8g"
   host           = "host-of-instance-8g.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "1111"
   priority       = "200"
@@ -401,7 +404,7 @@ module "instance-type_with_n_instances_h" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408h"
+  instance       = "Instance_8h"
   host           = "host-of-instance-8h.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "1515"
   priority       = "200"
@@ -421,7 +424,7 @@ module "instance-type_with_n_instances_i" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408i"
+  instance       = "Instance_8i"
   host           = "host-of-instance-8i.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "1818"
   priority       = "200"
@@ -441,7 +444,7 @@ module "instance-type_with_n_instances_j" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408j"
+  instance       = "Instance_8j"
   host           = "host-of-instance-8j.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "2121"
   priority       = "300"
@@ -461,7 +464,7 @@ module "instance-type_with_n_instances_k" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408k"
+  instance       = "Instance_8k"
   host           = "host-of-instance-8k.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "2424"
   priority       = "300"
@@ -481,7 +484,7 @@ module "instance-type_with_n_instances_l" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_n_instances}"
-  instance       = "Instance\\0408l"
+  instance       = "Instance_8l"
   host           = "host-of-instance-8l.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "2727"
   priority       = "300"
@@ -519,7 +522,7 @@ resource "aws_route53_record" "type_with_n_instances-PTR" {
 
 locals {
   type_with_weird_names    = "t9i-weird"
-  subtype_with_weird_names = "_Subtype\\040\\.\\040\\\\\\040escapes,\\040non-ascii\\040\\044\\113\\035?(/\\040just\\040as\\040LongAs\\040allowed"
+  subtype_with_weird_names = "_Subtype_\\._\\\\_escapes,_non-ascii_\\044\\113\\035?(/_just_as_LongAs_allowed"
 }
 
 module "instance-type_with_weird_names_a" {
@@ -528,7 +531,7 @@ module "instance-type_with_weird_names_a" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_weird_names}"
-  instance       = "Instance\\0409a"
+  instance       = "Instance_9a"
   host           = "host-of-instance-9a.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "3232"
   priority       = "300"
@@ -548,7 +551,7 @@ module "instance-type_with_weird_names_b" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_weird_names}"
-  instance       = "Instance\\0409b"
+  instance       = "Instance_9b"
   host           = "host-of-instance-9b.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "3333"
   priority       = "300"
@@ -568,7 +571,7 @@ module "instance-type_with_weird_names_c" {
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
   type           = "${local.type_with_weird_names}"
-  instance       = "Instance\\0409c"
+  instance       = "Instance_9c"
   host           = "host-of-instance-9b.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "3434"
   priority       = "300"
