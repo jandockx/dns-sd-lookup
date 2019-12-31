@@ -96,3 +96,5 @@ A solution therefor is to not clean what is returned from AWS, but instead make 
 to an escaped version of what the user specified.
 
 The only workaround we can do at this time, is to only use `a-z0-9-!"#$%&'()*+,-/:;<=>?@[\]^_`{|}~\` in labels.
+
+Created [#11445](https://github.com/terraform-providers/terraform-provider-aws/issues/11445).
