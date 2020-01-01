@@ -128,7 +128,7 @@ describe('selectInstance', function () {
     return selectInstance(serviceType1InstanceNoSubtype)
       .should.be.fulfilled().then(selection => {
         selection.should.be.an.Object()
-        selection.instance.should.equal('instance 1.' + serviceType1InstanceNoSubtype)
+        selection.instance.should.equal('instance_1.' + serviceType1InstanceNoSubtype)
         console.log(selection)
       })
   })
@@ -137,7 +137,7 @@ describe('selectInstance', function () {
     return selectInstance(serviceType1InstanceSubtype)
       .should.be.fulfilled().then(selection => {
         selection.should.be.an.Object()
-        selection.instance.should.equal('instance 7._t7i-sub' + serviceTypePostfix)
+        selection.instance.should.equal('instance_7._t7i-sub' + serviceTypePostfix)
         console.log(selection)
       })
   })
@@ -149,7 +149,7 @@ describe('selectInstance', function () {
     return selectInstance(serviceTypeNInstancesWithWeight)
       .should.be.fulfilled().then(selection => {
         selection.should.be.an.Object()
-        selection.instance.should.equal('instance 8a.' + serviceTypeNInstancesWithWeight)
+        selection.instance.should.equal('instance_8a.' + serviceTypeNInstancesWithWeight)
         console.log(selection)
       })
   })
@@ -166,34 +166,34 @@ describe('selectInstance', function () {
     this.timeout(10000)
 
     const deaths = [
-      `Instance 8a.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8d.${serviceTypeNInstancesWithWeight}`
+      `instance_8a.${serviceTypeNInstancesWithWeight}`,
+      `instance_8d.${serviceTypeNInstancesWithWeight}`
     ]
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
       .should.be.fulfilled().then(selection => {
         selection.should.be.an.Object()
-        selection.instance.should.equal(`instance 8b.${serviceTypeNInstancesWithWeight}`)
+        selection.instance.should.equal(`instance_8b.${serviceTypeNInstancesWithWeight}`)
         console.log(selection)
       })
   })
   it('selects according to weight with a filter that excludes every instance', function () {
     const deaths = [
-      `Instance 8c.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8e.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8c.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8a.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8f.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8e.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8j.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8i.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8e.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8g.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8k.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8h.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8d.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8l.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8b.${serviceTypeNInstancesWithWeight}`
+      `instance_8c.${serviceTypeNInstancesWithWeight}`,
+      `instance_8e.${serviceTypeNInstancesWithWeight}`,
+      `instance_8c.${serviceTypeNInstancesWithWeight}`,
+      `instance_8a.${serviceTypeNInstancesWithWeight}`,
+      `instance_8f.${serviceTypeNInstancesWithWeight}`,
+      `instance_8e.${serviceTypeNInstancesWithWeight}`,
+      `instance_8j.${serviceTypeNInstancesWithWeight}`,
+      `instance_8i.${serviceTypeNInstancesWithWeight}`,
+      `instance_8e.${serviceTypeNInstancesWithWeight}`,
+      `instance_8g.${serviceTypeNInstancesWithWeight}`,
+      `instance_8k.${serviceTypeNInstancesWithWeight}`,
+      `instance_8h.${serviceTypeNInstancesWithWeight}`,
+      `instance_8d.${serviceTypeNInstancesWithWeight}`,
+      `instance_8l.${serviceTypeNInstancesWithWeight}`,
+      `instance_8b.${serviceTypeNInstancesWithWeight}`
     ]
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
@@ -209,13 +209,13 @@ describe('selectInstance', function () {
     this.timeout(60000)
 
     const deaths = [
-      `Instance 8a.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8b.${serviceTypeNInstancesWithWeight}`
+      `instance_8a.${serviceTypeNInstancesWithWeight}`,
+      `instance_8b.${serviceTypeNInstancesWithWeight}`
     ]
 
     const expected = {}
-    expected['instance 8c'] = 0.3
-    expected['instance 8d'] = 0.7
+    expected['instance_8c'] = 0.3
+    expected['instance_8d'] = 0.7
 
     return testDistribution(labelA, deaths, expected)
   })
@@ -225,18 +225,18 @@ describe('selectInstance', function () {
     this.timeout(60000)
 
     const deaths = [
-      `Instance 8a.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8b.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8c.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8d.${serviceTypeNInstancesWithWeight}`
+      `instance_8a.${serviceTypeNInstancesWithWeight}`,
+      `instance_8b.${serviceTypeNInstancesWithWeight}`,
+      `instance_8c.${serviceTypeNInstancesWithWeight}`,
+      `instance_8d.${serviceTypeNInstancesWithWeight}`
     ]
 
     const expected = {}
-    expected['instance 8e'] = 0.1
-    expected['instance 8f'] = 0.2
-    expected['instance 8g'] = 0.3
-    expected['instance 8h'] = 0.2
-    expected['instance 8i'] = 0.2
+    expected['instance_8e'] = 0.1
+    expected['instance_8f'] = 0.2
+    expected['instance_8g'] = 0.3
+    expected['instance_8h'] = 0.2
+    expected['instance_8i'] = 0.2
 
     return testDistribution(labelB, deaths, expected)
   })
@@ -246,22 +246,22 @@ describe('selectInstance', function () {
     this.timeout(60000)
 
     const deaths = [
-      `Instance 8a.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8b.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8c.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8d.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8e.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8f.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8g.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8h.${serviceTypeNInstancesWithWeight}`,
-      `Instance 8i.${serviceTypeNInstancesWithWeight}`
+      `instance_8a.${serviceTypeNInstancesWithWeight}`,
+      `instance_8b.${serviceTypeNInstancesWithWeight}`,
+      `instance_8c.${serviceTypeNInstancesWithWeight}`,
+      `instance_8d.${serviceTypeNInstancesWithWeight}`,
+      `instance_8e.${serviceTypeNInstancesWithWeight}`,
+      `instance_8f.${serviceTypeNInstancesWithWeight}`,
+      `instance_8g.${serviceTypeNInstancesWithWeight}`,
+      `instance_8h.${serviceTypeNInstancesWithWeight}`,
+      `instance_8i.${serviceTypeNInstancesWithWeight}`
     ]
 
     const aThird = 1 / 3
     const expected = {}
-    expected['instance 8j'] = aThird
-    expected['instance 8k'] = aThird
-    expected['instance 8l'] = aThird
+    expected['instance_8j'] = aThird
+    expected['instance_8k'] = aThird
+    expected['instance_8l'] = aThird
 
     return testDistribution(labelC, deaths, expected)
   })
