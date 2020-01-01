@@ -36,7 +36,7 @@ module "instance-type_with_1_instance_no_subtype" {
   domain-name    = "${aws_route53_zone.dns_sd_lookup.name}"
   domain-zone_id = "${aws_route53_zone.dns_sd_lookup.zone_id}"
   protocol       = "${var.protocol}"
-  type           = "t1i-no-sub"                                                            // type for instance 1 - no subtype
+  type           = "t1i-no-sub" // type for instance 1 - no subtype
   instance       = "Instance_1"
   host           = "host-of-instance-1.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "4141"
@@ -267,8 +267,13 @@ module "instance-type_with_n_instances_a" {
   instance       = "Instance_8a"
   host           = "host-of-instance-8a.${aws_route53_zone.dns_sd_lookup.name}"
   port           = "7373"
-  priority       = "50"
-  weight         = "75"
+
+  # Deliberately out of alphabetic order
+  # For some reason, on Travis, records seem to be returned always in alphabetic name order.
+  # This messed up coverage. See branch `bugfix/selectInstance-coverage-node12`
+  priority = "250"
+
+  weight = "75"
 
   details = {
     aDetail = "This is a detail 76"
