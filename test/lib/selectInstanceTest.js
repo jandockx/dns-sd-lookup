@@ -214,8 +214,8 @@ describe('selectInstance', function () {
     ]
 
     const expected = {}
-    expected['instance_8c'] = 0.3
-    expected['instance_8d'] = 0.7
+    expected.instance_8c = 0.3
+    expected.instance_8d = 0.7
 
     return testDistribution(labelA, deaths, expected)
   })
@@ -232,11 +232,11 @@ describe('selectInstance', function () {
     ]
 
     const expected = {}
-    expected['instance_8e'] = 0.1
-    expected['instance_8f'] = 0.2
-    expected['instance_8g'] = 0.3
-    expected['instance_8h'] = 0.2
-    expected['instance_8i'] = 0.2
+    expected.instance_8e = 0.1
+    expected.instance_8f = 0.2
+    expected.instance_8g = 0.3
+    expected.instance_8h = 0.2
+    expected.instance_8i = 0.2
 
     return testDistribution(labelB, deaths, expected)
   })
@@ -259,9 +259,9 @@ describe('selectInstance', function () {
 
     const aThird = 1 / 3
     const expected = {}
-    expected['instance_8j'] = aThird
-    expected['instance_8k'] = aThird
-    expected['instance_8l'] = aThird
+    expected.instance_8j = aThird
+    expected.instance_8k = aThird
+    expected.instance_8l = aThird
 
     return testDistribution(labelC, deaths, expected)
   })
