@@ -32,7 +32,7 @@ const nameCompletion = '._tcp.dns-sd-lookup.toryt.org'
 
 const typeName = '_t1i-no-sub' + nameCompletion
 
-const instanceName = 'instance 1.' + typeName
+const instanceName = 'instance_1.' + typeName
 
 // see ../terraform/cases.tf
 const expected = {
@@ -91,7 +91,7 @@ describe('lookupInstance', function () {
   })
 
   it('fails with an instance with 2 TXTs', function () {
-    const instanceName = 'instance 2._t2i-2-txt' + nameCompletion
+    const instanceName = 'instance_2._t2i-2-txt' + nameCompletion
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).should.be.rejected().then(error => {
       error.should.be.an.instanceof(Error)
@@ -107,7 +107,7 @@ describe('lookupInstance', function () {
   })
 
   it('fails with an instance with 2 SRVs', function () {
-    const instanceName = 'instance 3._t3i-2-srv' + nameCompletion
+    const instanceName = 'instance_3._t3i-2-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).should.be.rejected().then(error => {
       error.should.be.an.instanceof(Error)
@@ -123,7 +123,7 @@ describe('lookupInstance', function () {
   })
 
   it('fails with an instance with 2 TXTs and 2 SRVs', function () {
-    const instanceName = 'instance 4._t4i-2-txt-srv' + nameCompletion
+    const instanceName = 'instance_4._t4i-2-txt-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).should.be.rejected().then(error => {
       error.should.be.an.Error()
@@ -141,13 +141,13 @@ describe('lookupInstance', function () {
   })
 
   it('fails with an instance without a TXT', function () {
-    const instanceName = 'instance 5._t5i-no-txt' + nameCompletion
+    const instanceName = 'instance_5._t5i-no-txt' + nameCompletion
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).should.be.rejected().then(shouldBeNotFoundError('ENODATA'))
   })
 
   it('fails with an instance without a SRV', function () {
-    const instanceName = 'instance 6._t6i-no-srv' + nameCompletion
+    const instanceName = 'instance_6._t6i-no-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
     return lookupInstance(instanceName).should.be.rejected().then(shouldBeNotFoundError('ENODATA'))
   })
