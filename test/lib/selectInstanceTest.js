@@ -149,7 +149,7 @@ describe('selectInstance', function () {
     return selectInstance(serviceTypeNInstancesWithWeight)
       .should.be.fulfilled().then(selection => {
         selection.should.be.an.Object()
-        selection.instance.should.equal('instance_8a.' + serviceTypeNInstancesWithWeight)
+        selection.instance.should.equal('instance_8b.' + serviceTypeNInstancesWithWeight)
         console.log(selection)
       })
   })
