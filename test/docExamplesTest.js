@@ -194,7 +194,7 @@ describe('doc examples', function () {
     const lookupInstance = require('../index').lookupInstance
 
     // noinspection JSUnresolvedFunction
-    return lookupInstance('instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org').then(serviceInstance => {
+    return lookupInstance('instance_1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org').then(serviceInstance => {
       console.log('%j', serviceInstance)
     })
   })
@@ -202,7 +202,7 @@ describe('doc examples', function () {
     const lookupInstance = require('../index').lookupInstance
 
     // noinspection JSUnresolvedFunction
-    return lookupInstance('instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org')
+    return lookupInstance('instance_1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org')
       .then(serviceInstance => {
         console.log('%j', serviceInstance)
       })
@@ -212,13 +212,13 @@ describe('doc examples', function () {
 
     const serviceType = '_t8i-n-inst._tcp.dns-sd-lookup.toryt.org'
     let deaths = [
-      'Instance 8c',
-      'Instance 8e',
-      'Instance 8g',
-      'Instance 8h',
-      'Instance 8i',
-      'Instance 8k',
-      'Instance 8l'
+      'instance_8c',
+      'instance_8e',
+      'instance_8g',
+      'instance_8h',
+      'instance_8i',
+      'instance_8k',
+      'instance_8l'
     ]
     deaths = deaths.map(d => `${d}.${serviceType}`)
 
@@ -233,10 +233,10 @@ describe('doc examples', function () {
 
     const serviceType = '_t8i-n-inst._tcp.dns-sd-lookup.toryt.org'
     let deaths = [
-      'Instance 8a',
-      'Instance 8b',
-      'Instance 8c',
-      'Instance 8d'
+      'instance_8a',
+      'instance_8b',
+      'instance_8c',
+      'instance_8d'
     ]
     deaths = deaths.map(d => `${d}.${serviceType}`)
 
