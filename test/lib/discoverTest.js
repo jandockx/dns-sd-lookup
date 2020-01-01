@@ -116,13 +116,13 @@ describe('discover', function () {
     })
     it('works with a filter in the nominal case', function () {
       const deaths = [
-        `Instance 8c.${manyInstanceServiceType}`,
-        `Instance 8e.${manyInstanceServiceType}`,
-        `Instance 8g.${manyInstanceServiceType}`,
-        `Instance 8h.${manyInstanceServiceType}`,
-        `Instance 8i.${manyInstanceServiceType}`,
-        `Instance 8k.${manyInstanceServiceType}`,
-        `Instance 8l.${manyInstanceServiceType}`
+        `Instance_8c.${manyInstanceServiceType}`,
+        `Instance_8e.${manyInstanceServiceType}`,
+        `Instance_8g.${manyInstanceServiceType}`,
+        `Instance_8h.${manyInstanceServiceType}`,
+        `Instance_8i.${manyInstanceServiceType}`,
+        `Instance_8k.${manyInstanceServiceType}`,
+        `Instance_8l.${manyInstanceServiceType}`
       ]
       // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
@@ -135,21 +135,21 @@ describe('discover', function () {
     })
     it('works with a filter in the nominal case that excludes all instances', function () {
       const deaths = [
-        `Instance 8c.${manyInstanceServiceType}`,
-        `Instance 8e.${manyInstanceServiceType}`,
-        `Instance 8c.${manyInstanceServiceType}`,
-        `Instance 8a.${manyInstanceServiceType}`,
-        `Instance 8f.${manyInstanceServiceType}`,
-        `Instance 8e.${manyInstanceServiceType}`,
-        `Instance 8j.${manyInstanceServiceType}`,
-        `Instance 8i.${manyInstanceServiceType}`,
-        `Instance 8e.${manyInstanceServiceType}`,
-        `Instance 8g.${manyInstanceServiceType}`,
-        `Instance 8k.${manyInstanceServiceType}`,
-        `Instance 8h.${manyInstanceServiceType}`,
-        `Instance 8d.${manyInstanceServiceType}`,
-        `Instance 8l.${manyInstanceServiceType}`,
-        `Instance 8b.${manyInstanceServiceType}`
+        `Instance_8c.${manyInstanceServiceType}`,
+        `Instance_8e.${manyInstanceServiceType}`,
+        `Instance_8c.${manyInstanceServiceType}`,
+        `Instance_8a.${manyInstanceServiceType}`,
+        `Instance_8f.${manyInstanceServiceType}`,
+        `Instance_8e.${manyInstanceServiceType}`,
+        `Instance_8j.${manyInstanceServiceType}`,
+        `Instance_8i.${manyInstanceServiceType}`,
+        `Instance_8e.${manyInstanceServiceType}`,
+        `Instance_8g.${manyInstanceServiceType}`,
+        `Instance_8k.${manyInstanceServiceType}`,
+        `Instance_8h.${manyInstanceServiceType}`,
+        `Instance_8d.${manyInstanceServiceType}`,
+        `Instance_8l.${manyInstanceServiceType}`,
+        `Instance_8b.${manyInstanceServiceType}`
       ]
       // noinspection JSUnresolvedVariable
       return discover(manyInstanceServiceType, discover.notOneOf(deaths))
