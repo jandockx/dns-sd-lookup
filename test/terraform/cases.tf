@@ -521,8 +521,11 @@ resource "aws_route53_record" "type_with_n_instances-PTR" {
 }
 
 locals {
-  type_with_weird_names    = "t9i-weird"
-  subtype_with_weird_names = "_Subtype_\\._\\\\_escapes,_non-ascii_\\044\\113\\035?(/_just_as_LongAs_allowed"
+  type_with_weird_names = "t9i-weird"
+
+  #  MUDO to work around https://github.com/terraform-providers/terraform-provider-aws/issues/11445,
+  #  subtype_with_weird_names = "_Subtype_\\._\\\\_escapes,_non-ascii_\\044\\113\\035?(/_just_as_LongAs_allowed"
+  subtype_with_weird_names = "_Subtype_^_%_escapes,_non-ascii_|{$?(/_just_as_LongAs_allowed"
 }
 
 module "instance-type_with_weird_names_a" {
