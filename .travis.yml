@@ -4,8 +4,8 @@ branches:
 language: node_js
 cache:
   directories:
-    - "node_modules"
-"os":
+    - 'node_modules'
+'os':
   - linux
 # Node js is not supported on macOS on Travis
 # Windows is not supported at all. Bummer.
@@ -18,7 +18,7 @@ jobs:
       script:
         - npm test
         - npm run reportCoverage
-  # stage tag
+    # stage tag
     - stage: tag
       node_js: '10'
       install: skip
