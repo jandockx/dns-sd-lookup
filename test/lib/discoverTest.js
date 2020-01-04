@@ -77,51 +77,35 @@ describe('discover', function () {
     this.timeout(6000) // DNS lookups can take a long time on Travis
     verifyPostconditions(discover)
 
-    it('works in the nominal case, without a subtype', function () {
-      // noinspection JSUnresolvedVariable
-      return discover(serviceType)
-        .should.be.fulfilled()
-        .then(details => {
-          details.should.be.an.Array()
-          details.should.have.length(1)
-          console.log(details)
-        })
+    it('works in the nominal case, without a subtype', async function () {
+      const result = await discover(serviceType)
+      result.should.be.an.Array()
+      result.should.have.length(1)
+      console.log(result)
     })
-    it('works in the nominal case, with a subtype', function () {
+    it('works in the nominal case, with a subtype', async function () {
       const serviceType = `_subtype._sub._t7i-sub${serviceTypePostfix}`
-      // noinspection JSUnresolvedVariable
-      return discover(serviceType)
-        .should.be.fulfilled()
-        .then(details => {
-          details.should.be.an.Array()
-          details.should.have.length(1)
-          console.log(details)
-        })
+      const result = await discover(serviceType)
+      result.should.be.an.Array()
+      result.should.have.length(1)
+      console.log(result)
     })
-    it(`works in the nominal case, with ${manyInstanceCount} instances`, function () {
+    it(`works in the nominal case, with ${manyInstanceCount} instances`, async function () {
       // noinspection JSPotentiallyInvalidUsageOfThis
       this.timeout(10000)
 
-      // noinspection JSUnresolvedVariable
-      return discover(manyInstanceServiceType)
-        .should.be.fulfilled()
-        .then(details => {
-          details.should.be.an.Array()
-          details.should.have.length(manyInstanceCount)
-          console.log(details)
-        })
+      const result = await discover(manyInstanceServiceType)
+      result.should.be.an.Array()
+      result.should.have.length(manyInstanceCount)
+      console.log(result)
     })
-    it('resolves to the empty array with a non-existent service type', function () {
-      // noinspection JSUnresolvedVariable
-      return discover('_not-exist' + serviceTypePostfix)
-        .should.be.fulfilled()
-        .then(details => {
-          details.should.be.an.Array()
-          details.should.be.empty()
-          console.log(details)
-        })
+    it('resolves to the empty array with a non-existent service type', async function () {
+      const result = await discover('_not-exist' + serviceTypePostfix)
+      result.should.be.an.Array()
+      result.should.be.empty()
+      console.log(result)
     })
-    it('works with a filter in the nominal case', function () {
+    it('works with a filter in the nominal case', async function () {
       const deaths = [
         `Instance_8c.${manyInstanceServiceType}`,
         `Instance_8e.${manyInstanceServiceType}`,
@@ -131,17 +115,14 @@ describe('discover', function () {
         `Instance_8k.${manyInstanceServiceType}`,
         `Instance_8l.${manyInstanceServiceType}`
       ]
-      // noinspection JSUnresolvedVariable
-      return discover(manyInstanceServiceType, discover.notOneOf(deaths))
-        .should.be.fulfilled()
-        .then(details => {
-          details.should.be.an.Array()
-          console.log(details)
-          details.should.have.length(manyInstanceCount - deaths.length)
-          details.forEach(d => deaths.map(death => death.toLowerCase()).should.not.containEql(d.instance))
-        })
+
+      const /** @type Array */ result = await discover(manyInstanceServiceType, discover.notOneOf(deaths))
+      result.should.be.an.Array()
+      console.log(result)
+      result.should.have.length(manyInstanceCount - deaths.length)
+      result.forEach(d => deaths.map(death => death.toLowerCase()).should.not.containEql(d.instance))
     })
-    it('works with a filter in the nominal case that excludes all instances', function () {
+    it('works with a filter in the nominal case that excludes all instances', async function () {
       const deaths = [
         `Instance_8c.${manyInstanceServiceType}`,
         `Instance_8e.${manyInstanceServiceType}`,
@@ -159,41 +140,31 @@ describe('discover', function () {
         `Instance_8l.${manyInstanceServiceType}`,
         `Instance_8b.${manyInstanceServiceType}`
       ]
-      // noinspection JSUnresolvedVariable
-      return discover(manyInstanceServiceType, discover.notOneOf(deaths))
-        .should.be.fulfilled()
-        .then(details => {
-          details.should.be.an.Array()
-          details.should.be.empty()
-          console.log(details)
-        })
+      const result = await discover(manyInstanceServiceType, discover.notOneOf(deaths))
+      result.should.be.an.Array()
+      result.should.be.empty()
+      console.log(result)
     })
 
     let failures = ['t2i-2-txt', 't3i-2-srv', 't4i-2-txt-srv', 't5i-no-txt', 't6i-no-srv']
     failures = failures.map(f => `_${f}${serviceTypePostfix}`)
     failures.forEach(serviceType => {
-      it(`fails for instance type ${serviceType}`, function () {
+      it(`fails for instance type ${serviceType}`, async function () {
         // noinspection JSUnresolvedVariable
-        return discover(serviceType)
-          .should.be.rejected()
-          .then(err => {
-            console.log(err)
-          })
+        const err = await discover(serviceType).should.be.rejected()
+        console.log(err)
       })
     })
     const aFailure = failures[0]
-    it(`fails for instance type ${aFailure} with a filter`, function () {
+    it(`fails for instance type ${aFailure} with a filter`, async function () {
       // noinspection JSUnresolvedVariable
       const filter = discover.contract.filter.implementation(instance => instance.indexOf(aFailure) >= 0)
       // noinspection JSUnresolvedVariable
       filter.contract.verifyPostconditions = true
       // noinspection JSUnresolvedVariable
-      return discover(aFailure, filter)
-        .should.be.rejected()
-        .then(err => {
-          console.log(err)
-          err.instance.should.containEql(aFailure)
-        })
+      const err = await discover(aFailure, filter).should.be.rejected()
+      console.log(err)
+      err.instance.should.containEql(aFailure)
     })
   })
 })
