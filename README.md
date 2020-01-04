@@ -1,3 +1,5 @@
+# dns-sd-lookup
+
 [![npm version](http://img.shields.io/npm/v/@toryt/dns-sd-lookup.svg?style=flat)](https://npmjs.org/package/@toryt/dns-sd-lookup 'View this project on npm')
 ![downloads](https://img.shields.io/npm/dt/@toryt/dns-sd-lookup.svg)
 ![dependencies](https://img.shields.io/david/Toryt/dns-sd-lookup.svg)
@@ -39,13 +41,13 @@ Node library that looks up service instance definitions for a service type defin
 **There is no support for Multicast DNS in this library.** This library only does look-ups in regular DNS. The
 functionality is comparable to `dns-sd -B` and `dns-sd -L` (see [dns-sd]).
 
-# Install
+## Install
 
     > npm install --save @toryt/dns-sd-lookup
 
-# API
+## API
 
-## `ServiceInstance`
+### `ServiceInstance`
 
 All lookup methods return `ServiceInstance` objects. These represent an [RFC 6763] _Service Instance_ description.
 
@@ -93,11 +95,11 @@ natural number.
     console.log(instance)
     console.log('%j', instance)
 
-## `validate`
+### `validate`
 
 A collection of string validation methods, related to [RFC 6763].
 
-### `isSubtypeOrInstanceName`
+#### `isSubtypeOrInstanceName`
 
 The given string is a valid DNS-SD subtype or short instance name.
 
@@ -118,7 +120,7 @@ This function does not allow gratuitous escapes, i.e., a backslash must be follo
     console.assert(!isSubtypeOrInstanceName('label.with.unescaped.dot'))
     console.assert(!isSubtypeOrInstanceName('label with \\gratuitous escape'))
 
-### `isBaseServiceType`
+#### `isBaseServiceType`
 
 The given string represents a [RFC 6763] base _Service Type_, i.e., a _Service Type_ without a subtype.
 
@@ -145,7 +147,7 @@ The given string represents a [RFC 6763] base _Service Type_, i.e., a _Service T
     console.assert(!isBaseServiceType('_-not-a-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isBaseServiceType('_not-a-type-._tcp.dns-sd-lookup.toryt.org'))
 
-### `isBaseServiceType`
+#### `isBaseServiceType`
 
 The given string represents a [RFC 6763] _Service Type_, i.e., a base _Service Type_, or a _service Type_ with a
 subtype.
@@ -167,7 +169,7 @@ subtype label.
     console.assert(!isServiceType('unescaped\\backslash._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isServiceType('ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
 
-### `isServiceInstance`
+#### `isServiceInstance`
 
 The given string represents a [RFC 6763] _Service Instance_.
 
@@ -187,7 +189,7 @@ instance name label.
     console.assert(!isServiceInstance('unescaped\\backslash._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isServiceInstance('anInstanceThatIsLongerThanIsAcceptableWhichIs63ACharactersLabels._a-service-type._tcp.dns-sd-lookup.toryt.org'))
 
-### `validate`
+#### `validate`
 
 The validate-functions are gathered in the namespace `validate`.
 
@@ -197,9 +199,9 @@ The validate-functions are gathered in the namespace `validate`.
     console.assert(validate.isServiceType === require('@toryt/dns-sd-lookup).isServiceType)
     console.assert(validate.isServiceInstance === require('@toryt/dns-sd-lookup).isServiceInstance)
 
-## `extract`
+### `extract`
 
-### `extract.subtype`
+#### `extract.subtype`
 
 Extract the subtype from a [RFC 6763] _Service Type_. If there is no subtype, the result is `undefined`.
 
@@ -208,7 +210,7 @@ Extract the subtype from a [RFC 6763] _Service Type_. If there is no subtype, th
       console.assert(extract.subtype('_a-service-type._tcp.dns-sd-lookup.toryt.org') === undefined)
       console.assert(extract.subtype('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === '_a-sub-service')
 
-### `extract.type`
+#### `extract.type`
 
 Extract the (base) type from a [RFC 6763] _Service Type_ or _Service Instance_.
 
@@ -218,7 +220,7 @@ Extract the (base) type from a [RFC 6763] _Service Type_ or _Service Instance_.
       console.assert(extract.type('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
       console.assert(extract.type('Service Instance._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
 
-### `extract.instance`
+#### `extract.instance`
 
 Extract the instance from a [RFC 6763] _Service Instance_.
 
@@ -226,7 +228,7 @@ Extract the instance from a [RFC 6763] _Service Instance_.
 
       console.assert(extract.instance('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'Service Instance')
 
-### `extract.protocol`
+#### `extract.protocol`
 
 Extract the protocol from a [RFC 6763] _Service Type_ or _Service Instance_.
 
@@ -236,7 +238,7 @@ Extract the protocol from a [RFC 6763] _Service Type_ or _Service Instance_.
       console.assert(extract.protocol('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org') === 'udp')
       console.assert(extract.protocol('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'tcp')
 
-### `extract.domain`
+#### `extract.domain`
 
 Extract the domain from a [RFC 6763] _Service Type_ or _Service Instance_.
 
@@ -246,7 +248,7 @@ Extract the domain from a [RFC 6763] _Service Type_ or _Service Instance_.
       console.assert(extract.domain('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
       console.assert(extract.domain('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
 
-## `extendWithTxtStr`
+### `extendWithTxtStr`
 
 Extend a given `obj` with a property based on a given DNS `TXT` resource record string that represents a [RFC 6763]
 _Service Instance_ attribute.
@@ -257,8 +259,7 @@ name. DNS `TXT` resource record strings that do not represents a valid [RFC 6763
 i.e., that does not contain a `=` character, result in a JavaScript property on `obj` with value `true`.
 
 The property values added by this method to `obj` are always either `true` or a string. The property value added might
-be the empty string.  
- const extendWithTxtStr = require('@toryt/dns-sd-lookup).extendWithTxtStr
+be the empty string. const extendWithTxtStr = require('@toryt/dns-sd-lookup).extendWithTxtStr
 
     const obj = {
       existing: 'existing property'
@@ -285,7 +286,7 @@ prints out
       "boolean attribute": true
     }
 
-## `lookupInstance`
+### `lookupInstance`
 
 Lookup the definition a [RFC 6763] _Service Instance_ in DNS and resolve to a `ServiceInstance` that represents it.
 
@@ -316,7 +317,7 @@ prints out
       }
     }
 
-## `discover`
+### `discover`
 
 Lookup all instances for the given [RFC 6763] _Service Type_ in DNS and resolve to an Array of `ServiceInstance` objects
 that represent them. Optionally, you can provide a `filter` function that filters out instances based on the _Service
@@ -403,7 +404,7 @@ prints out
 
 The order of the instances is unspecified.
 
-## `selectInstance`
+### `selectInstance`
 
 Lookup all instances for the given [RFC 6763] _Service Type_ in DNS and resolve to the `ServiceInstance` the user should
 use. Optionally, you can provide a `filter` function that filters out instances based on the _Service Instance_ name.
@@ -462,14 +463,14 @@ from that set, e.g.,
       "details": {"adetail": "This is a detail 109", "at": "2017-09-30T13:25:49Z", "txtvers": "110"}
     }
 
-# Side information
+## Side information
 
 While building this library, I had to burrow through some confusion. Here are some notes:
 
 - [Difference between DNS labels and full names, and internet host names]
 - [How to define multi-string TXT resource records]
 
-# Style
+## Style
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
@@ -477,13 +478,13 @@ This code uses [Standard] coding style.
 
 Coverage with [Istanbul] and [Codecov].
 
-# License
+## License
 
 Released under the [MIT License]
 
-## MIT License
+### MIT License
 
-Copyright (c) 2017-2017 Jan Dockx
+Copyright (c) 2017-2020 Jan Dockx
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -498,18 +499,17 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-# Credits
+## Credits
 
 `dns-sd-lookup` builds on the work of many people through [F/OSS]. See the [credits].
 
-# Plan
+## Plan
 
-## MUDO
+### MUDO
 
-## TODO
+### TODO
 
 - get rid of nodegit (indirect for terraform)
-- Make `prettier-standard`
 - Further automate build (with tags, and building of [`CREDITS.md`](CREDITS.md), …)
 
 [dns-sd]: http://www.dns-sd.org
