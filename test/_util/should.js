@@ -77,7 +77,9 @@ Assertion.add('valid', function () {
     actual: this.obj,
     operator: 'to adhere to its invariants'
   }
-  should(this.obj).have.property('invariants').which.is.an.Array()
+  should(this.obj)
+    .have.property('invariants')
+    .which.is.an.Array()
   this.obj.invariants.forEach(invar => {
     should(invar).be.upheldBy(this.obj)
   })

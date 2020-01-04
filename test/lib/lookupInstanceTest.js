@@ -65,90 +65,104 @@ describe('lookupInstance', function () {
   it('works in the nominal case', function () {
     const now = new Date()
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).should.be.fulfilled().then(response => {
-      response.should.be.an.instanceof(ServiceInstance)
-      console.log(response)
-      response.type.should.equal(expected.type)
-      response.instance.should.equal(expected.instance)
-      response.host.should.equal(expected.host)
-      response.port.should.equal(expected.port)
-      response.priority.should.equal(expected.priority)
-      response.weight.should.equal(expected.weight)
-      // no coercion happens on details
-      Object.keys(response.details).forEach(key => response.details[key].should.be.a.String())
-      response.details.txtvers.should.be.a.String()
-      // noinspection JSCheckFunctionSignatures
-      Number.parseInt(response.details.txtvers).should.equal(expected.txtvers)
-      response.details['aDetail'.toLowerCase()].should.equal(expected.aDetail)
-      const at = new Date(response.details.at)
-      at.should.be.before(now)
-    })
+    return lookupInstance(instanceName)
+      .should.be.fulfilled()
+      .then(response => {
+        response.should.be.an.instanceof(ServiceInstance)
+        console.log(response)
+        response.type.should.equal(expected.type)
+        response.instance.should.equal(expected.instance)
+        response.host.should.equal(expected.host)
+        response.port.should.equal(expected.port)
+        response.priority.should.equal(expected.priority)
+        response.weight.should.equal(expected.weight)
+        // no coercion happens on details
+        Object.keys(response.details).forEach(key => response.details[key].should.be.a.String())
+        response.details.txtvers.should.be.a.String()
+        // noinspection JSCheckFunctionSignatures
+        Number.parseInt(response.details.txtvers).should.equal(expected.txtvers)
+        response.details['aDetail'.toLowerCase()].should.equal(expected.aDetail)
+        const at = new Date(response.details.at)
+        at.should.be.before(now)
+      })
   })
 
   it('fails with non-existent instance', function () {
     // noinspection JSUnresolvedVariable
-    return lookupInstance('does-not-exist.' + typeName).should.be.rejected().then(shouldBeNotFoundError('ENOTFOUND'))
+    return lookupInstance('does-not-exist.' + typeName)
+      .should.be.rejected()
+      .then(shouldBeNotFoundError('ENOTFOUND'))
   })
 
   it('fails with an instance with 2 TXTs', function () {
     const instanceName = 'instance_2._t2i-2-txt' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).should.be.rejected().then(error => {
-      error.should.be.an.instanceof(Error)
-      // noinspection JSUnresolvedVariable
-      error.message.should.equal(lookupInstance.contract.notValidMessage)
-      error.cause.should.be.an.instanceof(Error)
-      // noinspection JSUnresolvedVariable
-      error.cause.message.should.equal(lookupInstance.contract.moreThen1Message.TXT)
-      error.cause.instance.should.equal(instanceName)
-      error.cause.count.should.equal(2)
-      console.log(error)
-    })
+    return lookupInstance(instanceName)
+      .should.be.rejected()
+      .then(error => {
+        error.should.be.an.instanceof(Error)
+        // noinspection JSUnresolvedVariable
+        error.message.should.equal(lookupInstance.contract.notValidMessage)
+        error.cause.should.be.an.instanceof(Error)
+        // noinspection JSUnresolvedVariable
+        error.cause.message.should.equal(lookupInstance.contract.moreThen1Message.TXT)
+        error.cause.instance.should.equal(instanceName)
+        error.cause.count.should.equal(2)
+        console.log(error)
+      })
   })
 
   it('fails with an instance with 2 SRVs', function () {
     const instanceName = 'instance_3._t3i-2-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).should.be.rejected().then(error => {
-      error.should.be.an.instanceof(Error)
-      // noinspection JSUnresolvedVariable
-      error.message.should.equal(lookupInstance.contract.notValidMessage)
-      error.cause.should.be.an.instanceof(Error)
-      // noinspection JSUnresolvedVariable
-      error.cause.message.should.equal(lookupInstance.contract.moreThen1Message.SRV)
-      error.cause.instance.should.equal(instanceName)
-      error.cause.count.should.equal(2)
-      console.log(error)
-    })
+    return lookupInstance(instanceName)
+      .should.be.rejected()
+      .then(error => {
+        error.should.be.an.instanceof(Error)
+        // noinspection JSUnresolvedVariable
+        error.message.should.equal(lookupInstance.contract.notValidMessage)
+        error.cause.should.be.an.instanceof(Error)
+        // noinspection JSUnresolvedVariable
+        error.cause.message.should.equal(lookupInstance.contract.moreThen1Message.SRV)
+        error.cause.instance.should.equal(instanceName)
+        error.cause.count.should.equal(2)
+        console.log(error)
+      })
   })
 
   it('fails with an instance with 2 TXTs and 2 SRVs', function () {
     const instanceName = 'instance_4._t4i-2-txt-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).should.be.rejected().then(error => {
-      error.should.be.an.Error()
-      // noinspection JSUnresolvedVariable
-      error.message.should.equal(lookupInstance.contract.notValidMessage)
-      error.cause.should.be.an.Error()
-      // noinspection JSUnresolvedVariable
-      error.cause.message.should.match(
-        new RegExp(lookupInstance.contract.moreThen1Message.TXT + '|' + lookupInstance.contract.moreThen1Message.SRV)
-      )
-      error.cause.instance.should.equal(instanceName)
-      error.cause.count.should.equal(2)
-      console.log(error)
-    })
+    return lookupInstance(instanceName)
+      .should.be.rejected()
+      .then(error => {
+        error.should.be.an.Error()
+        // noinspection JSUnresolvedVariable
+        error.message.should.equal(lookupInstance.contract.notValidMessage)
+        error.cause.should.be.an.Error()
+        // noinspection JSUnresolvedVariable
+        error.cause.message.should.match(
+          new RegExp(lookupInstance.contract.moreThen1Message.TXT + '|' + lookupInstance.contract.moreThen1Message.SRV)
+        )
+        error.cause.instance.should.equal(instanceName)
+        error.cause.count.should.equal(2)
+        console.log(error)
+      })
   })
 
   it('fails with an instance without a TXT', function () {
     const instanceName = 'instance_5._t5i-no-txt' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).should.be.rejected().then(shouldBeNotFoundError('ENODATA'))
+    return lookupInstance(instanceName)
+      .should.be.rejected()
+      .then(shouldBeNotFoundError('ENODATA'))
   })
 
   it('fails with an instance without a SRV', function () {
     const instanceName = 'instance_6._t6i-no-srv' + nameCompletion
     // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName).should.be.rejected().then(shouldBeNotFoundError('ENODATA'))
+    return lookupInstance(instanceName)
+      .should.be.rejected()
+      .then(shouldBeNotFoundError('ENODATA'))
   })
 })

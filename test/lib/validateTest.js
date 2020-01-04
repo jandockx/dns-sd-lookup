@@ -63,7 +63,10 @@ function generateMaxLength (beforeProtocol) {
   const tooLong = `${beforeProtocol}.${protocol}z${almostTooLong}`
   console.assert(tooLong.length === validate.maxLength + 1)
 
-  return { not: notTooLong, too: tooLong }
+  return {
+    not: notTooLong,
+    too: tooLong
+  }
 }
 
 // noinspection SpellCheckingInspection
@@ -173,11 +176,7 @@ describe('validate', function () {
       })
 
       // noinspection SpellCheckingInspection
-      const fqdns = falseBaseServiceTypes.concat([
-        null,
-        undefined,
-        tooLong.too
-      ])
+      const fqdns = falseBaseServiceTypes.concat([null, undefined, tooLong.too])
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
           const result = validate.isBaseServiceType(fqdn)
@@ -232,18 +231,16 @@ describe('validate', function () {
         result.should.be.false()
       })
 
-      const fqdns = falseBaseServiceTypes.concat([
-        null,
-        undefined,
-        tooLongWithoutSub.too,
-        tooLongWithSub.too
-      ])
+      const fqdns = falseBaseServiceTypes
+        .concat([null, undefined, tooLongWithoutSub.too, tooLongWithSub.too])
         .concat(falseBaseServiceTypes.map(t => `${simpleSubType}._sub.${t}`))
-        .concat([
-          'unescaped.dot',
-          'unescaped\\backslash',
-          'ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel'
-        ].map(s => `${s}._sub._${serviceType}._tcp.${domain}`))
+        .concat(
+          [
+            'unescaped.dot',
+            'unescaped\\backslash',
+            'ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel'
+          ].map(s => `${s}._sub._${serviceType}._tcp.${domain}`)
+        )
       fqdns.forEach(fqdn => {
         it(`returns false for ${fqdn}`, function () {
           const result = validate.isServiceType(fqdn)
@@ -314,24 +311,14 @@ describe('validate', function () {
   describe('#isNatural', function () {
     verifyPostconditions(validate.isNatural)
 
-    const rights = [
-      0,
-      1,
-      34e34,
-      Number.MAX_SAFE_INTEGER,
-      Number.MAX_VALUE
-    ]
+    const rights = [0, 1, 34e34, Number.MAX_SAFE_INTEGER, Number.MAX_VALUE]
     rights.forEach(nr => {
       it('true on ' + nr, function () {
         const result = validate.isNatural(nr)
         result.should.be.true()
       })
     })
-    const rights2 = [
-      0,
-      1,
-      4
-    ]
+    const rights2 = [0, 1, 4]
     rights2.forEach(nr => {
       it('true on ' + nr + ' with a maximum', function () {
         const result = validate.isNatural(nr, 4)
@@ -374,12 +361,7 @@ describe('validate', function () {
         result.should.be.false()
       })
     })
-    const wrongs2 = [
-      5,
-      34e34,
-      Number.MAX_SAFE_INTEGER,
-      Number.MAX_VALUE
-    ]
+    const wrongs2 = [5, 34e34, Number.MAX_SAFE_INTEGER, Number.MAX_VALUE]
     wrongs2.forEach(w => {
       it('false on ' + w + ' with a maximum', function () {
         const result = validate.isNatural(w, 4)

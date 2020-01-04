@@ -95,14 +95,22 @@ describe('doc examples', function () {
     console.assert(!isServiceType('._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isServiceType('unescaped.dot._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isServiceType('unescaped\\backslash._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
-    console.assert(!isServiceType('ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(
+      !isServiceType(
+        'ThisIsLongerThanTheMaximumLengthWhichIs63CharactersForAnDNSLabel._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'
+      )
+    )
   })
   it('isServiceInstance', function () {
     const isServiceInstance = require('../index').isServiceInstance
 
     // noinspection SpellCheckingInspection
     console.assert(isServiceInstance('Instance Sérvice ∆._a-service-type._tcp.dns-sd-lookup.toryt.org'))
-    console.assert(isServiceInstance('instances\\.with\\.escaped\\\\dots\\\\and\\.slashes._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(
+      isServiceInstance(
+        'instances\\.with\\.escaped\\\\dots\\\\and\\.slashes._a-service-type._tcp.dns-sd-lookup.toryt.org'
+      )
+    )
 
     console.assert(!isServiceInstance('instance._not-a-type._other.dns-sd-lookup.toryt.org'))
     console.assert(!isServiceInstance('instance._tcp.dns-sd-lookup.toryt.org'))
@@ -110,7 +118,11 @@ describe('doc examples', function () {
     console.assert(!isServiceInstance('._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isServiceInstance('unescaped.dot._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     console.assert(!isServiceInstance('unescaped\\backslash._a-service-type._tcp.dns-sd-lookup.toryt.org'))
-    console.assert(!isServiceInstance('anInstanceThatIsLongerThanIsAcceptableWhichIs63ACharactersLabels._a-service-type._tcp.dns-sd-lookup.toryt.org'))
+    console.assert(
+      !isServiceInstance(
+        'anInstanceThatIsLongerThanIsAcceptableWhichIs63ACharactersLabels._a-service-type._tcp.dns-sd-lookup.toryt.org'
+      )
+    )
   })
   it('validate', function () {
     const validate = require('../index').validate
@@ -124,7 +136,9 @@ describe('doc examples', function () {
       const extract = require('../index').extract
 
       console.assert(extract.subtype('_a-service-type._tcp.dns-sd-lookup.toryt.org') === undefined)
-      console.assert(extract.subtype('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === '_a-sub-service')
+      console.assert(
+        extract.subtype('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === '_a-sub-service'
+      )
 
       console.log(extract.subtype('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
       console.log(extract.subtype('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org'))
@@ -133,7 +147,9 @@ describe('doc examples', function () {
       const extract = require('../index').extract
 
       console.assert(extract.type('_a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
-      console.assert(extract.type('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
+      console.assert(
+        extract.type('_a-sub-service._sub._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type'
+      )
       console.assert(extract.type('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'a-service-type')
 
       console.log(extract.type('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
@@ -143,7 +159,9 @@ describe('doc examples', function () {
     it('#instance', function () {
       const extract = require('../index').extract
 
-      console.assert(extract.instance('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'Service Instance')
+      console.assert(
+        extract.instance('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'Service Instance'
+      )
 
       console.log(extract.instance('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org'))
     })
@@ -162,8 +180,12 @@ describe('doc examples', function () {
       const extract = require('../index').extract
 
       console.assert(extract.domain('_a-service-type._tcp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
-      console.assert(extract.domain('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
-      console.assert(extract.domain('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org')
+      console.assert(
+        extract.domain('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org'
+      )
+      console.assert(
+        extract.domain('Service Instance._a-service-type._tcp.dns-sd-lookup.toryt.org') === 'dns-sd-lookup.toryt.org'
+      )
 
       console.log(extract.domain('_a-service-type._tcp.dns-sd-lookup.toryt.org'))
       console.log(extract.domain('_a-sub-service._sub._a-service-type._udp.dns-sd-lookup.toryt.org'))
@@ -202,10 +224,9 @@ describe('doc examples', function () {
     const lookupInstance = require('../index').lookupInstance
 
     // noinspection JSUnresolvedFunction
-    return lookupInstance('instance_1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org')
-      .then(serviceInstance => {
-        console.log('%j', serviceInstance)
-      })
+    return lookupInstance('instance_1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org').then(serviceInstance => {
+      console.log('%j', serviceInstance)
+    })
   })
   it('discover', function () {
     const discover = require('../index').discover
@@ -223,21 +244,15 @@ describe('doc examples', function () {
     deaths = deaths.map(d => `${d}.${serviceType}`)
 
     // noinspection JSUnresolvedFunction
-    return discover(serviceType, discover.notOneOf(deaths))
-      .then(serviceInstances => {
-        console.log('%j', serviceInstances)
-      })
+    return discover(serviceType, discover.notOneOf(deaths)).then(serviceInstances => {
+      console.log('%j', serviceInstances)
+    })
   })
   it('selectInstance', function () {
     const selectInstance = require('../index').selectInstance
 
     const serviceType = '_t8i-n-inst._tcp.dns-sd-lookup.toryt.org'
-    let deaths = [
-      'instance_8a',
-      'instance_8b',
-      'instance_8c',
-      'instance_8d'
-    ]
+    let deaths = ['instance_8a', 'instance_8b', 'instance_8c', 'instance_8d']
     deaths = deaths.map(d => `${d}.${serviceType}`)
 
     // noinspection JSUnresolvedFunction

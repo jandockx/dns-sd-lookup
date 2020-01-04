@@ -39,10 +39,7 @@ const serviceSubTypes = [
   'sub service type without an underscore' // this is allowed under RFC 6763
 ]
 // noinspection SpellCheckingInspection
-const instances = [
-  'a-service-instance',
-  'A Human Readable Sérvice Instance'
-]
+const instances = ['a-service-instance', 'A Human Readable Sérvice Instance']
 
 function createService (prefix) {
   return prefix ? `${prefix}._${serviceType}` : `_${serviceType}`
@@ -52,7 +49,10 @@ function createSubPrefix (subtype) {
   return subtype ? `${subtype}._sub` : ''
 }
 
-const services = serviceSubTypes.map(createSubPrefix).concat(instances).map(createService)
+const services = serviceSubTypes
+  .map(createSubPrefix)
+  .concat(instances)
+  .map(createService)
 
 function createFqdn (c) {
   return `${c.service}._${c.protocol}.${domain}`

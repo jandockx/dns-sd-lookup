@@ -45,22 +45,21 @@ function testDistribution (timerLabel, deaths, expected) {
   const matchExpr = new RegExp(`(${expectedPattern})\\.${serviceTypeNInstancesWithWeight.replace(/\./g, '\\.')}`)
 
   function totalCount (selections) {
-    return Object.keys(selections).reduce(
-      (acc, key) => {
-        acc += selections[key]
-        return acc
-      },
-      0
-    )
+    return Object.keys(selections).reduce((acc, key) => {
+      acc += selections[key]
+      return acc
+    }, 0)
   }
 
-  const expectedStr = Object.keys(expected).map(k => `${k} = ${expected[k] * 100}%`).join(', ')
+  const expectedStr = Object.keys(expected)
+    .map(k => `${k} = ${expected[k] * 100}%`)
+    .join(', ')
 
   function report (selections) {
     const total = totalCount(selections)
     console.log(`${total} - expected ${expectedStr}`)
     Object.keys(selections).forEach(k => {
-      console.log('  %s: %d/%d (%f%%)', k, selections[k], total, Math.round(selections[k] * 1000 / total) / 10)
+      console.log('  %s: %d/%d (%f%%)', k, selections[k], total, Math.round((selections[k] * 1000) / total) / 10)
     })
     console.log()
   }
@@ -78,16 +77,15 @@ function testDistribution (timerLabel, deaths, expected) {
           console.time(tLabel)
           // noinspection JSUnresolvedFunction
           next.push(
-            selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
-              .then(selection => {
-                console.timeEnd(tLabel)
-                selection.should.be.an.Object()
-                selection.instance.should.match(matchExpr)
-                if (!selections[selection.instance]) {
-                  selections[selection.instance] = 0
-                }
-                selections[selection.instance]++
-              })
+            selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths)).then(selection => {
+              console.timeEnd(tLabel)
+              selection.should.be.an.Object()
+              selection.instance.should.match(matchExpr)
+              if (!selections[selection.instance]) {
+                selections[selection.instance] = 0
+              }
+              selections[selection.instance]++
+            })
           )
         }
         return Promise.all(next).then(() => {
@@ -100,13 +98,12 @@ function testDistribution (timerLabel, deaths, expected) {
 
   console.time(timerLabel)
 
-  return chain(150, Promise.resolve({}))
-    .then(selections => {
-      console.timeEnd(timerLabel)
-      const total = totalCount(selections)
-      Object.keys(expected).forEach(e => {
-        Math.abs(expected[e] - (selections[e + '.' + serviceTypeNInstancesWithWeight] / total)).should.be.below(0.15)
-        /* NOTE: I would like for the deviation from the expected weight distribution to be less than 2.5% (2 sigma).
+  return chain(150, Promise.resolve({})).then(selections => {
+    console.timeEnd(timerLabel)
+    const total = totalCount(selections)
+    Object.keys(expected).forEach(e => {
+      Math.abs(expected[e] - selections[e + '.' + serviceTypeNInstancesWithWeight] / total).should.be.below(0.15)
+      /* NOTE: I would like for the deviation from the expected weight distribution to be less than 2.5% (2 sigma).
                  When testing with 2 instances, in 1024 tries, if often happens that the deviation that the deviation
                  is larger. That is surprising. This would mean that a random choice is not good enough.
                  That would imply that we rather need some sort of memory, which would be bad.
@@ -114,8 +111,8 @@ function testDistribution (timerLabel, deaths, expected) {
                  test speed reasons. Still there are enough failures to be annoying. The limit was then raised to
                  10%. Since Travis DNS became very slow in 2018 Q III, the tries are lowered to 64, and the limit
                  is raised to 15%. */
-      })
     })
+  })
 }
 
 describe('selectInstance', function () {
@@ -126,7 +123,8 @@ describe('selectInstance', function () {
   it('works in the nominal case with 1 instance, without a subtype', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceType1InstanceNoSubtype)
-      .should.be.fulfilled().then(selection => {
+      .should.be.fulfilled()
+      .then(selection => {
         selection.should.be.an.Object()
         selection.instance.should.equal('instance_1.' + serviceType1InstanceNoSubtype)
         console.log(selection)
@@ -135,7 +133,8 @@ describe('selectInstance', function () {
   it('works in the nominal case with 1 instance, with a subtype', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceType1InstanceSubtype)
-      .should.be.fulfilled().then(selection => {
+      .should.be.fulfilled()
+      .then(selection => {
         selection.should.be.an.Object()
         selection.instance.should.equal('instance_7._t7i-sub' + serviceTypePostfix)
         console.log(selection)
@@ -147,7 +146,8 @@ describe('selectInstance', function () {
 
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight)
-      .should.be.fulfilled().then(selection => {
+      .should.be.fulfilled()
+      .then(selection => {
         selection.should.be.an.Object()
         selection.instance.should.equal('instance_8b.' + serviceTypeNInstancesWithWeight)
         console.log(selection)
@@ -156,7 +156,8 @@ describe('selectInstance', function () {
   it('resolves to null with a non-existent service type', function () {
     // noinspection JSUnresolvedVariable
     return selectInstance('_not-exist' + serviceTypePostfix)
-      .should.be.fulfilled().then(selection => {
+      .should.be.fulfilled()
+      .then(selection => {
         should(selection).be.null()
         console.log(selection)
       })
@@ -165,13 +166,11 @@ describe('selectInstance', function () {
     // noinspection JSPotentiallyInvalidUsageOfThis
     this.timeout(10000)
 
-    const deaths = [
-      `instance_8a.${serviceTypeNInstancesWithWeight}`,
-      `instance_8d.${serviceTypeNInstancesWithWeight}`
-    ]
+    const deaths = [`instance_8a.${serviceTypeNInstancesWithWeight}`, `instance_8d.${serviceTypeNInstancesWithWeight}`]
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
-      .should.be.fulfilled().then(selection => {
+      .should.be.fulfilled()
+      .then(selection => {
         selection.should.be.an.Object()
         selection.instance.should.equal(`instance_8b.${serviceTypeNInstancesWithWeight}`)
         console.log(selection)
@@ -197,7 +196,8 @@ describe('selectInstance', function () {
     ]
     // noinspection JSUnresolvedVariable
     return selectInstance(serviceTypeNInstancesWithWeight, notOneOf(deaths))
-      .should.be.fulfilled().then(selection => {
+      .should.be.fulfilled()
+      .then(selection => {
         should(selection).be.null()
         console.log(selection)
       })
@@ -208,10 +208,7 @@ describe('selectInstance', function () {
     // noinspection JSPotentiallyInvalidUsageOfThis
     this.timeout(60000)
 
-    const deaths = [
-      `instance_8a.${serviceTypeNInstancesWithWeight}`,
-      `instance_8b.${serviceTypeNInstancesWithWeight}`
-    ]
+    const deaths = [`instance_8a.${serviceTypeNInstancesWithWeight}`, `instance_8b.${serviceTypeNInstancesWithWeight}`]
 
     const expected = {}
     expected.instance_8c = 0.3
@@ -266,20 +263,16 @@ describe('selectInstance', function () {
     return testDistribution(labelC, deaths, expected)
   })
 
-  let failures = [
-    't2i-2-txt',
-    't3i-2-srv',
-    't4i-2-txt-srv',
-    't5i-no-txt',
-    't6i-no-srv'
-  ]
+  let failures = ['t2i-2-txt', 't3i-2-srv', 't4i-2-txt-srv', 't5i-no-txt', 't6i-no-srv']
   failures = failures.map(f => `_${f}${serviceTypePostfix}`)
   failures.forEach(serviceType => {
     it(`fails for instance type ${serviceType}`, function () {
       // noinspection JSUnresolvedVariable
-      return selectInstance(serviceType).should.be.rejected().then(err => {
-        console.log(err)
-      })
+      return selectInstance(serviceType)
+        .should.be.rejected()
+        .then(err => {
+          console.log(err)
+        })
     })
   })
   const aFailure = failures[0]
@@ -289,9 +282,11 @@ describe('selectInstance', function () {
     // noinspection JSUnresolvedVariable
     filter.contract.verifyPostconditions = true
     // noinspection JSUnresolvedVariable
-    return selectInstance(aFailure, filter).should.be.rejected().then(err => {
-      console.log(err)
-      err.instance.should.containEql(aFailure)
-    })
+    return selectInstance(aFailure, filter)
+      .should.be.rejected()
+      .then(err => {
+        console.log(err)
+        err.instance.should.containEql(aFailure)
+      })
   })
 })

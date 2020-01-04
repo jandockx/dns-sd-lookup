@@ -50,11 +50,7 @@ describe('extendWithTxtStr', function () {
     })
   })
   describe('special values', function () {
-    const cases = [
-      '',
-      'attribute value with ¨^é ∆ some weird characters',
-      'attribute = value with ='
-    ]
+    const cases = ['', 'attribute value with ¨^é ∆ some weird characters', 'attribute = value with =']
     cases.forEach(value => {
       it(`works for value ${value}`, function () {
         const txtStr = `${attributeName}=${value}`
@@ -66,13 +62,7 @@ describe('extendWithTxtStr', function () {
     })
   })
   describe('special attribute names', function () {
-    const cases = [
-      '',
-      'attributeName',
-      'attribute name with space',
-      'pre-existing',
-      'pre-Existing'
-    ]
+    const cases = ['', 'attributeName', 'attribute name with space', 'pre-existing', 'pre-Existing']
     for (let i = ' '.charCodeAt(0); i <= '~'.charCodeAt(0); i++) {
       const char = String.fromCharCode(i)
       if (char !== '=') {

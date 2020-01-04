@@ -30,15 +30,9 @@ const verifyPostconditions = require('../_util/verifyPostconditions')
 
 const protocols = ['udp', 'tcp']
 
-const domains = [
-  'dns-sd-lookup1.toryt.org',
-  'dns-sd-lookup2.toryt.org'
-]
+const domains = ['dns-sd-lookup1.toryt.org', 'dns-sd-lookup2.toryt.org']
 const baseServiceType = '_a-service-type'
-const types = [
-  baseServiceType,
-  'sub type._sub.' + baseServiceType
-]
+const types = [baseServiceType, 'sub type._sub.' + baseServiceType]
 const instanceName = 'This is An Instance Name'
 
 const detailObjects = [
@@ -94,10 +88,7 @@ describe('ServiceInstance', () => {
       // noinspection JSUnresolvedVariable
       ServiceInstance.implementation.should.have.property('prototype')
       // noinspection JSUnresolvedVariable
-      ServiceInstance.implementation.prototype.should.have.property(
-        'constructor',
-        ServiceInstance.implementation
-      )
+      ServiceInstance.implementation.prototype.should.have.property('constructor', ServiceInstance.implementation)
     })
 
     // noinspection JSUnresolvedFunction
