@@ -1,0 +1,8 @@
+.nyc_output
+coverage
+package.json
+package-lock.json
+scripts/common
+test/terraform/.terraform
+*.d.ts
+CREDITS.md
