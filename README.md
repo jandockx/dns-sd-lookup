@@ -294,12 +294,10 @@ The function returns a Promise. If not exactly 1 DNS `SRV` and exactly 1 DNS `TX
 the given _Service Instance_, the Promise is betrayed. The `details` property holds an object that contains all valid
 attributes found in the DNS `TXT` resource record, according to `extendWithTxtStr`.
 
-    const lookupInstance = require('@toryt/dns-sd-lookup).lookupInstance
+    const lookupInstance = require('../index').lookupInstance
 
-    return lookupInstance('instance 1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org')
-      .then(serviceInstance => {
-        console.log('%j', serviceInstance)
-      })
+    const serviceInstance = await lookupInstance('instance_1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org')
+    console.log('%j', serviceInstance)
 
 prints out
 
@@ -333,24 +331,22 @@ The function returns a Promise. If there are not exactly 1 DNS `SRV` and exactly
 all found instances that pass the `filter`, the Promise is betrayed. If there is no `PTR` resource record for the
 _Service Type_, or all instances are filtered out, the Promise returns the empty Array.
 
-    const discover = require('@toryt/dns-sd-lookup).discover
+    const discover = require('../index').discover
 
     const serviceType = '_t8i-n-inst._tcp.dns-sd-lookup.toryt.org'
     let deaths = [
-      'Instance 8c',
-      'Instance 8e',
-      'Instance 8g',
-      'Instance 8h',
-      'Instance 8i',
-      'Instance 8k',
-      'Instance 8l'
+      'instance_8c',
+      'instance_8e',
+      'instance_8g',
+      'instance_8h',
+      'instance_8i',
+      'instance_8k',
+      'instance_8l'
     ]
     deaths = deaths.map(d => `${d}.${serviceType}`)
 
-    return discover(serviceType, discover.notOneOf(deaths))
-      .then(serviceInstances => {
-        console.log('%j', serviceInstances)
-      })
+    const serviceInstances = await discover(serviceType, discover.notOneOf(deaths))
+    console.log('%j', serviceInstances)
 
 prints out
 
@@ -423,20 +419,14 @@ The function returns a Promise. If there are not exactly 1 DNS `SRV` and exactly
 all found instances that pass the `filter`, the Promise is betrayed. If there is no `PTR` resource record for the
 _Service Type_, or all instances are filtered out, the Promise returns `null`.
 
-    const selectInstance = require('@toryt/dns-sd-lookup).selectInstance
+    const selectInstance = require('../index').selectInstance
 
     const serviceType = '_t8i-n-inst._tcp.dns-sd-lookup.toryt.org'
-    let deaths = [
-      'Instance 8a',
-      'Instance 8b',
-      'Instance 8c',
-      'Instance 8d'
-    ]
+    let deaths = ['instance_8a', 'instance_8b', 'instance_8c', 'instance_8d']
     deaths = deaths.map(d => `${d}.${serviceType}`)
 
-    return selectInstance(serviceType, selectInstance.notOneOf(deaths)).then(serviceInstance => {
-      console.log('%j', serviceInstance)
-    })
+    const serviceInstance = await selectInstance(serviceType, selectInstance.notOneOf(deaths))
+    console.log('%j', serviceInstance)
 
 prints out, e.g.,
 

@@ -212,23 +212,19 @@ describe('doc examples', function () {
 
     console.log('%j', obj)
   })
-  it('lookupInstance', function () {
+  it('lookupInstance', async function () {
     const lookupInstance = require('../index').lookupInstance
 
-    // noinspection JSUnresolvedFunction
-    return lookupInstance('instance_1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org').then(serviceInstance => {
-      console.log('%j', serviceInstance)
-    })
+    const serviceInstance = await lookupInstance('instance_1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org')
+    console.log('%j', serviceInstance)
   })
-  it('lookupInstance', function () {
+  it('lookupInstance', async function () {
     const lookupInstance = require('../index').lookupInstance
 
-    // noinspection JSUnresolvedFunction
-    return lookupInstance('instance_1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org').then(serviceInstance => {
-      console.log('%j', serviceInstance)
-    })
+    const serviceInstance = await lookupInstance('instance_1._t1i-no-sub._tcp.dns-sd-lookup.toryt.org')
+    console.log('%j', serviceInstance)
   })
-  it('discover', function () {
+  it('discover', async function () {
     const discover = require('../index').discover
 
     const serviceType = '_t8i-n-inst._tcp.dns-sd-lookup.toryt.org'
@@ -243,21 +239,17 @@ describe('doc examples', function () {
     ]
     deaths = deaths.map(d => `${d}.${serviceType}`)
 
-    // noinspection JSUnresolvedFunction
-    return discover(serviceType, discover.notOneOf(deaths)).then(serviceInstances => {
-      console.log('%j', serviceInstances)
-    })
+    const serviceInstances = await discover(serviceType, discover.notOneOf(deaths))
+    console.log('%j', serviceInstances)
   })
-  it('selectInstance', function () {
+  it('selectInstance', async function () {
     const selectInstance = require('../index').selectInstance
 
     const serviceType = '_t8i-n-inst._tcp.dns-sd-lookup.toryt.org'
     let deaths = ['instance_8a', 'instance_8b', 'instance_8c', 'instance_8d']
     deaths = deaths.map(d => `${d}.${serviceType}`)
 
-    // noinspection JSUnresolvedFunction
-    return selectInstance(serviceType, selectInstance.notOneOf(deaths)).then(serviceInstance => {
-      console.log('%j', serviceInstance)
-    })
+    const serviceInstance = await selectInstance(serviceType, selectInstance.notOneOf(deaths))
+    console.log('%j', serviceInstance)
   })
 })
