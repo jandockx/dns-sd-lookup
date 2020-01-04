@@ -27,6 +27,7 @@
 const lookupInstance = require('../../lib/lookupInstance')
 const ServiceInstance = require('../../lib/ServiceInstance')
 const verifyPostconditions = require('../_util/verifyPostconditions')
+const serviceInstanceCommon = require('./serviceInstanceCommon')
 
 const nameCompletion = '._tcp.dns-sd-lookup.toryt.org'
 
@@ -47,7 +48,6 @@ const expected = {
 }
 
 function shouldBeNotFoundError (baseMessage) {
-  // noinspection JSUnresolvedVariable
   return error => {
     error.should.be.an.Error()
     // noinspection JSUnresolvedVariable
@@ -62,29 +62,19 @@ describe('lookupInstance', function () {
   this.timeout(6000) // DNS lookups can take a long time on Travis
   verifyPostconditions(lookupInstance)
 
-  it('works in the nominal case', function () {
+  it('works in the nominal case', async function () {
     const now = new Date()
-    // noinspection JSUnresolvedVariable
-    return lookupInstance(instanceName)
-      .should.be.fulfilled()
-      .then(response => {
-        response.should.be.an.instanceof(ServiceInstance)
-        console.log(response)
-        response.type.should.equal(expected.type)
-        response.instance.should.equal(expected.instance)
-        response.host.should.equal(expected.host)
-        response.port.should.equal(expected.port)
-        response.priority.should.equal(expected.priority)
-        response.weight.should.equal(expected.weight)
-        // no coercion happens on details
-        Object.keys(response.details).forEach(key => response.details[key].should.be.a.String())
-        response.details.txtvers.should.be.a.String()
-        // noinspection JSCheckFunctionSignatures
-        Number.parseInt(response.details.txtvers).should.equal(expected.txtvers)
-        response.details['aDetail'.toLowerCase()].should.equal(expected.aDetail)
-        const at = new Date(response.details.at)
-        at.should.be.before(now)
-      })
+    const /** @type ServiceInstance */ response = await lookupInstance(instanceName)
+    serviceInstanceCommon.shouldHavePropertyValues(response, expected)
+    console.log(response)
+    // no coercion happens on details
+    Object.keys(response.details).forEach(key => response.details[key].should.be.a.String())
+    response.details.txtvers.should.be.a.String()
+    // noinspection JSCheckFunctionSignatures
+    Number.parseInt(response.details.txtvers).should.equal(expected.txtvers)
+    response.details['aDetail'.toLowerCase()].should.equal(expected.aDetail)
+    const at = new Date(response.details.at)
+    at.should.be.before(now)
   })
 
   it('fails with non-existent instance', function () {

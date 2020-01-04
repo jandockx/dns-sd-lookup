@@ -34,6 +34,7 @@ const domains = ['dns-sd-lookup1.toryt.org', 'dns-sd-lookup2.toryt.org']
 const baseServiceType = '_a-service-type'
 const types = [baseServiceType, 'sub type._sub.' + baseServiceType]
 const instanceName = 'This is An Instance Name'
+const serviceInstanceCommon = require('./serviceInstanceCommon')
 
 const detailObjects = [
   {},
@@ -118,17 +119,7 @@ describe('ServiceInstance', () => {
         console.log(result)
         const reverse = JSON.parse(result)
         reverse.should.be.an.Object()
-        // noinspection JSUnresolvedVariable
-        reverse.type.should.equal(subject.type)
-        // noinspection JSUnresolvedVariable
-        reverse.instance.should.equal(subject.instance)
-        // noinspection JSUnresolvedVariable
-        reverse.host.should.equal(subject.host)
-        // noinspection JSUnresolvedVariable
-        reverse.port.should.equal(subject.port)
-        // noinspection JSUnresolvedVariable
-        reverse.priority.should.equal(subject.priority)
-        // noinspection JSUnresolvedVariable
+        serviceInstanceCommon.shouldHavePropertyValues(subject, reverse)
         reverse.details.should.eql(subject.details)
         console.log(reverse)
         const fullCircle = new ServiceInstance(reverse)
