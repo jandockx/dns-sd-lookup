@@ -44,9 +44,7 @@ Assertion.add('frozen', function () {
   this.assert(Object.isFrozen(this.obj))
 })
 
-// noinspection JSUnresolvedFunction
 Assertion.alias('below', 'before')
-// noinspection JSUnresolvedFunction
 Assertion.alias('above', 'after')
 
 /**
@@ -69,8 +67,8 @@ Assertion.add('upheldBy', function (subject) {
  * and asserts the result of each of these functions, called with the subject as only parameter.
  */
 /* IDEA: it would be nicer to .call the invariants on this.actual, so we can write the functions using this.
-   However, than we cannot use arrow functions, and we have to use function() functions: we cannot associate
-   a this, even with .call or .apply, to an arrow function. */
+   However, then we cannot use arrow functions, and we have to use function() functions: we cannot associate
+   a `this`, even with .call or .apply, to an arrow function. */
 Assertion.add('valid', function () {
   // noinspection JSUnusedGlobalSymbols
   this.params = {
