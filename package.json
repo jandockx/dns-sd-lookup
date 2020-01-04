@@ -43,6 +43,7 @@
     "mocha-reporter": "^0.1.1",
     "npm-check": "^5.7.0",
     "nyc": "^15.0.0",
+    "prettier-standard": "^16.1.0",
     "should": "^13.2.3",
     "standard": "^14.3.1",
     "tldrlegal": "^1.0.6"

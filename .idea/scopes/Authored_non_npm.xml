@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Authored non-npm" pattern="(!file:package-lock.json&amp;&amp;!file:package.json&amp;&amp;!file:test/terraform/terraform.tfstate.backup||file[dns-sd-lookup]:*/)&amp;&amp;!file[dns-sd-lookup]:.idea//*&amp;&amp;!file[dns-sd-lookup]:.nyc_output//*&amp;&amp;!file[dns-sd-lookup]:coverage//*&amp;&amp;!file[dns-sd-lookup]:test/terraform/.terraform//*&amp;&amp;!file[dns-sd-lookup]:scripts/common//*" />
+</component>
