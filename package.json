@@ -39,7 +39,7 @@
     "codecov": "^3.0.1",
     "credits-cli": "^3.1.0",
     "legally": "^3.3.7",
-    "mocha": "^6.0.1",
+    "mocha": "^7.0.0",
     "mocha-reporter": "^0.1.1",
     "npm-check": "^5.7.0",
     "nyc": "^15.0.0",
