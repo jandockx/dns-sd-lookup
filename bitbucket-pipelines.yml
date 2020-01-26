@@ -1,0 +1,78 @@
+# MIT License
+#
+# Copyright (c) 2017-2020 Jan Dockx
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+image: node:12
+
+definitions:
+  steps:
+    - step: &test
+        name: Latest Node N
+        image: IMAGE
+        caches:
+          - npm
+        script:
+          - git submodule update --init
+          - scripts/common/npm/testCi.sh
+  caches:
+    npm8: ~/.npm
+    npm10: ~/.npm
+    npm12: ~/.npm
+    npm13: ~/.npm
+  branches:
+    - branch: &fullTestAndTag
+        - parallel:
+            - step:
+                <<: *test
+                name: Latest Node 8
+                image: node:8
+                caches:
+                  - npm8
+            - step:
+                <<: *test
+                name: Latest Node 10
+                image: node:10
+                caches:
+                  - npm10
+            - step:
+                <<: *test
+                name: Latest Node 12
+                image: node:12
+                caches:
+                  - npm12
+            - step:
+                <<: *test
+                name: Latest Node 13
+                image: node:13
+                caches:
+                  - npm13
+        - step:
+            name: Tag
+            caches:
+              - node
+            script:
+              - git submodule update --init
+              - scripts/common/git/tagBitbucket.sh
+
+pipelines:
+  branches:
+    master: *fullTestAndTag
+    feature/**: *fullTestAndTag
