@@ -60,6 +60,7 @@ definitions:
                   - npm12
             - step:
                 <<: *test
+                # This takes a long time, because nodegit needs to be build from src
                 name: Latest Node 13
                 image: node:13
                 caches:
