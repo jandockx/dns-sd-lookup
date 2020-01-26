@@ -76,4 +76,9 @@ definitions:
 pipelines:
   branches:
     master: *fullTestAndTag
+    bugfix/**: *fullTestAndTag
     feature/**: *fullTestAndTag
+    hotfix/**: *fullTestAndTag
+    release/**: *fullTestAndTag
+  tags:
+    v*: *fullTestAndTag
