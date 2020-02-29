@@ -41,7 +41,7 @@
     "legally": "^3.3.7",
     "mocha": "^7.0.1",
     "mocha-reporter": "^0.1.1",
-    "npm-check": "^5.7.0",
+    "npm-check": "^5.9.2",
     "nyc": "^15.0.0",
     "prettier-standard": "^16.1.0",
     "should": "^13.2.3",
