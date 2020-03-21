@@ -80,5 +80,7 @@ pipelines:
     feature/**: *fullTestAndTag
     hotfix/**: *fullTestAndTag
     release/**: *fullTestAndTag
+  pull-requests:
+    snyk-*: *fullTestAndTag
   tags:
     v*: *fullTestAndTag
