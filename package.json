@@ -36,7 +36,6 @@
   "devDependencies": {
     "@ppwcode/terraform-ppwcode-modules": "^6.1.0",
     "cartesian": "^1.0.1",
-    "codecov": "^3.6.5",
     "credits-cli": "^3.1.0",
     "legally": "^3.3.7",
     "mocha": "^7.1.1",
@@ -76,7 +75,7 @@
     "pretest": "npm-check -i prettier-standard -i @ppwcode/terraform-ppwcode-modules -i mocha-reporter || exit 0",
     "test": "node --version && standard && nyc mocha \"test/**/*Test.js\"",
     "legalReport": "legally -l -r && tldrlegal",
-    "reportCoverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "reportCoverage": "nyc report --reporter=text-lcov > coverage.lcov",
     "preversion": "npm run test",
     "update_credits": "credits . --reporter markdown > CREDITS.md",
     "upgrade": "rm -Rf node_modules package-lock.json && npm install && npm test"

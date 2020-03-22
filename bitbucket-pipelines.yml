@@ -58,6 +58,12 @@ definitions:
                 image: node:12
                 caches:
                   - npm12
+                script:
+                  - git submodule update --init
+                  - scripts/common/npm/testCi.sh
+                  # we report coverage on the latest LTS
+                  - npm run reportCoverage
+                  - bash <(curl -s https://codecov.io/bash)
             - step:
                 <<: *test
                 # This takes a long time, because nodegit needs to be build from src
