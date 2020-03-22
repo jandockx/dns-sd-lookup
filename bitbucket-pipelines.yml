@@ -78,6 +78,7 @@ definitions:
             script:
               - git submodule update --init
               - scripts/common/git/tagBitbucket.sh
+              - scripts/common/git/pushToRemote.sh https://${GITHUB_CREDENTIALS}@github.com/Toryt/dns-sd-lookup.git
 
 pipelines:
   branches:
