@@ -53,6 +53,13 @@
       "/scripts/common/"
     ]
   },
+  "mocha": {
+    "require": [
+      "./test/_util/should"
+    ],
+    "check-leaks": true,
+    "reporter": "mocha-reporter"
+  },
   "nyc": {
     "check-coverage": true,
     "per-file": true,
@@ -66,7 +73,7 @@
     ]
   },
   "scripts": {
-    "pretest": "npm-check -i prettier-standard -i @ppwcode/terraform-ppwcode-modules || exit 0",
+    "pretest": "npm-check -i prettier-standard -i @ppwcode/terraform-ppwcode-modules -i mocha-reporter || exit 0",
     "test": "node --version && standard && nyc mocha \"test/**/*Test.js\"",
     "legalReport": "legally -l -r && tldrlegal",
     "reportCoverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
