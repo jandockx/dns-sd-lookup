@@ -31,7 +31,7 @@
     "@toryt/contracts-iv": "^4.0.0",
     "deeper": "^2.1.0",
     "denodeify": "^1.2.1",
-    "validator": "^12.2.0"
+    "validator": "^13.0.0"
   },
   "devDependencies": {
     "@ppwcode/terraform-ppwcode-modules": "^6.1.0",
@@ -39,13 +39,13 @@
     "codecov": "^3.6.2",
     "credits-cli": "^3.1.0",
     "legally": "^3.3.7",
-    "mocha": "^7.0.1",
+    "mocha": "^7.1.1",
     "mocha-reporter": "^0.1.1",
     "npm-check": "^5.9.2",
     "nyc": "^15.0.0",
     "prettier-standard": "^16.1.0",
     "should": "^13.2.3",
-    "standard": "^14.3.1",
+    "standard": "^14.3.3",
     "tldrlegal": "^1.0.6"
   },
   "standard": {
