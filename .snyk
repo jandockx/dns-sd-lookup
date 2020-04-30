@@ -1,0 +1,54 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - npm-check > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - mocha > yargs-unparser > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - npm-check > callsite-record > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - npm-check > depcheck > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - npm-check > inquirer > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - prettier-standard > eslint > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - standard > eslint > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - '@ppwcode/terraform-ppwcode-modules > @ppwcode/node-gitinfo > nodegit > lodash':
+        patched: '2020-04-30T22:29:11.441Z'
+    - npm-check > depcheck > @babel/traverse > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - nyc > istanbul-lib-instrument > @babel/core > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - prettier-standard > eslint > inquirer > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - standard > eslint > inquirer > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - prettier-standard > eslint > table > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - standard > eslint > table > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - npm-check > depcheck > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - '@ppwcode/terraform-ppwcode-modules > @ppwcode/node-gitinfo > nodegit > request-promise-native > request-promise-core > lodash':
+        patched: '2020-04-30T22:29:11.441Z'
+    - npm-check > depcheck > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - npm-check > depcheck > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-04-30T22:29:11.441Z'
