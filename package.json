@@ -31,7 +31,8 @@
     "@toryt/contracts-iv": "^4.1.2",
     "deeper": "^2.1.0",
     "denodeify": "^1.2.1",
-    "validator": "^13.1.1"
+    "validator": "^13.1.1",
+    "snyk": "^1.349.0"
   },
   "devDependencies": {
     "@ppwcode/terraform-ppwcode-modules": "^6.1.0",
@@ -78,6 +79,9 @@
     "reportCoverage": "nyc report --reporter=text-lcov > coverage.lcov",
     "preversion": "npm run test",
     "update_credits": "credits . --reporter markdown > CREDITS.md",
-    "upgrade": "rm -Rf node_modules package-lock.json && npm install && npm test"
-  }
+    "upgrade": "rm -Rf node_modules package-lock.json && npm install && npm test",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
