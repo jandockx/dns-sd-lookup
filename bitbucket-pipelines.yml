@@ -36,7 +36,7 @@ definitions:
     npm8: ~/.npm
     npm10: ~/.npm
     npm12: ~/.npm
-    npm13: ~/.npm
+    npm14: ~/.npm
   branches:
     - branch: &fullTestAndTag
         - parallel:
@@ -66,13 +66,12 @@ definitions:
                   - bash <(curl -s https://codecov.io/bash)
             - step:
                 <<: *test
-                # This takes a long time, because nodegit needs to be build from src
-                name: Latest Node 13
-                image: node:13
+                name: Latest Node 14
+                image: node:14
                 caches:
-                  - npm13
+                  - npm14
         - step:
-            name: Tag
+            name: Tag & Push to Github
             caches:
               - node
             script:
