@@ -28,10 +28,10 @@
     "node": ">=v8.17.0"
   },
   "dependencies": {
-    "@toryt/contracts-iv": "^4.1.1",
+    "@toryt/contracts-iv": "^4.1.2",
     "deeper": "^2.1.0",
     "denodeify": "^1.2.1",
-    "validator": "^13.0.0"
+    "validator": "^13.1.1"
   },
   "devDependencies": {
     "@ppwcode/terraform-ppwcode-modules": "^6.1.0",
