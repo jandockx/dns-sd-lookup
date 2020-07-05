@@ -37,7 +37,7 @@
     "@ppwcode/terraform-ppwcode-modules": "^6.1.0",
     "cartesian": "^1.0.1",
     "credits-cli": "^3.1.0",
-    "legally": "^3.3.7",
+    "legally": "3.5.2",
     "mocha": "^8.0.1",
     "mocha-reporter": "^0.1.1",
     "npm-check": "^5.9.2",
@@ -72,7 +72,7 @@
     ]
   },
   "scripts": {
-    "pretest": "npm-check -i prettier-standard -i @ppwcode/terraform-ppwcode-modules -i mocha-reporter || exit 0",
+    "pretest": "npm-check -i prettier-standard -i @ppwcode/terraform-ppwcode-modules -i mocha-reporter -i legally || exit 0",
     "test": "node --version && standard && nyc mocha \"test/**/*Test.js\"",
     "legalReport": "legally -l -r && tldrlegal",
     "reportCoverage": "nyc report --reporter=text-lcov > coverage.lcov",
