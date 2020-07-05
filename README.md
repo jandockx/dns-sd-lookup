@@ -12,6 +12,17 @@
 ![# languages](https://img.shields.io/github/languages/count/Toryt/dns-sd-lookup.svg)
 ![top language](https://img.shields.io/github/languages/top/Toryt/dns-sd-lookup.svg)
 
+Node library that looks up service instance definitions for a service type defined with [DNS-SD] ([RFC 6763]).
+
+**There is no support for Multicast DNS in this library.** This library only does look-ups in regular DNS. The
+functionality is comparable to `dns-sd -B` and `dns-sd -L` (see [dns-sd]).
+
+## Install
+
+    > npm install --save @toryt/dns-sd-lookup
+
+## Versions
+
 | Version       | Build Status                                                                                                               | Coverage                                                                                                                              |
 | :------------ | :------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
 | `master`      | ![Bitbucket Pipelines](https://img.shields.io/bitbucket/pipelines/toryt/dns-sd-lookup)                                     | [![codecov](https://codecov.io/bb/toryt/dns-sd-lookup/branch/master/graph/badge.svg)](https://codecov.io/bb/toryt/dns-sd-lookup)      |
@@ -41,14 +52,13 @@
 | `1.0.1`       | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.0.1)](https://travis-ci.org/Toryt/dns-sd-lookup)  |                                                                                                                                       |
 | `1.0.0`       | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.0.0)](https://travis-ci.org/Toryt/dns-sd-lookup)  |                                                                                                                                       |
 
-Node library that looks up service instance definitions for a service type defined with [DNS-SD] ([RFC 6763]).
+## Repository
 
-**There is no support for Multicast DNS in this library.** This library only does look-ups in regular DNS. The
-functionality is comparable to `dns-sd -B` and `dns-sd -L` (see [dns-sd]).
+This project is maintained in [Bitbucket](https://bitbucket.org/toryt/dns-sd-lookup) (repo, CI, issues, pull requests,
+…).
 
-## Install
-
-    > npm install --save @toryt/dns-sd-lookup
+Branches are copied automatically to [Github](https://github.com/Toryt/dns-sd-lookup) by CI. This is done as backup, and
+because open source projects are more easily found there. Issues and pull requests there will not be reviewed.
 
 ## API
 
