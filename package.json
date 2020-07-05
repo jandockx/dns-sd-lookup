@@ -25,7 +25,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=v8.17.0"
+    "node": ">=v10.20.1"
   },
   "dependencies": {
     "@toryt/contracts-iv": "^4.1.2",

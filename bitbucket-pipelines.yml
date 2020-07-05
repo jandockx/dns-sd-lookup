@@ -42,12 +42,6 @@ definitions:
         - parallel:
             - step:
                 <<: *test
-                name: Latest Node 8
-                image: node:8
-                caches:
-                  - npm8
-            - step:
-                <<: *test
                 name: Latest Node 10
                 image: node:10
                 caches:
