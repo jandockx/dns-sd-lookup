@@ -514,15 +514,6 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 `dns-sd-lookup` builds on the work of many people through [F/OSS]. See the [credits].
 
-## Plan
-
-### MUDO
-
-### TODO
-
-- get rid of nodegit (indirect for terraform)
-- Further automate build (with tags, and building of [`CREDITS.md`](CREDITS.md), …)
-
 [dns-sd]: http://www.dns-sd.org
 [rfc 6763]: https://www.ietf.org/rfc/rfc6763.txt
 [dns-sd]: https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dns-sd.1.html
