@@ -52,13 +52,19 @@ functionality is comparable to `dns-sd -B` and `dns-sd -L` (see [dns-sd]).
 | `1.0.1`       | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.0.1)](https://travis-ci.org/Toryt/dns-sd-lookup)  |                                                                                                                                       |
 | `1.0.0`       | [![Build Status](https://travis-ci.org/Toryt/dns-sd-lookup.svg?branch=v1.0.0)](https://travis-ci.org/Toryt/dns-sd-lookup)  |                                                                                                                                       |
 
-## Repository
+## Where to find
+
+### Repo, CI, issues, pull requests
 
 This project is maintained in [Bitbucket](https://bitbucket.org/toryt/dns-sd-lookup) (repo, CI, issues, pull requests,
 …).
 
 Branches are copied automatically to [Github](https://github.com/Toryt/dns-sd-lookup) by CI. This is done as backup, and
 because open source projects are more easily found there. Issues and pull requests there will not be reviewed.
+
+### npm
+
+[@toryt/dns-sd-lookup](https://www.npmjs.com/package/@toryt/dns-sd-lookup)
 
 ## API
 
