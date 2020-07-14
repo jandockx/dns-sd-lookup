@@ -1,16 +1,23 @@
 # dns-sd-lookup
 
 [![npm version](http://img.shields.io/npm/v/@toryt/dns-sd-lookup.svg?style=flat)](https://npmjs.org/package/@toryt/dns-sd-lookup 'View this project on npm')
-![downloads](https://img.shields.io/npm/dt/@toryt/dns-sd-lookup.svg)
-![dependencies](https://img.shields.io/david/Toryt/dns-sd-lookup.svg)
-![development dependencies](https://img.shields.io/david/dev/Toryt/dns-sd-lookup.svg)
-[![issues](https://img.shields.io/github/issues/Toryt/dns-sd-lookup.svg)](https://github.com/Toryt/dns-sd-lookup/issues)
-[![pull requests](https://img.shields.io/github/issues-pr-closed/Toryt/dns-sd-lookup.svg)](https://github.com/Toryt/dns-sd-lookup/pulls)
-![contributors](https://img.shields.io/github/contributors/Toryt/dns-sd-lookup.svg)
-![last commit](https://img.shields.io/github/last-commit/Toryt/dns-sd-lookup.svg)
-![commit activity](https://img.shields.io/github/commit-activity/y/Toryt/dns-sd-lookup.svg)
-![# languages](https://img.shields.io/github/languages/count/Toryt/dns-sd-lookup.svg)
-![top language](https://img.shields.io/github/languages/top/Toryt/dns-sd-lookup.svg)
+![license](https://img.shields.io/npm/l/@toryt/dns-sd-lookup)
+![node-lts](https://img.shields.io/node/v-lts/@toryt/dns-sd-lookup)
+![npm](https://img.shields.io/npm/dt/@toryt/dns-sd-lookup)
+![dependencies](https://img.shields.io/david/Toryt/dns-sd-lookup)
+![development dependencies](https://img.shields.io/david/dev/Toryt/dns-sd-lookup)
+![Snyk Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@toryt/dns-sd-lookup)
+![Bitbucket Pipelines](https://img.shields.io/bitbucket/pipelines/toryt/dns-sd-lookup)
+![Codecov](https://img.shields.io/codecov/c/bitbucket/toryt/dns-sd-lookup)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/@toryt/dns-sd-lookup)
+[![Bitbucket open issues](https://img.shields.io/bitbucket/issues/toryt/dns-sd-lookup)](https://bitbucket.org/toryt/dns-sd-lookup/issues)
+[![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr/toryt/dns-sd-lookup)](https://bitbucket.org/toryt/dns-sd-lookup/pull-requests/)
+![npm collaborators](https://img.shields.io/npm/collaborators/@toryt/dns-sd-lookup)
+![contributors](https://img.shields.io/github/contributors/Toryt/dns-sd-lookup)
+![language count](https://img.shields.io/github/languages/count/toryt/dns-sd-lookup)
+![top language](https://img.shields.io/github/languages/top/Toryt/dns-sd-lookup)
+![commit activity](https://img.shields.io/github/commit-activity/y/Toryt/dns-sd-lookup)
+![last commit](https://img.shields.io/github/last-commit/Toryt/dns-sd-lookup)
 
 Node library that looks up service instance definitions for a service type defined with [DNS-SD] ([RFC 6763]).
 
