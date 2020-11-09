@@ -72,7 +72,7 @@
     ]
   },
   "scripts": {
-    "pretest": "npm-check -i prettier-standard -i @ppwcode/terraform-ppwcode-modules -i mocha-reporter -i legally || exit 0",
+    "pretest": "npm-check -i prettier-standard -i @ppwcode/terraform-ppwcode-modules -i mocha-reporter || exit 0",
     "test": "node --version && standard && nyc mocha \"test/**/*Test.js\"",
     "legalReport": "legally -l -r && tldrlegal",
     "reportCoverage": "nyc report --reporter=text-lcov > coverage.lcov",
