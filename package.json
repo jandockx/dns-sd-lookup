@@ -37,7 +37,7 @@
     "@ppwcode/terraform-ppwcode-modules": "^6.1.0",
     "cartesian": "^1.0.1",
     "credits-cli": "^3.1.0",
-    "legally": "^3.5.8",
+    "legally": "^3.5.9",
     "mocha": "^8.2.1",
     "mocha-reporter": "^0.1.1",
     "npm-check": "^5.9.2",
